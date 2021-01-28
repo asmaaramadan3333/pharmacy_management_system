@@ -1,0 +1,243 @@
+/////// semi done ////////////
+Sign up API
+Request method: POST
+
+Request body:
+{"fname": "",
+ "lname": "",
+ "email": "",
+ "password": "",
+ "phone_number": "",
+ "date_of_birth": "",
+ "gender": ""}
+
+Response:
+{"success" : "1" or "0",
+ "user_id" : "",
+ "already_has_an_account" : "1" or "0"
+} 
+
+------------------------------------------------------------------------------
+//////////// done //////////////
+Sign in API
+Request method: GET
+
+Request body: 
+{"email": "",
+ "password" : ""}
+
+Response:
+{"success" : "1" or "0",
+ "having_an_account" : "1" or "0", 	// Does the input user_id exist in the DB ?
+ "correct_password" : "1" or "0"          //Does the password input matches password in DB?
+ } 
+-------------------------------------------------------------------------
+/////////// done  //////////////
+Search API  // for searching and setting reminders
+Request method: GET
+Request body:
+{"name" : ""}
+
+Response:
+{"products" : [{"code" : "" , "name": "" , "price": , "quantity": }, //quantity to check availability
+	     {"code" : "" , "name": "" , "price": , "quantity": },
+	     {"code" : "" , "name": "" , "price": , "quantity": }  ]  }
+
+
+
+
+-------------------------------------------------------------------------
+
+Show products API
+Request method: GET
+Request body:
+{"primary_category": "",
+ "secondary_category": "",
+}
+
+Response:
+{"products": [{"code" : "" , "name": "" , "price": , "quantity": }, //quantity to check availability
+	     {"code" : "" , "name": "" , "price": , "quantity": },
+	     {"code" : "" , "name": "" , "price": , "quantity": }  ]  }
+
+
+--------------------------------------------------------------------
+
+Add address API
+Request method: POST
+Request body:
+
+{	"user_id": "",
+	"county" : "", 
+	"street" : "",
+	"building_num" : "", 
+	"floor_num" : "",
+	"apartment_num" : "":
+}
+
+Response:
+{"success" : "1" or "0"
+ "duplicate_address" : "1" or "0"
+ } 
+
+---------------------------------------------------------------------
+
+Get Addresses
+Request method: GET
+
+Request body:
+{"user_id" : ""} 
+
+Response:
+	{"addresses":[
+		{
+		"address_id" : "",
+		"county" : "", 
+		"street" :,
+		"building_num" : "", 
+		"floor_num" : "",
+		"apartment_num" : "":
+
+		},
+
+		{
+		"address_id" : "",
+		"county" : "" ,
+		"street" : "",
+		"building_num"  : "",
+		"floor_num" : "",
+		"apartment_num" : "",
+
+		}
+	]}
+
+----------------------------------------------------------------------
+
+Place order API   // state has to be set as active
+Request method : POST
+Request body:
+{"user_id": "",
+ "total_price" : "",
+ "time" : "",
+ "address" : {
+		"address_id": "",
+		"county" : "",
+		"street" : "",
+		"building_num" : "",
+		"floor_num" : "",
+		"apartment_num" : ""
+
+             }
+
+"products" : [{
+		"code" : ""
+		"name" : "",
+		"quantity" : "",
+		"price" : "",
+		},
+
+		{
+		"code" : ""
+		"name" : "",
+		"quantity" : "",
+		"price" : "",
+		}] 
+
+}
+
+Response:
+{"success" : 0 or 1}
+
+----------------------------------------------------------------------
+
+Get previous orders API
+Request method: GET
+Request body:
+{"user_id" : ""}
+
+Response:
+
+{"orders" : [
+
+{
+ "order_id",
+ "total_price" : "",
+ "time" : "",
+ "address" : {
+		"county" : "",
+		"street" : "",
+		"building_num" : "",
+		"floor_num" : "",
+		"apartment_num" : ""
+             }
+
+"products" : [{
+		"name" : "",
+		"quantity" : "",
+		"price" : "",
+		},
+
+		{
+		"name" : "",
+		"quantity" : "",
+		"price" : "",
+		}] 
+
+}, 
+
+{}, {}
+
+
+]}
+
+
+
+Get active order
+Request method: GET
+Request body:
+{"user_id" : ""}
+
+Response:
+{
+ "order_id" : "",
+ "total_price" : "",
+ "time" : "",
+ "address" : {
+		"county" : "",
+		"street" : "",
+		"building_num" : "",
+		"floor_num" : "",
+		"apartment_num" : ""
+             }
+
+"products" : [{
+		"name" : "",
+		"quantity" : "",
+		"price" : "",
+		},
+
+		{
+		"name" : "",
+		"quantity" : "",
+		"price" : "",
+		}] 
+
+}
+
+
+Set order state as previous API
+Request method: PUT
+Request body:
+{"user_id": "",
+ "order_id" : }
+
+
+
+
+
+
+	    
+
+
+
+
