@@ -5,19 +5,18 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.1</version>
+		<version>2.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>project.graduation.demo</groupId>
-	<artifactId>pharmacy-management-system</artifactId>
+	<groupId>graduation.project</groupId>
+	<artifactId>pharmacy-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pharmacy-management-system</name>
+	<name>pharmacy-system</name>
 	<description>Demo project for Spring Boot</description>
-
 	<properties>
 		<java.version>15</java.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
