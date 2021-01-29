@@ -1,4 +1,4 @@
-package graduation.demo.pharmacymanagmentsystem.entity;
+package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.util.ArrayList;
 import java.util.Date;

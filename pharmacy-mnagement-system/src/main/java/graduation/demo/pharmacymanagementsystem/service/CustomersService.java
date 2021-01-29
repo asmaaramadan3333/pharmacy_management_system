@@ -1,9 +1,9 @@
-package graduation.demo.pharmacymanagmentsystem.service;
+package graduation.demo.pharmacymanagementsystem.service;
 
 import java.util.List;
 import java.util.Map;
 
-import graduation.demo.pharmacymanagmentsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.Customer;
 
 public interface CustomersService {
 

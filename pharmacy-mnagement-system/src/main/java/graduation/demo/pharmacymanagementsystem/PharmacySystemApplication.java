@@ -1,4 +1,4 @@
-package graduation.demo.pharmacymanagmentsystem;
+package graduation.demo.pharmacymanagementsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

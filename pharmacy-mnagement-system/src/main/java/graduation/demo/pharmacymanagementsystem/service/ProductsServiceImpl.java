@@ -1,4 +1,4 @@
-package graduation.demo.pharmacymanagmentsystem.service;
+package graduation.demo.pharmacymanagementsystem.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import graduation.demo.pharmacymanagmentsystem.dao.ProductsDAO;
-import graduation.demo.pharmacymanagmentsystem.entity.Product;
+import graduation.demo.pharmacymanagementsystem.dao.ProductsDAO;
+import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 @Service
 public class ProductsServiceImpl implements ProductsService {

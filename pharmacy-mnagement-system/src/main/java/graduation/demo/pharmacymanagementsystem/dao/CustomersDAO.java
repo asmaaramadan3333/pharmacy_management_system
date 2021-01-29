@@ -1,8 +1,8 @@
-package graduation.demo.pharmacymanagmentsystem.dao;
+package graduation.demo.pharmacymanagementsystem.dao;
 
 import java.util.List;
 
-import graduation.demo.pharmacymanagmentsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.Customer;
 
 public interface CustomersDAO {
 

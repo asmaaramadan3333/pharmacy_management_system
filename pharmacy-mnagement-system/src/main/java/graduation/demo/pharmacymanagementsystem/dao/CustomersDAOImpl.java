@@ -1,4 +1,4 @@
-package graduation.demo.pharmacymanagmentsystem.dao;
+package graduation.demo.pharmacymanagementsystem.dao;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import graduation.demo.pharmacymanagmentsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.Customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

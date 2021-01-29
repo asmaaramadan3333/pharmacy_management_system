@@ -1,4 +1,4 @@
-package graduation.demo.pharmacymanagmentsystem.service;
+package graduation.demo.pharmacymanagementsystem.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import graduation.demo.pharmacymanagmentsystem.dao.CustomersDAO;
-import graduation.demo.pharmacymanagmentsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.dao.CustomersDAO;
+import graduation.demo.pharmacymanagementsystem.entity.Customer;
 
 @Service
 public class CustomersServiceImpl implements CustomersService {
