@@ -37,13 +37,13 @@ public class CustomersRestController {
 
 	// add mapping for GET /Customers/{CustomerCode}
 	
-	@GetMapping("/Customers/{CustomerCode}")
-	public Customer getCustomer(@PathVariable int CustomerCode) {
+	@GetMapping("/Customers/{CustomerId}")
+	public Customer getCustomer(@PathVariable int CustomerId) {
 		
-		Customer theCustomer = customersService.findByCode(CustomerCode);
+		Customer theCustomer = customersService.findByCode(CustomerId);
 		
 		if (theCustomer == null) {
-			throw new RuntimeException("Employee id not found - " + CustomerCode);
+			throw new RuntimeException("Customer id not found - " + CustomerId);
 		}
 		
 		return theCustomer;
@@ -121,6 +121,7 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	@PostMapping("/customer_signup")
 
@@ -137,20 +138,20 @@ public class CustomersRestController {
 	
 	// add mapping for DELETE /Customers/{CustomerCode} - delete Customer
 	
-	@DeleteMapping("/Customers/{CustomerCode}")
-	public String deleteCustomer(@PathVariable int CustomerCode) {
+	@DeleteMapping("/Customers/{CustomerId}")
+	public String deleteCustomer(@PathVariable int CustomerId) {
 		
-		Customer tempCustomer = customersService.findByCode(CustomerCode);
+		Customer tempCustomer = customersService.findByCode(CustomerId);
 		
 		// throw exception if null
 		
 		if (tempCustomer == null) {
-			throw new RuntimeException("Customer code not found - " + CustomerCode);
+			throw new RuntimeException("Customer code not found - " + CustomerId);
 		}
 		
-		customersService.deleteByCode(CustomerCode);
+		customersService.deleteByCode(CustomerId);
 		
-		return "Deleted Customer id - " + CustomerCode;
+		return "Deleted Customer id - " + CustomerId;
 	}
 
 	

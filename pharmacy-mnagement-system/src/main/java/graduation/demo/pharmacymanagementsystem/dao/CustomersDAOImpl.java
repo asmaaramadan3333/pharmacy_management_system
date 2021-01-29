@@ -45,13 +45,13 @@ public class CustomersDAOImpl implements CustomersDAO {
 	}
 
 	@Override
-	public Customer findByCode(int theCode) {
+	public Customer findByCode(int theCustomerId) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 				
 		// get the Customer
 		Customer theCustomer =
-				currentSession.get(Customer.class, theCode);
+				currentSession.get(Customer.class, theCustomerId);
 				
 		// return the Customer
 		return theCustomer;
@@ -71,7 +71,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 	
 	
 	@Override
-	public List<Customer> searchByName(String theName) {
+	public List<Customer> searchByName(String theCustomerName) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 		
@@ -80,7 +80,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 				currentSession.createQuery(
 						"FROM Customer  WHERE name like :CustomerName", Customer.class );
 		
-		theQuery.setParameter("CustomerName", theName+ "%");
+		theQuery.setParameter("CustomerName", theCustomerName+ "%");
 		
 		
 		List <Customer> Customers = theQuery.getResultList();
@@ -175,7 +175,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 	
 	
 	@Override
-	public void deleteByCode(int theCode) {
+	public void deleteByCode(int theCustomerId) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 						
@@ -183,8 +183,8 @@ public class CustomersDAOImpl implements CustomersDAO {
 		
 		Query theQuery = 
 				currentSession.createQuery(
-						"delete from Customer where code=:CustomerCode");
-		theQuery.setParameter("CustomerCode", theCode);
+						"delete from Customer where code=:Customerid");
+		theQuery.setParameter("Customerid", theCustomerId);
 				
 		theQuery.executeUpdate();
 

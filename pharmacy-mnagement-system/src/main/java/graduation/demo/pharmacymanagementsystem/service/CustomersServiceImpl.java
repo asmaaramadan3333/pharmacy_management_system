@@ -30,9 +30,9 @@ public class CustomersServiceImpl implements CustomersService {
 
 	@Override
 	@Transactional
-	public Customer findByCode(int theCode) {
+	public Customer findByCode(int theCustomerId) {
 
-		return CustomersDAO.findByCode(theCode);
+		return CustomersDAO.findByCode(theCustomerId);
 	}
 
 	@Override
@@ -44,18 +44,18 @@ public class CustomersServiceImpl implements CustomersService {
 
 	@Override
 	@Transactional
-	public void deleteByCode(int theCode) {
+	public void deleteByCode(int theCustomerId) {
 
-		CustomersDAO.deleteByCode(theCode);
+		CustomersDAO.deleteByCode(theCustomerId);
 
 	}
 
 	@Override
 	@Transactional
 
-	public List<Customer> searchByName(String theName) {
+	public List<Customer> searchByName(String theCustomerName) {
 
-		return CustomersDAO.searchByName(theName);
+		return CustomersDAO.searchByName(theCustomerName);
 	}
 
 	@Override
@@ -99,12 +99,11 @@ public class CustomersServiceImpl implements CustomersService {
 		else
 
 		{
-			System.out.println(">>>>>>>>..in else  ");
 
 			coordinates.put("success", false);
 			coordinates.put("having_an_account", false);
 			coordinates.put("correct_password", false);
-			System.out.println(">>>>>>>>..end else  " + coordinates);
+
 			return coordinates;
 
 		}
