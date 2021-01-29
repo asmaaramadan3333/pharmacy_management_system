@@ -20,6 +20,8 @@ public interface CustomersService {
 	public Customer getCustomerByEmail(String theemail);
 	
 	public Map<String, Boolean>  customerSignIn(String theemail, String thepassword);
+
+	public Map signUp(Customer theCustomer);
 	
 	
 	

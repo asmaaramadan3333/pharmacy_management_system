@@ -32,7 +32,7 @@ public class ProductsDAOImpl implements ProductsDAO {
 				
 		// create a query
 		Query<Product> theQuery =
-				currentSession.createQuery("from Products", Product.class);
+				currentSession.createQuery("from Product", Product.class);
 				
 		// execute query and get result list
 		List <Product> Product = theQuery.getResultList();

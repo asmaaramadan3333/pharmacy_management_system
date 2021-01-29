@@ -121,6 +121,19 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/customer_signup")
+
+	public Map<String,Integer> signUp(@RequestBody Customer theCustomer) {
+		      
+		return customersService.signUp(theCustomer);
+	}
+	
+	
+	
+	
+	
+	
 	
 	// add mapping for DELETE /Customers/{CustomerCode} - delete Customer
 	
