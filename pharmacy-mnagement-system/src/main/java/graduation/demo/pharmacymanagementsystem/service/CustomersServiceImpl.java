@@ -117,14 +117,14 @@ public class CustomersServiceImpl implements CustomersService {
 
 		Map<String, Integer> coordinates = new HashMap<>();
 
-		Customer thecustomer = getCustomerByEmail(theCustomer.getEmail());
+		Customer thecustomer1 = getCustomerByEmail(theCustomer.getEmail());
 
-		if (thecustomer != null) {
+		if (thecustomer1 != null) {
 			coordinates.put("success", 0);
 
 			coordinates.put("already_has_an_account", 1);
 
-			coordinates.put("user_id", thecustomer.getCustomerId());
+			coordinates.put("user_id", theCustomer.getCustomerId());
 
 		} 
 		else {
@@ -133,9 +133,10 @@ public class CustomersServiceImpl implements CustomersService {
 
 			coordinates.put("already_has_an_account", 0);
 			theCustomer.setCustomerId(0);
+			
 			saveORupdate(theCustomer);
 			
-			coordinates.put("user_id", thecustomer.getCustomerId());
+			coordinates.put("user_id", theCustomer.getCustomerId());
 
 		}
 
