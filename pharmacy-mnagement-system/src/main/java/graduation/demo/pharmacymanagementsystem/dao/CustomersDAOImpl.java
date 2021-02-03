@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public class CustomersDAOImpl implements CustomersDAO {
+	private ProductsDAO productDAO;
 
 	// define field for entity manager	
 		private EntityManager entityManager;
@@ -27,6 +29,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 		}
 		
 	
+		
 	@Override
 	public List<Customer> findAllCustomers() {
 		
@@ -105,12 +108,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 		
 		theQuery.setParameter("mail", theemail);
 		
-		/*
-		 * if(theQuery.getSingleResult() != null) {
-		 * 
-		 * thecustomer = (Customer) theQuery.getSingleResult();
-		 * System.out.println(">>>>>>>>.. "+thecustomer); }
-		 */
 		if(!theQuery.getResultList().isEmpty())
 		{
 			thecustomer=(Customer) theQuery.getResultList().get(0);
@@ -123,12 +120,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 		}
 		return thecustomer;
 		
-		//}
 		
-	    //System.out.println(">>>>>>>>.. "+thecustomer);
-
-			
-		//return thecustomer;
 
 	}
 	
@@ -167,9 +159,28 @@ public class CustomersDAOImpl implements CustomersDAO {
 		
 	}
 	
+
+	@Override
+	public void add_products_to_customer(int theCustomerId,int theproductCode) {
+        Customer thecustomer;	
+		// get the current hibernate session
+
+		Session currentSession = entityManager.unwrap(Session.class);
+        
+		Customer theCustomer =findByCode(theCustomerId);
+		
+		Product theProduct = currentSession.get(Product.class, theproductCode);
+		
+		//Product theProduct = productDAO.findByCode(theproductCode);
+				
+        
+		currentSession.saveOrUpdate(theProduct);
+		
+		theCustomer.add(theProduct);
+		
+		currentSession.saveOrUpdate(theCustomer);
 	
-	
-	
+	}
 	
 	
 	

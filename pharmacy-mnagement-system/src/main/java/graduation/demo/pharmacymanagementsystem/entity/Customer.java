@@ -55,7 +55,7 @@ public class Customer  {
     			@JoinColumn(name="product_code")
     			}
     		)
-   private List<Product> products; 
+    private List<Product> products; 
     public Customer()
     {
     	

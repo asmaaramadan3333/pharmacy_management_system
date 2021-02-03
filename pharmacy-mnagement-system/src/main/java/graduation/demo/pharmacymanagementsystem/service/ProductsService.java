@@ -16,4 +16,6 @@ public interface ProductsService {
 	
 	public List<Product> searchByName(String theName);
 	
+	public List<Product> select_by_category(String main_category,String secondary_category);
+	
 }

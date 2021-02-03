@@ -54,4 +54,9 @@ public class ProductsServiceImpl implements ProductsService {
 		return productsDAO.searchByName(theName);
 	}
 
+	@Override
+	public List<Product> select_by_category(String main_category, String secondary_category) {
+		return productsDAO.select_by_category(main_category, secondary_category);
+	}
+
 }

@@ -3,12 +3,14 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 @Repository
@@ -85,6 +87,44 @@ public class ProductsDAOImpl implements ProductsDAO {
 		// return the results		
 		return products;
 	}
+	
+	@Override
+	public List<Product> select_by_category(String main_category,String secondary_category) {
+		
+		List <Product> products=null;
+		
+		try {
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		// search object with name
+		Query theQuery = 
+				currentSession.createQuery(
+		"FROM Product p  WHERE p.mainCategory =: first AND p.secondaryCategory =: second", Product.class );
+		
+		theQuery.setParameter("first", main_category);
+		
+		theQuery.setParameter("second",  secondary_category );
+		
+		
+		if(theQuery.getResultList()!=null&&!theQuery.getResultList().isEmpty()) {
+		
+			 products = theQuery.getResultList();
+		
+		
+		}}
+		catch(NoResultException  ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		return products;
+		
+	}
+	
+	
+	
+	
 
 	@Override
 	public void deleteByCode(int theCode) {

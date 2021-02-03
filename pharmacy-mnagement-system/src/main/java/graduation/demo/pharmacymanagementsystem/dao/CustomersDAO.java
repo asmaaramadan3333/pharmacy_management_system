@@ -19,6 +19,8 @@ public interface CustomersDAO {
 	public Customer getCustomerByEmail(String theemail);
 
 	public Customer signIn(String theemail, String thepassword);
+
+	public void add_products_to_customer(int theCustomerId, int theproductCode);
 	
 	
 }

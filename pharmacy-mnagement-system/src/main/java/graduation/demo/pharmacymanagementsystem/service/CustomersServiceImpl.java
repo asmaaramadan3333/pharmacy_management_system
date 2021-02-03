@@ -143,4 +143,10 @@ public class CustomersServiceImpl implements CustomersService {
 		return coordinates;
 	}
 
+	@Override
+	@Transactional
+	public void add_products_to_customer(int theCustomerId, int theproductCode) {
+            CustomersDAO.add_products_to_customer(theCustomerId, theproductCode);		
+	}
+
 }

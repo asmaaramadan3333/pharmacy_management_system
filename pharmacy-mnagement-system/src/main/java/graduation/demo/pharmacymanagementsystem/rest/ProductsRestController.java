@@ -33,7 +33,7 @@ public class ProductsRestController {
 		return productsService.findAllProducts();
 	}
 
-	// add mapping for GET /products/{productCode}
+	// add mapping for GET /products/{productCode} - to get product by code
 	
 	@GetMapping("/products/{productCode}")
 	public Product getProduct(@PathVariable int productCode) {
@@ -47,17 +47,33 @@ public class ProductsRestController {
 		return theProduct;
 	}
 	
+	// add mapping for GET /products/{productName} - to get product by name
+	
 	@GetMapping("/products_search/{productName}")
 	public List<Product> getProduct(@PathVariable String productName) {
 		
 		List<Product> theProduct = productsService.searchByName(productName);
 		
 		if (theProduct == null) {
-			throw new RuntimeException("Employee id not found - " + productName);
+			throw new RuntimeException("product not found " + productName);
 		}
 		
 		return theProduct;
 	}
+	
+	// add mapping for GET /products/{productName} - to get product by the two categories
+	
+		@GetMapping("/products_category_search/{main_category}/{secondary_category}")
+		public List<Product> getProduct(@PathVariable String main_category ,@PathVariable String secondary_category) {
+			
+			List<Product> theProducts = productsService.select_by_category(main_category, secondary_category);
+			
+			if (theProducts == null) {
+				throw new RuntimeException(" empty category " );
+			}
+			
+			return theProducts;
+		}
 	
 	
 	

@@ -23,6 +23,7 @@ public interface CustomersService {
 
 	public Map signUp(Customer theCustomer);
 	
-	
+	public void add_products_to_customer(int theCustomerId,int theproductCode); 
+
 	
 }
