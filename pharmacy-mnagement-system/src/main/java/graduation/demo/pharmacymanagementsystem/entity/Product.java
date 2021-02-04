@@ -1,80 +1,71 @@
 package graduation.demo.pharmacymanagementsystem.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "products")
-public class Product {
+import java.util.List;
 
-	// define fields
+
+/**
+ * The persistent class for the products database table.
+ * 
+ */
+@Entity
+@Table(name="products")
+@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+public class Product implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int code;
 
-	@Column(name = "name")
-	private String name;
-
-	@Column(name = "type")
-	private String type;
-
-	@Column(name = "size")
-	private int size;
-
-	@Column(name = "minimum_quantity")
-	private int minimumQuantity;
-
-	@Column(name = "main_category")
+	@Column(name="main_category")
 	private String mainCategory;
 
-	@Column(name = "secondary_category")
+	@Column(name="minimum_quantity")
+	private int minimumQuantity;
+
+	private String name;
+
+	@Column(name="secondary_category")
 	private String secondaryCategory;
 
-	@Column(name = "state")
+	private int size;
+
 	private int state;
 
-	// define constructors
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH })
-	@JoinTable(name = "customers_products_history",
-	joinColumns = @JoinColumn(name = "product_code") ,
-	inverseJoinColumns =  @JoinColumn(name = "customer_id") )
-    
+	private String type;
+
+	//bi-directional many-to-one association to BillsProduct
+	@OneToMany(mappedBy="product")
+	private List<BillsProduct> billsProducts;
+
+	//bi-directional many-to-many association to Customer
+	@ManyToMany
+	@JoinTable(
+		name="customers_products_history"
+		, joinColumns={
+			@JoinColumn(name="product_code")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="customer_id")
+			}
+		)
 	@JsonIgnore
 	private List<Customer> customers;
+
+	//bi-directional many-to-one association to Supply
+	@OneToMany(mappedBy="product")
+	private List<Supply> supplies;
 
 	public Product() {
 	}
 
-	public Product(String mainCategory, int minimumQuantity, String name, String secondaryCategory, int size, int state,
-			String type, List<Customer> customers) {
-		this.mainCategory = mainCategory;
-		this.minimumQuantity = minimumQuantity;
-		this.name = name;
-		this.secondaryCategory = secondaryCategory;
-		this.size = size;
-		this.state = state;
-		this.type = type;
-		this.customers = customers;
-	}
-
 	public int getCode() {
-		return code;
+		return this.code;
 	}
 
 	public void setCode(int code) {
@@ -82,7 +73,7 @@ public class Product {
 	}
 
 	public String getMainCategory() {
-		return mainCategory;
+		return this.mainCategory;
 	}
 
 	public void setMainCategory(String mainCategory) {
@@ -90,7 +81,7 @@ public class Product {
 	}
 
 	public int getMinimumQuantity() {
-		return minimumQuantity;
+		return this.minimumQuantity;
 	}
 
 	public void setMinimumQuantity(int minimumQuantity) {
@@ -98,7 +89,7 @@ public class Product {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -106,7 +97,7 @@ public class Product {
 	}
 
 	public String getSecondaryCategory() {
-		return secondaryCategory;
+		return this.secondaryCategory;
 	}
 
 	public void setSecondaryCategory(String secondaryCategory) {
@@ -114,7 +105,7 @@ public class Product {
 	}
 
 	public int getSize() {
-		return size;
+		return this.size;
 	}
 
 	public void setSize(int size) {
@@ -122,7 +113,7 @@ public class Product {
 	}
 
 	public int getState() {
-		return state;
+		return this.state;
 	}
 
 	public void setState(int state) {
@@ -130,36 +121,63 @@ public class Product {
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	public List<BillsProduct> getBillsProducts() {
+		return this.billsProducts;
+	}
+
+	public void setBillsProducts(List<BillsProduct> billsProducts) {
+		this.billsProducts = billsProducts;
+	}
+
+	public BillsProduct addBillsProduct(BillsProduct billsProduct) {
+		getBillsProducts().add(billsProduct);
+		billsProduct.setProduct(this);
+
+		return billsProduct;
+	}
+
+	public BillsProduct removeBillsProduct(BillsProduct billsProduct) {
+		getBillsProducts().remove(billsProduct);
+		billsProduct.setProduct(null);
+
+		return billsProduct;
+	}
+
 	public List<Customer> getCustomers() {
-		return customers;
+		return this.customers;
 	}
 
 	public void setCustomers(List<Customer> customers) {
 		this.customers = customers;
 	}
 
-	public void addCustomer(Customer theCustomer) {
-
-		if (customers == null) {
-
-			customers = new ArrayList<>();
-		}
-
-		customers.add(theCustomer);
+	public List<Supply> getSupplies() {
+		return this.supplies;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [code=" + code + ", mainCategory=" + mainCategory + ", minimumQuantity=" + minimumQuantity
-				+ ", name=" + name + ", secondaryCategory=" + secondaryCategory + ", size=" + size + ", state=" + state
-				+ ", type=" + type + "]";
+	public void setSupplies(List<Supply> supplies) {
+		this.supplies = supplies;
+	}
+
+	public Supply addSupply(Supply supply) {
+		getSupplies().add(supply);
+		supply.setProduct(this);
+
+		return supply;
+	}
+
+	public Supply removeSupply(Supply supply) {
+		getSupplies().remove(supply);
+		supply.setProduct(null);
+
+		return supply;
 	}
 
 }
