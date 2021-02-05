@@ -29,6 +29,7 @@ public class Employee implements Serializable {
 	private String jobType;
 
 	private String name;
+
     @Column(name="password")
 	private String password;
 
@@ -42,6 +43,7 @@ public class Employee implements Serializable {
 	private String shift;
 
 	private String status;
+
     @Column(name="username")
 	private String username;
 
@@ -52,9 +54,9 @@ public class Employee implements Serializable {
 	private int workingHours;
 
 	//bi-directional many-to-one association to Attendance
+
 	//@OneToMany(mappedBy="employee")
 	//private List<Attendance> attendances;
-
 	//bi-directional many-to-one association to Bill
 	@OneToMany(mappedBy="employee1")
 	private List<Bill> bills1;
@@ -206,6 +208,7 @@ public class Employee implements Serializable {
 	public void setWorkingHours(int workingHours) {
 		this.workingHours = workingHours;
 	}
+
 	/*
 	 * public List<Attendance> getAttendances() { return this.attendances; }
 	 * 
@@ -222,6 +225,7 @@ public class Employee implements Serializable {
 	 * 
 	 * return attendance; }
 	 */
+
 
 	public List<Bill> getBills1() {
 		return this.bills1;

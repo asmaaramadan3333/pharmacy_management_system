@@ -65,6 +65,8 @@ public class CustomersServiceImpl implements CustomersService {
 		return CustomersDAO.getCustomerByEmail(theemail);
 	}
 
+    ////////////////////////////customer_sign_in/////////////////////////////////////////
+
 	@Override
 	@Transactional
 
@@ -110,8 +112,11 @@ public class CustomersServiceImpl implements CustomersService {
 
 	}
 
+
+    ////////////////////////////customer_sign_up/////////////////////////////////////////
+
 	@Override
-	
+
 	@Transactional
 	public Map signUp(Customer theCustomer) {
 

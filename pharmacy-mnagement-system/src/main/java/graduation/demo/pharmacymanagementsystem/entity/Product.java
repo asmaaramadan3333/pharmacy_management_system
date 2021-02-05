@@ -28,15 +28,21 @@ public class Product implements Serializable {
 	@Column(name="minimum_quantity")
 	private int minimumQuantity;
 
+
+	@Column(name = "name")
 	private String name;
 
 	@Column(name="secondary_category")
 	private String secondaryCategory;
 
+
+	@Column(name = "size")
 	private int size;
 
+	@Column(name = "state")
 	private int state;
 
+	@Column(name = "type")
 	private String type;
 
 	//bi-directional many-to-one association to BillsProduct
@@ -44,7 +50,10 @@ public class Product implements Serializable {
 	private List<BillsProduct> billsProducts;
 
 	//bi-directional many-to-many association to Customer
-	@ManyToMany
+
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH })
 	@JoinTable(
 		name="customers_products_history"
 		, joinColumns={
