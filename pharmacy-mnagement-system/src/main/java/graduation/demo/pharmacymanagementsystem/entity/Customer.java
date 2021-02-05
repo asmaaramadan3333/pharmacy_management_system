@@ -2,7 +2,6 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="customers")
-@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
+
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,12 +29,14 @@ public class Customer implements Serializable {
 	private Date dateOfBirth;
 
     @Column(name="email")
+
 	private String email;
 
 	@Column(name="first_name")
 	private String firstName;
 
     @Column(name="gender")
+
 	private String gender;
 
 	@Column(name="last_name")
@@ -58,7 +59,6 @@ public class Customer implements Serializable {
 
 	//bi-directional many-to-many association to Product
 	//@ManyToMany(mappedBy="customers")
-	
 	@ManyToMany(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(
     		name="customers_products_history"
@@ -69,6 +69,7 @@ public class Customer implements Serializable {
     			@JoinColumn(name="product_code")
     			}
     		)
+
 	private List<Product> products;
 
 	//bi-directional many-to-many association to Employee
@@ -193,8 +194,7 @@ public class Customer implements Serializable {
 
 		return customersPhone;
 	}
-    
-	
+
 	public List<Product> getProducts() {
 		return this.products;
 	}
@@ -210,7 +210,7 @@ public class Customer implements Serializable {
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
-	
+
 	public void add (Product theproduct)
 	{
 		if(products==null)

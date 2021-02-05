@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="products")
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -28,11 +28,13 @@ public class Product implements Serializable {
 	@Column(name="minimum_quantity")
 	private int minimumQuantity;
 
+
 	@Column(name = "name")
 	private String name;
 
 	@Column(name="secondary_category")
 	private String secondaryCategory;
+
 
 	@Column(name = "size")
 	private int size;
@@ -48,6 +50,7 @@ public class Product implements Serializable {
 	private List<BillsProduct> billsProducts;
 
 	//bi-directional many-to-many association to Customer
+
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })

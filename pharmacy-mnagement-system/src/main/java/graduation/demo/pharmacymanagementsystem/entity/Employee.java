@@ -30,6 +30,7 @@ public class Employee implements Serializable {
 
 	private String name;
 
+    @Column(name="password")
 	private String password;
 
 	@Column(name="payment_method")
@@ -43,6 +44,7 @@ public class Employee implements Serializable {
 
 	private String status;
 
+    @Column(name="username")
 	private String username;
 
 	@Column(name="working_days")
@@ -52,9 +54,9 @@ public class Employee implements Serializable {
 	private int workingHours;
 
 	//bi-directional many-to-one association to Attendance
-	@OneToMany(mappedBy="employee")
-	private List<Attendance> attendances;
 
+	//@OneToMany(mappedBy="employee")
+	//private List<Attendance> attendances;
 	//bi-directional many-to-one association to Bill
 	@OneToMany(mappedBy="employee1")
 	private List<Bill> bills1;
@@ -207,27 +209,23 @@ public class Employee implements Serializable {
 		this.workingHours = workingHours;
 	}
 
-	public List<Attendance> getAttendances() {
-		return this.attendances;
-	}
+	/*
+	 * public List<Attendance> getAttendances() { return this.attendances; }
+	 * 
+	 * public void setAttendances(List<Attendance> attendances) { this.attendances =
+	 * attendances; }
+	 * 
+	 * public Attendance addAttendance(Attendance attendance) {
+	 * getAttendances().add(attendance); attendance.setEmployee(this);
+	 * 
+	 * return attendance; }
+	 * 
+	 * public Attendance removeAttendance(Attendance attendance) {
+	 * getAttendances().remove(attendance); attendance.setEmployee(null);
+	 * 
+	 * return attendance; }
+	 */
 
-	public void setAttendances(List<Attendance> attendances) {
-		this.attendances = attendances;
-	}
-
-	public Attendance addAttendance(Attendance attendance) {
-		getAttendances().add(attendance);
-		attendance.setEmployee(this);
-
-		return attendance;
-	}
-
-	public Attendance removeAttendance(Attendance attendance) {
-		getAttendances().remove(attendance);
-		attendance.setEmployee(null);
-
-		return attendance;
-	}
 
 	public List<Bill> getBills1() {
 		return this.bills1;

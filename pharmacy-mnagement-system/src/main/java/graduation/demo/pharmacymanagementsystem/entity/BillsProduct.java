@@ -30,6 +30,7 @@ public class BillsProduct implements Serializable {
 	//bi-directional many-to-one association to Product
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="product_code", insertable=false,updatable=false)
+
 	private Product product;
 
 	public BillsProduct() {

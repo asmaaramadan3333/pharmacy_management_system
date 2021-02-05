@@ -15,6 +15,7 @@ import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 @Repository
 public class CustomersDAOImpl implements CustomersDAO {
+
 	// define field for entity manager	
 		private EntityManager entityManager;
 			
@@ -72,12 +73,12 @@ public class CustomersDAOImpl implements CustomersDAO {
 	@Override
 	public List<Customer> searchByName(String theCustomerName) {
 		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);
-				
+		Session currentSession = entityManager.unwrap(Session.class);		
 		// search object with name
 		Query<Customer> theQuery = 
 				currentSession.createQuery(
 						"FROM Customer c WHERE c.firstName like :CustomerName", Customer.class );
+
 		
 		theQuery.setParameter("CustomerName", theCustomerName+ "%");
 		
@@ -115,9 +116,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 			ex.printStackTrace();
 		}
 		return thecustomer;
-		
-		
-
 	}
 	
 	
@@ -131,6 +129,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		// search object with name
+
 		Query<Customer> theQuery = 
 				currentSession.createQuery(
 		"FROM Customer c  WHERE c.email = :mail AND c.password = :pass", Customer.class );
@@ -158,25 +157,21 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	@Override
 	public void add_products_to_customer(int theCustomerId,int theproductCode) {
-        
+
 		Session currentSession = entityManager.unwrap(Session.class);
         
-		//Customer theCustomer =findByCode(theCustomerId);
+		Customer theCustomer =findByCode(theCustomerId);
 		
 		Product theProduct = currentSession.get(Product.class, theproductCode);
-		Customer theCustomer = currentSession.get(Customer.class, theCustomerId);
+    
 				
 		theCustomer.add(theProduct);
 
 		currentSession.saveOrUpdate(theProduct);
 		
 		currentSession.saveOrUpdate(theCustomer);
-		
 
 	}
-	
-	
-	
 	
 	@Override
 	public void deleteByCode(int theCustomerId) {
@@ -185,7 +180,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 						
 		// delete object with primary key
 		
-		Query<?> theQuery = 
+		Query theQuery = 
 				currentSession.createQuery(
 						"delete from Customer where code=:Customerid");
 		theQuery.setParameter("Customerid", theCustomerId);
@@ -195,9 +190,5 @@ public class CustomersDAOImpl implements CustomersDAO {
 		
 	}
 
-	
-	
-	
-	
 	
 }
