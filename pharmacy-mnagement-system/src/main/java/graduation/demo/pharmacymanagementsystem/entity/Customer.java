@@ -56,7 +56,17 @@ public class Customer implements Serializable {
 	private List<CustomersPhone> customersPhones;
 
 	//bi-directional many-to-many association to Product
-	@ManyToMany(mappedBy="customers")
+	//@ManyToMany(mappedBy="customers")
+	@ManyToMany(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(
+    		name="customers_products_history"
+    		, joinColumns={
+    			@JoinColumn(name="customer_id")
+    			}
+    		, inverseJoinColumns={
+    			@JoinColumn(name="product_code")
+    			}
+    		)
 	private List<Product> products;
 
 	//bi-directional many-to-many association to Employee

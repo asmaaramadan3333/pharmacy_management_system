@@ -134,12 +134,13 @@ public class CustomersRestController {
 	
 	@PostMapping("/add_products_to_customer")
 	public Customer  add_products_to_customer( @RequestBody Map<String, Integer> userData){
-      
+      Customer thecustomer;
 		int theCustomerId =userData.get("customerId");
 		int theproductCode = userData.get("code");
 		
 		customersService.add_products_to_customer(theCustomerId, theproductCode);
-		return getCustomer(theCustomerId);
+		//return getCustomer(theCustomerId);
+	return customersService.findByCode(theCustomerId);
 	}
 	
 	

@@ -9,4 +9,5 @@ public interface EmployeesService {
 	public String restoreThePassword(String username);
 	public Employee getEmployeeByUsername(String theusername);
 	public String restoreEmail(String theusername);
+	public int restoreId(String theusername);
 }

@@ -44,7 +44,16 @@ public class Product implements Serializable {
 	private List<BillsProduct> billsProducts;
 
 	//bi-directional many-to-many association to Customer
-	@ManyToMany
+	/*
+	 * @ManyToMany
+	 * 
+	 * @JoinTable( name="customers_products_history" , joinColumns={
+	 * 
+	 * @JoinColumn(name="product_code") } , inverseJoinColumns={
+	 * 
+	 * @JoinColumn(name="customer_id") } )
+	 */
+    @ManyToMany(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinTable(
 		name="customers_products_history"
 		, joinColumns={
@@ -54,6 +63,7 @@ public class Product implements Serializable {
 			@JoinColumn(name="customer_id")
 			}
 		)
+    
 	@JsonIgnore
 	private List<Customer> customers;
 
