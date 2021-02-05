@@ -29,7 +29,7 @@ public class Employee implements Serializable {
 	private String jobType;
 
 	private String name;
-
+    @Column(name="password")
 	private String password;
 
 	@Column(name="payment_method")
@@ -42,7 +42,7 @@ public class Employee implements Serializable {
 	private String shift;
 
 	private String status;
-
+    @Column(name="username")
 	private String username;
 
 	@Column(name="working_days")
