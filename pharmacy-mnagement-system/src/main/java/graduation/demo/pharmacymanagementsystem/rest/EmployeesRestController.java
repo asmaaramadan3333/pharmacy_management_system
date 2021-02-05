@@ -30,9 +30,13 @@ public class EmployeesRestController {
 		return coordinates ;
 	}
 	@GetMapping("/return_the_password/{username}")
-	public String restoreThePassword(@PathVariable String username)
+	public Map restoreThePassword(@PathVariable String username)
 	{
-		return employeesService.restoreThePassword(username);
+		Map <String,String> coordinates = new HashMap<>();	
+		coordinates.put("thepassword",employeesService.restoreThePassword(username));
+		coordinates.put("theemail",employeesService.restoreEmail(username));
+		return coordinates;
+		
 	}
 	@GetMapping("return_the_employee/{theusername}")
 	public Employee getEmployeeByUsername(@PathVariable String theusername)
