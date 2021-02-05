@@ -10,7 +10,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 @Repository
@@ -75,7 +74,7 @@ public class ProductsDAOImpl implements ProductsDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		// search object with name
-		Query theQuery = 
+		Query<Product> theQuery = 
 				currentSession.createQuery(
 						"FROM Product  WHERE name like :productName", Product.class );
 		
@@ -98,7 +97,7 @@ public class ProductsDAOImpl implements ProductsDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		// search object with name
-		Query theQuery = 
+		Query<Product> theQuery = 
 				currentSession.createQuery(
 		"FROM Product p  WHERE p.mainCategory =: first AND p.secondaryCategory =: second", Product.class );
 		
@@ -133,7 +132,7 @@ public class ProductsDAOImpl implements ProductsDAO {
 						
 		// delete object with primary key
 		
-		Query theQuery = 
+		Query<?> theQuery = 
 				currentSession.createQuery(
 						"delete from Product where code=:productCode");
 		theQuery.setParameter("productCode", theCode);

@@ -29,16 +29,19 @@ public class Customer implements Serializable {
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
 
+    @Column(name="email")
 	private String email;
 
 	@Column(name="first_name")
 	private String firstName;
 
+    @Column(name="gender")
 	private String gender;
 
 	@Column(name="last_name")
 	private String lastName;
 
+    @Column(name="password")
 	private String password;
 
 	//bi-directional many-to-one association to Bill
@@ -54,7 +57,18 @@ public class Customer implements Serializable {
 	private List<CustomersPhone> customersPhones;
 
 	//bi-directional many-to-many association to Product
-	@ManyToMany(mappedBy="customers")
+	//@ManyToMany(mappedBy="customers")
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(
+    		name="customers_products_history"
+    		, joinColumns={
+    			@JoinColumn(name="customer_id")
+    			}
+    		, inverseJoinColumns={
+    			@JoinColumn(name="product_code")
+    			}
+    		)
 	private List<Product> products;
 
 	//bi-directional many-to-many association to Employee
@@ -180,16 +194,7 @@ public class Customer implements Serializable {
 		return customersPhone;
 	}
     
-	public void add (Product theproduct)
-	{
-		if(products==null)
-		{
-			products=new ArrayList<>();
-			
-		}
-		products.add(theproduct);
-		
-	}
+	
 	public List<Product> getProducts() {
 		return this.products;
 	}
@@ -204,6 +209,17 @@ public class Customer implements Serializable {
 
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
+	}
+	
+	public void add (Product theproduct)
+	{
+		if(products==null)
+		{
+			products=new ArrayList<>();
+			
+		}
+		products.add(theproduct);
+		
 	}
 
 }
