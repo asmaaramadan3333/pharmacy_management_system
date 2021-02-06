@@ -45,7 +45,9 @@ public class Supply implements Serializable {
 
 	//bi-directional many-to-one association to PharmaCo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="company_id", insertable=false,updatable=false)
+
+	@JoinColumn(name="company_id",insertable=false,updatable=false)
+
 	private PharmaCo pharmaCo;
 
 	//bi-directional many-to-one association to Employee

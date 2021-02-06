@@ -13,11 +13,8 @@ import org.springframework.stereotype.Repository;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 @Repository
 public class CustomersDAOImpl implements CustomersDAO {
-	private ProductsDAO productDAO;
 
 	// define field for entity manager	
 		private EntityManager entityManager;
@@ -76,12 +73,12 @@ public class CustomersDAOImpl implements CustomersDAO {
 	@Override
 	public List<Customer> searchByName(String theCustomerName) {
 		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);
-		
+		Session currentSession = entityManager.unwrap(Session.class);		
 		// search object with name
-		Query theQuery = 
+		Query<Customer> theQuery = 
 				currentSession.createQuery(
-						"FROM Customer  WHERE name like :CustomerName", Customer.class );
+						"FROM Customer c WHERE c.firstName like :CustomerName", Customer.class );
+
 		
 		theQuery.setParameter("CustomerName", theCustomerName+ "%");
 		
@@ -102,7 +99,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		try {
 		// search object with name
-		Query  theQuery = 
+		Query<Customer>  theQuery = 
 				currentSession.createQuery(
 						"FROM Customer c  WHERE c.email =: mail", Customer.class );
 		
@@ -119,9 +116,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 			ex.printStackTrace();
 		}
 		return thecustomer;
-		
-		
-
 	}
 	
 	
@@ -135,7 +129,8 @@ public class CustomersDAOImpl implements CustomersDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		// search object with name
-		Query theQuery = 
+
+		Query<Customer> theQuery = 
 				currentSession.createQuery(
 		"FROM Customer c  WHERE c.email = :mail AND c.password = :pass", Customer.class );
 		
@@ -162,28 +157,21 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	@Override
 	public void add_products_to_customer(int theCustomerId,int theproductCode) {
-        Customer thecustomer;	
-		// get the current hibernate session
 
 		Session currentSession = entityManager.unwrap(Session.class);
         
 		Customer theCustomer =findByCode(theCustomerId);
 		
 		Product theProduct = currentSession.get(Product.class, theproductCode);
-		
-		//Product theProduct = productDAO.findByCode(theproductCode);
+    
 				
-        
+		theCustomer.add(theProduct);
+
 		currentSession.saveOrUpdate(theProduct);
 		
-		theCustomer.add(theProduct);
-		
 		currentSession.saveOrUpdate(theCustomer);
-	
+
 	}
-	
-	
-	
 	
 	@Override
 	public void deleteByCode(int theCustomerId) {
@@ -202,9 +190,5 @@ public class CustomersDAOImpl implements CustomersDAO {
 		
 	}
 
-	
-	
-	
-	
 	
 }
