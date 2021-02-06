@@ -51,9 +51,11 @@ public class Product implements Serializable {
 
 	//bi-directional many-to-many association to Customer
 
+
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
+
 	@JoinTable(
 		name="customers_products_history"
 		, joinColumns={
@@ -63,6 +65,7 @@ public class Product implements Serializable {
 			@JoinColumn(name="customer_id")
 			}
 		)
+    
 	@JsonIgnore
 	private List<Customer> customers;
 

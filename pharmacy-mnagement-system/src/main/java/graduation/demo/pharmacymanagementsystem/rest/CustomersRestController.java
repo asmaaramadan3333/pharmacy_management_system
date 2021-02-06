@@ -132,6 +132,7 @@ public class CustomersRestController {
 		customersService.add_products_to_customer(theCustomerId, theproductCode);
 		
 		return getCustomer(theCustomerId);
+
 	}
 
 	// add mapping for PUT /update - update existing Customer

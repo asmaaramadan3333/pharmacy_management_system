@@ -110,9 +110,7 @@ public class EmployeesDAOImpl implements EmployeesDAO {
 			{
 				ex.printStackTrace();
 			}
-			return theemployee.getEmail();
-			
-			
+			return theemployee.getEmail();	
 
 		}
 		

@@ -60,7 +60,9 @@ public class Customer implements Serializable {
 	//bi-directional many-to-many association to Product
 	//@ManyToMany(mappedBy="customers")
 	@ManyToMany(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+
     @JoinTable(
+
     		name="customers_products_history"
     		, joinColumns={
     			@JoinColumn(name="customer_id")
