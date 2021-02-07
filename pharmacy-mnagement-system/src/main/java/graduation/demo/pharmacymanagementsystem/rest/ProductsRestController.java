@@ -1,6 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -74,7 +76,14 @@ public class ProductsRestController {
 			return theProducts;
 		}
 	
-	
+		@GetMapping("/return_the_product_code/{theproductname}/{theproducttype}/{theproductsize}")
+		public Map returnTheIdbyname(@PathVariable String theproductname,@PathVariable String theproducttype,@PathVariable int theproductsize)
+		{    
+			Map <String,Integer> coordinates = new HashMap<>();	
+			coordinates.put("theID",productsService.returnproductcode(theproductname,theproducttype,theproductsize));
+			return coordinates;
+			
+		}
 	
 	
 	// add mapping for POST /products - add new products
