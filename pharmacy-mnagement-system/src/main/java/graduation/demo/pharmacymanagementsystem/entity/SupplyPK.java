@@ -2,7 +2,7 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
+import graduation.demo.pharmacymanagementsystem.entity.Supply;
 /**
  * The primary key class for the supply database table.
  * 
@@ -18,11 +18,12 @@ public class SupplyPK implements Serializable {
 	@Column(name="product_code", insertable=false, updatable=false)
 	private int productCode;
 
-	@Column(name="supply_bill_id")
+	@Column(name="supply_bill_id",insertable=false, updatable=false)
 	private int supplyBillId;
 
 	public SupplyPK() {
 	}
+	
 	public int getCompanyId() {
 		return this.companyId;
 	}
@@ -40,6 +41,13 @@ public class SupplyPK implements Serializable {
 	}
 	public void setSupplyBillId(int supplyBillId) {
 		this.supplyBillId = supplyBillId;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "SupplyPK [companyId=" + companyId + ", productCode=" + productCode + ", supplyBillId=" + supplyBillId
+				+ "]";
 	}
 
 	public boolean equals(Object other) {
