@@ -21,6 +21,7 @@ public class PharmaCoServiceImpl implements PharmaCoService {
 	@Override
 	public int returnCompanyId(String thecompanyname) {
 		// TODO Auto-generated method stub
+		System.out.println(thecompanyname);
 		PharmaCo thePharmaCo=PharmaCoDAO.getCompanyByCompanyName(thecompanyname);
 		return thePharmaCo.getId() ;
 	}

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.hibernate.type.StringNVarcharType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
@@ -22,7 +23,7 @@ public class PharmaCoDAOImpl implements PharmaCoDAO {
 		}
 	@Override
 	public PharmaCo getCompanyByCompanyName(String thecompanyname) {
-
+           System.out.println(thecompanyname);
 
 		    PharmaCo thePharmaCo = null;
 			
@@ -34,7 +35,7 @@ public class PharmaCoDAOImpl implements PharmaCoDAO {
 					currentSession.createQuery(
 							"FROM PharmaCo p  WHERE p.name =: thename", PharmaCo.class );
 			
-			theQuery.setParameter("thename", thecompanyname);
+			theQuery.setParameter("thename", thecompanyname,StringNVarcharType.INSTANCE);
 			
 			if(!theQuery.getResultList().isEmpty())
 			{

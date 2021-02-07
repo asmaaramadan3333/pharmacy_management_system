@@ -1,5 +1,6 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import graduation.demo.pharmacymanagementsystem.entity.Employee;
 import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
+import graduation.demo.pharmacymanagementsystem.entity.Product;
 import graduation.demo.pharmacymanagementsystem.service.PharmaCoService;
 @RestController
 @RequestMapping("/api")
@@ -21,11 +23,17 @@ public class PharmaCoRestController {
 	public PharmaCoRestController(PharmaCoService thePharmaCoService) {
 		pharmacoService = thePharmaCoService;
 	}
+
+	
 	@GetMapping("/return_the__company_Id/{thecompanyname}")
 	public Map returnTheId(@PathVariable String thecompanyname)
-	{
+	{    
 		Map <String,Integer> coordinates = new HashMap<>();	
-		coordinates.put("theID",pharmacoService.returnCompanyId(thecompanyname));
+		System.out.println(thecompanyname);
+		@SuppressWarnings("deprecation")
+		String companyname = URLDecoder.decode(thecompanyname);
+		System.out.println(companyname);
+		coordinates.put("theID",pharmacoService.returnCompanyId(companyname));
 		return coordinates;
 		
 	}
