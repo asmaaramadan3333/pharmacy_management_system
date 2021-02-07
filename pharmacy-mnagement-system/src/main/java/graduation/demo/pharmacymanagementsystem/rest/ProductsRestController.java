@@ -65,7 +65,6 @@ public class ProductsRestController {
 	
 		@GetMapping("/products_category_search/{main_category}/{secondary_category}")
 		public List<Product> getProduct(@PathVariable String main_category ,@PathVariable String secondary_category) {
-			
 			List<Product> theProducts = productsService.select_by_category(main_category, secondary_category);
 			
 			if (theProducts == null) {

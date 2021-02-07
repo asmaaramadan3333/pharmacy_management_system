@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.hibernate.type.StringNVarcharType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -104,9 +105,9 @@ public class ProductsDAOImpl implements ProductsDAO {
 				currentSession.createQuery(
 		"FROM Product p  WHERE p.mainCategory =: first AND p.secondaryCategory =: second", Product.class );
 		
-		theQuery.setParameter("first", main_category);
+		theQuery.setParameter("first", main_category,StringNVarcharType.INSTANCE);
 		
-		theQuery.setParameter("second",  secondary_category );
+		theQuery.setParameter("second",  secondary_category,StringNVarcharType.INSTANCE );
 		
 		
 		if(theQuery.getResultList()!=null&&!theQuery.getResultList().isEmpty()) {
