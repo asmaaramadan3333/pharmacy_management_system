@@ -1,5 +1,6 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,5 +58,13 @@ public class EmployeesRestController {
 		
 		return theEmployee;
 	}
-	
+	/////////////////////////return the id of employee by taking the employee name/////////////////////
+	@GetMapping("/return_the__employee_Id/{theemployeename}")
+	public Map returnTheIdbyname(@PathVariable String theemployeename)
+	{    
+		Map <String,Integer> coordinates = new HashMap<>();	
+		coordinates.put("theID",employeesService.returnemployeeId(theemployeename));
+		return coordinates;
+		
+	}
 }

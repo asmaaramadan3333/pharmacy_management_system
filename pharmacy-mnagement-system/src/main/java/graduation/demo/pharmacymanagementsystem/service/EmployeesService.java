@@ -10,4 +10,5 @@ public interface EmployeesService {
 	public Employee getEmployeeByUsername(String theusername);
 	public String restoreEmail(String theusername);
 	public int restoreId(String theusername);
+	public int returnemployeeId(String theemployeename);
 }

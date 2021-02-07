@@ -80,11 +80,34 @@ public class EmployeesDAOImpl implements EmployeesDAO {
 			ex.printStackTrace();
 		}
 		return theemployee;
-		
-		
-
 	}
-
+	@Override
+	public Employee getEmployeeByname(String name) {
+		
+		Employee theemployee = null;
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		try {
+		// search object with name
+		Query  theQuery = 
+				currentSession.createQuery(
+						"FROM Employee c  WHERE c.name =: thename", Employee.class );
+		
+		theQuery.setParameter("thename", name);
+		
+		if(!theQuery.getResultList().isEmpty())
+		{
+			theemployee=(Employee) theQuery.getResultList().get(0);
+		}
+		
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return theemployee;
+	}
 	@Override
 	public String restoreThePassword(String the_username) {
 			

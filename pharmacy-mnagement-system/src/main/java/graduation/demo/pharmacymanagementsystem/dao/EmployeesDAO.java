@@ -6,4 +6,5 @@ public interface EmployeesDAO {
 	public Employee signIn(String theusername, String thepassword);
 	public Employee getEmployeeByUsername(String theusername);
 	public String restoreThePassword(String username);
+	 public Employee getEmployeeByname(String name);
 }
