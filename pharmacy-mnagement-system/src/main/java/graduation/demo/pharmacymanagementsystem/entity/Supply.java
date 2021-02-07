@@ -2,6 +2,9 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 
@@ -17,7 +20,9 @@ public class Supply implements Serializable {
 
 	@EmbeddedId
 	private SupplyPK id;
-
+    
+	
+	
 	@Column(name="bonus_quantity")
 	private int bonusQuantity;
 
@@ -44,20 +49,22 @@ public class Supply implements Serializable {
 	private float totalPrice;
 
 	//bi-directional many-to-one association to PharmaCo
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 
 	@JoinColumn(name="company_id",insertable=false,updatable=false)
-
+    @JsonIgnore
 	private PharmaCo pharmaCo;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name="employee_id", insertable=false,updatable=false)
+	@JsonIgnore
 	private Employee employee;
 
 	//bi-directional many-to-one association to Product
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name="product_code", insertable=false,updatable=false)
+	@JsonIgnore
 	private Product product;
 
 	public Supply() {
@@ -70,7 +77,14 @@ public class Supply implements Serializable {
 	public void setId(SupplyPK id) {
 		this.id = id;
 	}
-
+     /////// new added function
+	public void setIdParam (int companyId,int productCode,int supplyBillId ) {
+		this.id.setCompanyId(companyId);
+		this.id.setSupplyBillId(supplyBillId);
+		this.id.setProductCode(productCode);
+	}
+	
+	
 	public int getBonusQuantity() {
 		return this.bonusQuantity;
 	}
@@ -159,4 +173,5 @@ public class Supply implements Serializable {
 		this.product = product;
 	}
 
+	
 }
