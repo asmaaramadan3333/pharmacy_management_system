@@ -12,9 +12,9 @@ public interface SuppliesDAO {
 	
 	public void save (Supply theSupply);
 	
-	public void deleteByCode (int theCode);
+	public void deleteById (int theID);
 
-	public List<Supply> searchByName(String theName);
+	//public List<Supply> searchByName(String theName);
 
 	public List <Supply> findBillTotalPrice(int supply_bill_id ,int CompanyID);
 	

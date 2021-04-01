@@ -57,16 +57,16 @@ public class SupplisServiceImpl implements SuppliesService {
 
 	@Override
 	@Transactional
-	public void deleteByCode(int theCode) {
+	public void deleteById(int theID) {
 		
-		SuppliesDAO.deleteByCode(theCode);
+		SuppliesDAO.deleteById(theID);
 		
 	}
 
-	@Override
+	/*@Override
 	public List<Supply> searchByName(String theName) {
 		
 		return SuppliesDAO.searchByName(theName);
-	}
+	}*/
 
 }
