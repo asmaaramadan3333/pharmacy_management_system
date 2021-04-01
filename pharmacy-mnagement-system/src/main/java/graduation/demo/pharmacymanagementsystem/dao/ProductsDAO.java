@@ -18,5 +18,5 @@ public interface ProductsDAO {
 
 	public List<Product> select_by_category(String main_category, String secondary_category);
 	
-	
+	public Product get_code(String name,String type,int size);
 }

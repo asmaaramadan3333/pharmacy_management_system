@@ -7,9 +7,11 @@ import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.hibernate.type.StringNVarcharType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 @Repository
@@ -66,6 +68,22 @@ public class ProductsDAOImpl implements ProductsDAO {
 		currentSession.saveOrUpdate(theProduct);
 		
 	}
+	//////////////////////////return the id of product by taking name,size,type///////////////////////////
+	public Product get_code(String name,String type,int size)
+	{
+		Product theProduct = null;
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		// search object with name
+		Query  theQuery = 
+				currentSession.createQuery(
+						"FROM Product p  WHERE p.name =: thename AND p.size =: thesize AND p.type =: thetype", Product.class );
+		theQuery.setParameter("thename", name);
+		theQuery.setParameter("thesize",size);
+		theQuery.setParameter("thetype",type);
+		theProduct=(Product) theQuery.getResultList().get(0);
+		return theProduct;
+	}
 	
 	
 	@Override
@@ -104,9 +122,9 @@ public class ProductsDAOImpl implements ProductsDAO {
 				currentSession.createQuery(
 		"FROM Product p  WHERE p.mainCategory =: first AND p.secondaryCategory =: second", Product.class );
 		
-		theQuery.setParameter("first", main_category);
+		theQuery.setParameter("first", main_category,StringNVarcharType.INSTANCE);
 		
-		theQuery.setParameter("second",  secondary_category );
+		theQuery.setParameter("second",  secondary_category,StringNVarcharType.INSTANCE );
 		
 		
 		if(theQuery.getResultList()!=null&&!theQuery.getResultList().isEmpty()) {

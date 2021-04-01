@@ -3,5 +3,7 @@
 
 	<!--<persistence-unit name="project-pharmacy-1">-->
 	<persistence-unit name="pharmacy-mnagement-system">
+		<class>graduation.demo.pharmacymanagementsystem.entity.TesttheentitiesApplication</class>
+		<class>org.persistence.Entity1</class>
 	</persistence-unit>
 </persistence>

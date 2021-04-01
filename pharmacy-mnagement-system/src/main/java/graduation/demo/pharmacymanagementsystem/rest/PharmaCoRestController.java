@@ -1,5 +1,6 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,29 +13,46 @@ import org.springframework.web.bind.annotation.RestController;
 
 import graduation.demo.pharmacymanagementsystem.entity.Employee;
 import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
+import graduation.demo.pharmacymanagementsystem.entity.Product;
 import graduation.demo.pharmacymanagementsystem.service.PharmaCoService;
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/pharmaCo")
 public class PharmaCoRestController {
 	private PharmaCoService pharmacoService;
 	@Autowired
 	public PharmaCoRestController(PharmaCoService thePharmaCoService) {
 		pharmacoService = thePharmaCoService;
 	}
-	
-	// add mapping for GET / get_company_Id/ {thecompanyname} -- return the company id
-	
+
+	////////////////////////////////////////////return the id of the company by taking the company name/////////////////
 	@GetMapping("/get_company_Id/{thecompanyname}")
 	public Map returnTheId(@PathVariable String thecompanyname)
-	{
+	{    
 		Map <String,Integer> coordinates = new HashMap<>();	
-		coordinates.put("theID",pharmacoService.returnCompanyId(thecompanyname));
+		System.out.println(thecompanyname);
+		@SuppressWarnings("deprecation")
+		String companyname = URLDecoder.decode(thecompanyname);
+		System.out.println(companyname);
+		coordinates.put("theID",pharmacoService.returnCompanyId(companyname));
 		return coordinates;
 		
 	}
-	
-	// 
-	
+
+
+	/*
+	 * @GetMapping(
+	 * "/return_the_id/{thecompanyname}/{theproductname}/{theproductsize}/{theproducttype}/{theemployeename}")
+	 * public Map returnTheId(@PathVariable String thecompanyname,@PathVariable
+	 * String theproductname,@PathVariable int theproductsize,
+	 * 
+	 * @PathVariable String theproducttype,@PathVariable String theemployeename) {
+	 * Map<String, Integer> coordinates = new HashMap<>(); coordinates
+	 * =pharmacoService.get_id_employee_company_product(theproductname,
+	 * theproducttype, theproductsize, thecompanyname, theemployeename); return
+	 * coordinates; }
+	 */
+	//////////////////////////////////// return object of pharmaci by take the company name//////////////////
+  
 	@GetMapping("/return_the_pharmaco/{thecompanyname}")
 	public PharmaCo getPharmaCo(@PathVariable String thecompanyname)
 	{
@@ -46,8 +64,9 @@ public class PharmaCoRestController {
 		
 		return thePharmaCo;
 	}
-	
-	
+
+	//////////////////////////////////return all the company name////////////////////////////////
+
 	@GetMapping("/return_all_companyname/")
 	public List<PharmaCo> findallcomplanyName() 
 	{

@@ -59,4 +59,11 @@ public class ProductsServiceImpl implements ProductsService {
 		return productsDAO.select_by_category(main_category, secondary_category);
 	}
 
+	@Override
+	public int returnproductcode(String theproductname,String type,int size) {
+		// TODO Auto-generated method stub
+		
+		Product theproduct=productsDAO.get_code(theproductname, type, size);
+		return theproduct.getCode();
+	}
 }
