@@ -16,7 +16,7 @@ import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 import graduation.demo.pharmacymanagementsystem.service.PharmaCoService;
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/pharmaCo")
 public class PharmaCoRestController {
 	private PharmaCoService pharmacoService;
 	@Autowired

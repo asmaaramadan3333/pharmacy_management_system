@@ -17,7 +17,6 @@ public class Bill implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="bill_id")
 	private String billId;
 
@@ -43,17 +42,17 @@ public class Bill implements Serializable {
 	private float totalPrice;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="customer_id")
 	private Customer customer;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="employee_id")
 	private Employee employee1;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="delivery_man_id")
 	private Employee employee2;
 

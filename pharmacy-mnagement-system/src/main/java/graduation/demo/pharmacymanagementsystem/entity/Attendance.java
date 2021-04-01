@@ -33,8 +33,7 @@ public class Attendance implements Serializable {
 	private String permission;
 
 	//bi-directional many-to-one association to Employee
-
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="employee_id", insertable=false,updatable=false)
 
 	private Employee employee;

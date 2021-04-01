@@ -22,17 +22,19 @@ public class BillsProduct implements Serializable {
 	@Column(name="total_price")
 	private float totalPrice;
 
+	@Column(name="unit_price")
+	private float unitPrice;
+
 	//bi-directional many-to-one association to Bill
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="bill_id",insertable=false,updatable=false)
-	private Bill bill;
+		@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="bill_id",insertable=false,updatable=false)
+		private Bill bill;
 
-	//bi-directional many-to-one association to Product
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="product_code", insertable=false,updatable=false)
+		//bi-directional many-to-one association to Product
+		@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="product_code", insertable=false,updatable=false)
 
-	private Product product;
-
+		private Product product;
 	public BillsProduct() {
 	}
 
@@ -58,6 +60,14 @@ public class BillsProduct implements Serializable {
 
 	public void setTotalPrice(float totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public float getUnitPrice() {
+		return this.unitPrice;
+	}
+
+	public void setUnitPrice(float unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 
 	public Bill getBill() {
