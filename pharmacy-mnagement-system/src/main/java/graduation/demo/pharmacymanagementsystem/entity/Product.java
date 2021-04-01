@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -14,7 +15,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="products")
-
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,52 +22,53 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int code;
 
+	@Temporal(TemporalType.DATE)
+	@Column(name="expire_date")
+	private Date expireDate;
+
 	@Column(name="main_category")
 	private String mainCategory;
 
 	@Column(name="minimum_quantity")
 	private int minimumQuantity;
-
-
 	@Column(name = "name")
 	private String name;
+	@Column(name = "packages")
+	private int packages;
+	@Column(name = "position")
+	private String position;
+	@Column(name = "price")
+	private float price;
+	@Column(name = "quantity")
+	private int quantity;
 
 	@Column(name="secondary_category")
 	private String secondaryCategory;
-
-
-	@Column(name = "size")
-	private int size;
-
 	@Column(name = "state")
 	private int state;
-
-	@Column(name = "type")
-	private String type;
 
 	//bi-directional many-to-one association to BillsProduct
 	@OneToMany(mappedBy="product")
 	private List<BillsProduct> billsProducts;
-
 	//bi-directional many-to-many association to Customer
 
 
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH })
+		@ManyToMany(fetch = FetchType.LAZY,
+				cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+				CascadeType.REFRESH })
 
-	@JoinTable(
-		name="customers_products_history"
-		, joinColumns={
-			@JoinColumn(name="product_code")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="customer_id")
-			}
-		)
-    
-	@JsonIgnore
-	private List<Customer> customers;
+		@JoinTable(
+			name="customers_products_history"
+			, joinColumns={
+				@JoinColumn(name="product_code")
+				}
+			, inverseJoinColumns={
+				@JoinColumn(name="customer_id")
+				}
+			)
+	    
+		@JsonIgnore
+		private List<Customer> customers;
 
 	//bi-directional many-to-one association to Supply
 	@OneToMany(mappedBy="product")
@@ -82,6 +83,14 @@ public class Product implements Serializable {
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public Date getExpireDate() {
+		return this.expireDate;
+	}
+
+	public void setExpireDate(Date expireDate) {
+		this.expireDate = expireDate;
 	}
 
 	public String getMainCategory() {
@@ -108,6 +117,38 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
+	public int getPackages() {
+		return this.packages;
+	}
+
+	public void setPackages(int packages) {
+		this.packages = packages;
+	}
+
+	public String getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public float getPrice() {
+		return this.price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public int getQuantity() {
+		return this.quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public String getSecondaryCategory() {
 		return this.secondaryCategory;
 	}
@@ -116,28 +157,12 @@ public class Product implements Serializable {
 		this.secondaryCategory = secondaryCategory;
 	}
 
-	public int getSize() {
-		return this.size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
-	}
-
 	public int getState() {
 		return this.state;
 	}
 
 	public void setState(int state) {
 		this.state = state;
-	}
-
-	public String getType() {
-		return this.type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public List<BillsProduct> getBillsProducts() {

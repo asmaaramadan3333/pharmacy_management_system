@@ -2,7 +2,7 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import graduation.demo.pharmacymanagementsystem.entity.Supply;
+
 /**
  * The primary key class for the supply database table.
  * 
@@ -15,39 +15,31 @@ public class SupplyPK implements Serializable {
 	@Column(name="company_id", insertable=false, updatable=false)
 	private int companyId;
 
-	@Column(name="product_code", insertable=false, updatable=false)
-	private int productCode;
+	@Column(name="product_name")
+	private String productName;
 
-	@Column(name="supply_bill_id",insertable=false, updatable=false)
+	@Column(name="supply_bill_id")
 	private int supplyBillId;
 
 	public SupplyPK() {
 	}
-	
 	public int getCompanyId() {
 		return this.companyId;
 	}
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
-	public int getProductCode() {
-		return this.productCode;
+	public String getProductName() {
+		return this.productName;
 	}
-	public void setProductCode(int productCode) {
-		this.productCode = productCode;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	public int getSupplyBillId() {
 		return this.supplyBillId;
 	}
 	public void setSupplyBillId(int supplyBillId) {
 		this.supplyBillId = supplyBillId;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "SupplyPK [companyId=" + companyId + ", productCode=" + productCode + ", supplyBillId=" + supplyBillId
-				+ "]";
 	}
 
 	public boolean equals(Object other) {
@@ -60,7 +52,7 @@ public class SupplyPK implements Serializable {
 		SupplyPK castOther = (SupplyPK)other;
 		return 
 			(this.companyId == castOther.companyId)
-			&& (this.productCode == castOther.productCode)
+			&& this.productName.equals(castOther.productName)
 			&& (this.supplyBillId == castOther.supplyBillId);
 	}
 
@@ -68,7 +60,7 @@ public class SupplyPK implements Serializable {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.companyId;
-		hash = hash * prime + this.productCode;
+		hash = hash * prime + this.productName.hashCode();
 		hash = hash * prime + this.supplyBillId;
 		
 		return hash;

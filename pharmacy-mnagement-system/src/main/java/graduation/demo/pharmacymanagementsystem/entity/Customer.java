@@ -2,6 +2,7 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,36 +14,29 @@ import java.util.List;
  */
 @Entity
 @Table(name="customers")
-
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="customer_id")
 	private int customerId;
-
+    @Column(name="credit")
 	private float credit;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
-
-    @Column(name="email")
-
+	@Column(name="email")
 	private String email;
 
 	@Column(name="first_name")
 	private String firstName;
-
-    @Column(name="gender")
-
+	@Column(name="gender")
 	private String gender;
 
 	@Column(name="last_name")
 	private String lastName;
-
-    @Column(name="password")
+	@Column(name="password")
 	private String password;
 
 	//bi-directional many-to-one association to Bill
@@ -73,6 +67,7 @@ public class Customer implements Serializable {
     		)
 
 	private List<Product> products;
+
 
 	//bi-directional many-to-many association to Employee
 	@ManyToMany(mappedBy="customers")

@@ -1,6 +1,7 @@
 package graduation.demo.pharmacymanagementsystem.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +96,17 @@ public class EmployeesServiceImpl implements EmployeesService {
 		
 		Employee theEmployee=EmployeesDAO.getEmployeeByname(theemployeename);
 		return theEmployee.getId();
+	}
+
+	@Override
+	@Transactional
+	public void saveORupdate(Employee theEmployee) {
+		EmployeesDAO.saveORupdate(theEmployee);
+	}
+
+	@Override
+	public List<Employee> findAllEmployee() {
+		// TODO Auto-generated method stub
+		return EmployeesDAO.findAllEmployee();
 	}
 }

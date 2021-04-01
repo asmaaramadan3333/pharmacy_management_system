@@ -15,7 +15,6 @@ public class CustomersAddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="customer_id")
 	private int customerId;
 
@@ -32,7 +31,7 @@ public class CustomersAddress implements Serializable {
 	private String street;
 
 	//bi-directional one-to-one association to Customer
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name="customer_id")
 	private Customer customer;
 

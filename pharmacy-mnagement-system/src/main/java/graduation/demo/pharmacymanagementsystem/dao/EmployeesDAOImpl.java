@@ -23,7 +23,22 @@ public class EmployeesDAOImpl implements EmployeesDAO {
 	public EmployeesDAOImpl(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
 	}
-
+	@Override
+	public List<Employee> findAllEmployee() {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
+		// create a query
+		Query<Employee> theQuery =
+				currentSession.createQuery("from Employee", Employee.class);
+				
+		// execute query and get result list
+		List <Employee> Employee = theQuery.getResultList();
+				
+		// return the results		
+		return Employee;
+	}
 	@Override
 	public Employee signIn(String theusername, String thepassword) {
 		Employee theemployee = null;
@@ -136,5 +151,15 @@ public class EmployeesDAOImpl implements EmployeesDAO {
 			return theemployee.getEmail();	
 
 		}
+//////////////////////////////////////////add new employee  ////////////////////////////
+	@Override
+	public void saveORupdate(Employee theEmployee) {
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
+		// save Customer
+		currentSession.saveOrUpdate(theEmployee);
+		
+	}
 		
 }
