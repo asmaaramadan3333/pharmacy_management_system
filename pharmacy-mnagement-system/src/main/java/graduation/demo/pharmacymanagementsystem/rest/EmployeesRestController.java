@@ -22,6 +22,8 @@ public class EmployeesRestController {
 	public EmployeesRestController(EmployeesService theEmployeesService) {
 		employeesService = theEmployeesService;
 	}
+	
+	
 	@GetMapping("/employee_signIn/{username}/{thepassword}")
 	public Map Employee_signIn(@PathVariable String username,@PathVariable String thepassword) {
 		Map <String,Boolean> coordinates = new HashMap<>();
@@ -29,6 +31,8 @@ public class EmployeesRestController {
 		coordinates = employeesService.employeeSignIn(username, thepassword);
 		return coordinates ;
 	}
+	
+	
 	@GetMapping("/return_the_password_and_email/{username}")
 	public Map restoreThePassword(@PathVariable String username)
 	{
@@ -38,6 +42,8 @@ public class EmployeesRestController {
 		return coordinates;
 		
 	}
+	
+	
 	@GetMapping("/return_the_Id/{username}")
 	public Map returnTheId(@PathVariable String username)
 	{
@@ -46,6 +52,8 @@ public class EmployeesRestController {
 		return coordinates;
 		
 	}
+	
+	
 	@GetMapping("/return_the_employee/{theusername}")
 	public Employee getEmployeeByUsername(@PathVariable String theusername)
 	{

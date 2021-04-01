@@ -20,12 +20,16 @@ public class PharmaCo implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	@Column(name="name")
+	private String name;
+	
+	@Column(name="address")
 	private String address;
 
+	@Column(name="email")
 	private String email;
 
-	private String name;
-
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="payment_end_date")
 	private Date paymentEndDate;
@@ -138,19 +142,19 @@ public class PharmaCo implements Serializable {
 		this.companyPayments = companyPayments;
 	}
 
-	public CompanyPayment addCompanyPayment(CompanyPayment companyPayment) {
+	/*public CompanyPayment addCompanyPayment(CompanyPayment companyPayment) {
 		getCompanyPayments().add(companyPayment);
 		companyPayment.setPharmaCo(this);
 
 		return companyPayment;
-	}
+	}*/
 
-	public CompanyPayment removeCompanyPayment(CompanyPayment companyPayment) {
+	/*public CompanyPayment removeCompanyPayment(CompanyPayment companyPayment) {
 		getCompanyPayments().remove(companyPayment);
 		companyPayment.setPharmaCo(null);
 
 		return companyPayment;
-	}
+	}*/
 
 	public List<PharmaCoPhone> getPharmaCoPhones() {
 		return this.pharmaCoPhones;
@@ -160,7 +164,7 @@ public class PharmaCo implements Serializable {
 		this.pharmaCoPhones = pharmaCoPhones;
 	}
 
-	public PharmaCoPhone addPharmaCoPhone(PharmaCoPhone pharmaCoPhone) {
+	/*public PharmaCoPhone addPharmaCoPhone(PharmaCoPhone pharmaCoPhone) {
 		getPharmaCoPhones().add(pharmaCoPhone);
 		pharmaCoPhone.setPharmaCo(this);
 
@@ -172,7 +176,7 @@ public class PharmaCo implements Serializable {
 		pharmaCoPhone.setPharmaCo(null);
 
 		return pharmaCoPhone;
-	}
+	}*/
 
 	public List<Supply> getSupplies() {
 		return this.supplies;
@@ -182,7 +186,7 @@ public class PharmaCo implements Serializable {
 		this.supplies = supplies;
 	}
 
-	public Supply addSupply(Supply supply) {
+	/*public Supply addSupply(Supply supply) {
 		getSupplies().add(supply);
 		supply.setPharmaCo(this);
 
@@ -194,6 +198,6 @@ public class PharmaCo implements Serializable {
 		supply.setPharmaCo(null);
 
 		return supply;
-	}
+	}*/
 
 }

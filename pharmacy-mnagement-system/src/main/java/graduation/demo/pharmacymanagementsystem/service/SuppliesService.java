@@ -12,9 +12,9 @@ public interface SuppliesService {
 	
 	public void save (Supply theSupply);
 	
-	public void deleteByCode (int theCode);
+	public void deleteById (int theID);
 	
-	public List<Supply> searchByName(String theName);
+	//public List<Supply> searchByName(String theName);
 
 	public double findBillTotalPrice (int supply_bill_id, int companyId);	
 }

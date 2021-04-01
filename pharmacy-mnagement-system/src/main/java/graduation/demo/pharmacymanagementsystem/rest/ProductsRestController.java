@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 import graduation.demo.pharmacymanagementsystem.service.ProductsService;
 
