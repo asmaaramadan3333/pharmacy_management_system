@@ -24,8 +24,8 @@ jobs:
         
       
     - name: Build with Maven
+      working-directory : mvn -f pharmacy-mnagement-system/pom.xml
       run: | 
-          mvn -f pharmacy-mnagement-system/pom.xml
           mvn deploy
           mvn clean install  
           
