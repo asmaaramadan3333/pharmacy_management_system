@@ -26,7 +26,6 @@ jobs:
     - name: Build with Maven
       working-directory :   pharmacy-mnagement-system
       run: | 
-          mvn deploy
           mvn clean install  
           
       
