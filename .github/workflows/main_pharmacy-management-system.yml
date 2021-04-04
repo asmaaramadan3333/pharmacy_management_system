@@ -27,7 +27,7 @@ jobs:
       working-directory :   pharmacy-mnagement-system
       run: | 
           mvn install DskipTest
-          mvn clean install 
+          mvn clean 
 
           
       
