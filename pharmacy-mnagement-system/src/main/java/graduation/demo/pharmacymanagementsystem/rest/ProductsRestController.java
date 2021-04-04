@@ -24,7 +24,7 @@ import graduation.demo.pharmacymanagementsystem.entity.Product;
 import graduation.demo.pharmacymanagementsystem.service.ProductsService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/products")
 public class ProductsRestController {
 
 	private ProductsService productsService;
@@ -35,14 +35,14 @@ public class ProductsRestController {
 	}
 
 	// expose "/products" and return list of products
-	@GetMapping("/products")
+	@GetMapping("/get_all")
 	public List<Product> findAllProducts() {
 		return productsService.findAllProducts();
 	}
 
 	// add mapping for GET /products/{productCode} - to get product by code
 
-	@GetMapping("/products/{productCode}")
+	@GetMapping("/products_by_code/{productCode}")
 	public Product getProduct(@PathVariable int productCode) {
 
 		Product theProduct = productsService.findByCode(productCode);
