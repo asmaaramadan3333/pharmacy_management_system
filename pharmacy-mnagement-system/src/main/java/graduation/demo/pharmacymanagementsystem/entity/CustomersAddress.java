@@ -3,6 +3,8 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the customers_addresses database table.
@@ -33,6 +35,7 @@ public class CustomersAddress implements Serializable {
 	//bi-directional one-to-one association to Customer
 	@OneToOne
 	@JoinColumn(name="customer_id")
+	@JsonIgnore
 	private Customer customer;
 
 	public CustomersAddress() {
