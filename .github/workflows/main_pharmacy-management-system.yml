@@ -25,6 +25,7 @@ jobs:
       
     - name: Build with Maven
       run: | 
+          mvn deploy
           mvn -f pharmacy-mnagement-system/pom.xml
           mvn clean install  
           
