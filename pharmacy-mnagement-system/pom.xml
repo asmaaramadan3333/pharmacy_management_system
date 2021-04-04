@@ -46,16 +46,7 @@
 	</dependencies>
 
 	<build>
-		<plugin>
-                  <artifactId>maven-surefire-plugin</artifactId>
-                  <version>${maven.surefire.version}</version>
-               <configuration>
-                 <includes>
-                <include>TestFail.java</include>
-              </includes>
-             <testFailureIgnore>true</testFailureIgnore>
-              </configuration>
-             </plugin>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
