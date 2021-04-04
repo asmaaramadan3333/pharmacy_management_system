@@ -22,8 +22,6 @@ jobs:
       with:
         java-version: '11'
         
-    - name :  find pom.xml
-      run: mvn -f pharmacy-mnagement-system/pom.xml
       
     - name: Build with Maven
       run: mvn clean install and mvn -f pharmacy-mnagement-system/pom.xml
