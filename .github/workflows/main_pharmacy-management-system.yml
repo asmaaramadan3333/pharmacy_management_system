@@ -27,7 +27,13 @@ jobs:
       working-directory :   pharmacy-mnagement-system
       run: | 
           mvn install DskipTest
-          mvn clean         
+          mvn clean    
+          
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v2
+      with:
+        name: java-app
+        path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -35,17 +41,17 @@ jobs:
     environment:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    
-      uses: actions/download-artifact@v2
-      with:
+   
+    steps:
+     - uses: actions/download-artifact@v2
+     - with:
         name: java-app
 
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'pharmacy-management-system'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_7f9e5a4c131e421a92cf840324bb7694 }}
-        package: '*.jar'
+     - name: Deploy to Azure Web App
+       id: deploy-to-webapp
+       uses: azure/webapps-deploy@v2
+       with:
+         app-name: 'pharmacy-management-system'
+         slot-name: 'production'
+         publish-profile: ${{ secrets.AzureAppService_PublishProfile_7f9e5a4c131e421a92cf840324bb7694 }}
+         package: '*.jar'
