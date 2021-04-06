@@ -30,10 +30,10 @@ jobs:
           mvn clean         
 
     - name: Upload artifact for deployment job
-      uses: azure/upload-artifact@v2
+      uses: actions/upload-artifact@v2
       with:
         name: java-app
-        path: .github/workflows/target/*.jar'
+        path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -43,11 +43,11 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - uses: azure/download-artifact@v2
+    - uses: actions/download-artifact@v2
       needs: build
       with:
         name: my-artifact
-        path: .github/workflows/downloads/*.json
+      
     
       uses: actions/download-artifact@v2
       with:
