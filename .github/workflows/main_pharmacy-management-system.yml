@@ -36,10 +36,6 @@ jobs:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-   
-      with:
-        name: my-artifact
-      
     
       uses: actions/download-artifact@v2
       with:
