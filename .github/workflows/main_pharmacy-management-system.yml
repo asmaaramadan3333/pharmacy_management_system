@@ -27,12 +27,7 @@ jobs:
       working-directory :   pharmacy-mnagement-system
       run: | 
           mvn install DskipTest
-          mvn clean 
-
-          
-      
-  
-            
+          mvn clean         
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
@@ -48,10 +43,10 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - name: Download artifact from build job
-    with:
-          name: public
-          needs: build
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
+        needs: build
     
     
       uses: actions/download-artifact@v2
