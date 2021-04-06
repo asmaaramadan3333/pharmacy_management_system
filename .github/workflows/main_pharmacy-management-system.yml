@@ -47,7 +47,7 @@ jobs:
       needs: build
       with:
         name: my-artifact
-        path: .github/workflows/downloads/*.jar
+        path: .github/workflows/downloads/*.json
     
       uses: actions/download-artifact@v2
       with:
