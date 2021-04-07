@@ -11,10 +11,11 @@ on:
   workflow_dispatch:
 jobs:
   build:
-   defults:
+    runs-on: windows-latest
+    defaults:
      run:
-      working-directory: pharmacy-mnagement-system    
-   steps:
+          working-directory: pharmacy-mnagement-system
+    steps:
     - uses: actions/checkout@v2
      
     - name: Set up Java version
