@@ -52,4 +52,4 @@ jobs:
          app-name: 'pharmacy-management-system'
          slot-name: 'production'
          publish-profile: ${{ secrets.AzureAppService_PublishProfile_7f9e5a4c131e421a92cf840324bb7694 }}
-         package: '*.jar'
+         package: '${{ github.workspace }}\pharmacy-mnagement-system\target*.jar'
