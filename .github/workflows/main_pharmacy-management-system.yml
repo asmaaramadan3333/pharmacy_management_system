@@ -12,23 +12,22 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
+    defaults:
+     run:
+          working-directory: pharmacy-mnagement-system
     steps:
-    - working-directory : pharmacy-mnagement-system
     - uses: actions/checkout@v2
      
     - name: Set up Java version
       uses: actions/setup-java@v1
       with:
-        java-version: '11'
-        
+        java-version: '11' 
       
     - name: Build with Maven
       working-directory : pharmacy-mnagement-system
       run: | 
           mvn install DskipTest
           mvn clean    
-          
   deploy:
     runs-on: windows-latest
     needs: build
