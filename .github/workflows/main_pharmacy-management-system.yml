@@ -47,10 +47,10 @@ jobs:
            
      - name: Deploy to Azure Web App
        id: deploy-to-webapp
-       uses: azure/webapps-deploy@v2
+       uses: azure/webapps-deploy@v2 , PublishBuildArtifacts@v2
+
        with:
          app-name: 'pharmacy-management-system'
          slot-name: 'production'
          publish-profile: ${{ secrets.AzureAppService_PublishProfile_7f9e5a4c131e421a92cf840324bb7694 }}
-         uses: PublishBuildArtifacts@1
          package: '${{ github.workspace }}\pharmacy-mnagement-system'
