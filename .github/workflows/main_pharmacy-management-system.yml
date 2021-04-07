@@ -14,8 +14,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - working-directory : pharmacy-mnagement-system
     - uses: actions/checkout@v2
-
+     
     - name: Set up Java version
       uses: actions/setup-java@v1
       with:
@@ -37,8 +38,6 @@ jobs:
    
     steps: 
      - name: Deploy to Azure Web App
-       working-directory : pharmacy-mnagement-system
-
        id: deploy-to-webapp
        uses: azure/webapps-deploy@v2
        with:
