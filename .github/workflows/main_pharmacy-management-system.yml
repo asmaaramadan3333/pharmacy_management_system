@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: java-app
-        path: '${{ github.workspace }}\\pharmacy-mnagement-system\src\main\java\graduation\demo\pharmacymanagementsystem'
+        path: '${{ github.workspace }}\pharmacy-mnagement-system\src\main\java\graduation\demo\pharmacymanagementsystem'
  
   deploy:
     runs-on: windows-latest
@@ -51,4 +51,4 @@ jobs:
          app-name: 'pharmacy-management-system'
          slot-name: 'production'
          publish-profile: ${{ secrets.AzureAppService_PublishProfile_7f9e5a4c131e421a92cf840324bb7694 }}
-         package: '${{ github.workspace }}/pharmacy_management_system/pharmacy-mnagement-system/.mvn/wrapper/maven-wrapper.jar'
+         package: '${{ github.workspace }}\pharmacy_management_system\pharmacy-mnagement-system\.mvn\wrapper\maven-wrapper.jar'
