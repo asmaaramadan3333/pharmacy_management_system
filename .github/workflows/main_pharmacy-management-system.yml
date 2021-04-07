@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: java-app
-        path: '${{ github.workspace }}/target/*.jar'
+        path: '${{ github.workspace }}\\pharmacy-mnagement-system\src\main\java\graduation\demo\pharmacymanagementsystem'
  
   deploy:
     runs-on: windows-latest
