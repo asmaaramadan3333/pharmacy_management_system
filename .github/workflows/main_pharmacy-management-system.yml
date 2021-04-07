@@ -9,7 +9,7 @@ on:
       - main
  
   workflow_dispatch:
-
+  - working-directory : pharmacy-mnagement-system
 jobs:
   build:
     runs-on: windows-latest
@@ -24,7 +24,6 @@ jobs:
         
       
     - name: Build with Maven
-      working-directory :   pharmacy-mnagement-system
       run: | 
           mvn install DskipTest
           mvn clean    
