@@ -26,14 +26,12 @@ jobs:
       run: | 
           mvn install DskipTest
           mvn clean 
-          
-          
+             
     - name: Upload artifact for deployment job
-   
       uses: actions/upload-artifact@v2
       with:
         name: java-app
-        path: '${{ github.workspace }}\pharmacy-mnagement-system\src\main\java\graduation\demo\pharmacymanagementsystem'
+        path: '${{ github.workspace }}\pharmacy-mnagement-system'
  
   deploy:
     runs-on: windows-latest
