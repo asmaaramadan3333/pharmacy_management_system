@@ -6,8 +6,7 @@ name: Build and deploy JAR app to Azure Web App - pharmacy-management-system
 on:
   push:
     branches:
-      - main
-      
+      - main   
   workflow_dispatch:
 jobs:
   build:
@@ -51,4 +50,4 @@ jobs:
          app-name: 'pharmacy-management-system'
          slot-name: 'production'
          publish-profile: ${{ secrets.AzureAppService_PublishProfile_7f9e5a4c131e421a92cf840324bb7694 }}
-         path: '${{ github.workspace }}\pharmacy_management_system\pharmacy-mnagement-system\.mvn\wrapper\maven-wrapper.jar'
+         package: '${{ github.workspace }}\pharmacy-mnagement-system\src\main\java\graduation\demo\pharmacymanagementsystem'
