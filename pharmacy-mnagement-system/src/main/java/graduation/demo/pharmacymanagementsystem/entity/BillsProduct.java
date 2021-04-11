@@ -10,13 +10,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="bills_products")
-@NamedQuery(name="BillsProduct.findAll", query="SELECT b FROM BillsProduct b")
 public class BillsProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private BillsProductPK id;
-
+    
+	@Column(name="quantity")
 	private int quantity;
 
 	@Column(name="total_price")
@@ -35,7 +35,14 @@ public class BillsProduct implements Serializable {
 		@JoinColumn(name="product_code", insertable=false,updatable=false)
 
 		private Product product;
+		
 	public BillsProduct() {
+	}
+
+	@Override
+	public String toString() {
+		return "BillsProduct [id=" + id + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", unitPrice="
+				+ unitPrice + ", bill=" + bill + ", product=" + product + "]";
 	}
 
 	public BillsProductPK getId() {

@@ -41,17 +41,17 @@ public class Bill implements Serializable {
 	private float totalPrice;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="customer_id")
 	private Customer customer;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="employee_id")
 	private Employee employee1;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="delivery_man_id")
 	private Employee employee2;
 
@@ -60,6 +60,14 @@ public class Bill implements Serializable {
 	private List<BillsProduct> billsProducts;
 
 	public Bill() {
+	}
+
+	@Override
+	public String toString() {
+		return "Bill [billId=" + billId + ", billState=" + billState + ", billType=" + billType + ", customerAddress="
+				+ customerAddress + ", deliveryFee=" + deliveryFee + ", phoneNumber=" + phoneNumber + ", time=" + time
+				+ ", totalPrice=" + totalPrice + ", customer=" + customer + ", employee1=" + employee1 + ", employee2="
+				+ employee2 + ", billsProducts=" + billsProducts + "]";
 	}
 
 	public long getBillId() {
