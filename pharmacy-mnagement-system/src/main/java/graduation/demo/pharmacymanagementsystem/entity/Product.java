@@ -22,28 +22,22 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int code;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="expire_date")
-	private Date expireDate;
-
 	@Column(name="main_category")
 	private String mainCategory;
 
 	@Column(name="minimum_quantity")
 	private int minimumQuantity;
+	
 	@Column(name = "name")
 	private String name;
 	@Column(name = "packages")
 	private int packages;
 	@Column(name = "position")
 	private String position;
-	@Column(name = "price")
-	private float price;
-	@Column(name = "quantity")
-	private int quantity;
-
+	
 	@Column(name="secondary_category")
 	private String secondaryCategory;
+	
 	@Column(name = "state")
 	private int state;
 
@@ -83,14 +77,6 @@ public class Product implements Serializable {
 
 	public void setCode(int code) {
 		this.code = code;
-	}
-
-	public Date getExpireDate() {
-		return this.expireDate;
-	}
-
-	public void setExpireDate(Date expireDate) {
-		this.expireDate = expireDate;
 	}
 
 	public String getMainCategory() {
@@ -133,21 +119,6 @@ public class Product implements Serializable {
 		this.position = position;
 	}
 
-	public float getPrice() {
-		return this.price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
-	public int getQuantity() {
-		return this.quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 
 	public String getSecondaryCategory() {
 		return this.secondaryCategory;

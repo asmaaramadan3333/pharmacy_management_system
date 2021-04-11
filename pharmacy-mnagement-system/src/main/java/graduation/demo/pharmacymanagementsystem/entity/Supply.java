@@ -39,6 +39,9 @@ public class Supply implements Serializable {
 
 	@Column(name="product_price")
 	private float productPrice;
+	
+	@Column(name="remained_quantity")
+	private int remainedQuantity;
 
 	@Column(name="total_price")
 	private float totalPrice;
@@ -71,7 +74,16 @@ public class Supply implements Serializable {
 	public void setId(SupplyPK id) {
 		this.id = id;
 	}
-
+	
+     /////// new added function
+	
+	public void setIdParam (int companyId,int productCode,int supplyBillId ) {
+		this.id.setCompanyId(companyId);
+		this.id.setSupplyBillId(supplyBillId);
+		this.id.setProductCode(productCode);
+	}
+	
+	
 	public int getBonusQuantity() {
 		return this.bonusQuantity;
 	}
@@ -118,6 +130,14 @@ public class Supply implements Serializable {
 
 	public void setProductPrice(float productPrice) {
 		this.productPrice = productPrice;
+	}
+	
+	public int getRemainedQuantity() {
+		return this.remainedQuantity;
+	}
+
+	public void setRemainedQuantity(int remainedQuantity) {
+		this.remainedQuantity = remainedQuantity;
 	}
 
 	public float getTotalPrice() {
