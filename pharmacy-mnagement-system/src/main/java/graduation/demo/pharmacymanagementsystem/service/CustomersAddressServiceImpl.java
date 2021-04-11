@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import graduation.demo.pharmacymanagementsystem.dao.CustomersAddressDAO;
-
 import graduation.demo.pharmacymanagementsystem.entity.CustomersAddress;
 @Service
 public class CustomersAddressServiceImpl implements CustomersAddressService {
@@ -24,4 +23,18 @@ public class CustomersAddressServiceImpl implements CustomersAddressService {
 		return CustomersAddressDAO.findCustomerAddressById(theCustomerId);
 	}
     
+	@Override
+	@Transactional
+	public void saveORupdate(CustomersAddress theCustomersAddress) {
+
+		CustomersAddressDAO.saveORupdate(theCustomersAddress);
+	}
+	@Override
+	@Transactional
+	public void deleteById(int theCustomerId) {
+
+		CustomersAddressDAO.deleteByCode(theCustomerId);
+
+	}
+
 }
