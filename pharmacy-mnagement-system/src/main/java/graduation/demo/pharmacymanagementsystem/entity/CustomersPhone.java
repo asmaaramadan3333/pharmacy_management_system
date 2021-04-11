@@ -18,7 +18,7 @@ public class CustomersPhone implements Serializable {
 	private CustomersPhonePK id;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 
 	@JoinColumn(name="customer_id",insertable=false,updatable=false)
 

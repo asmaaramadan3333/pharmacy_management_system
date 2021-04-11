@@ -3,7 +3,11 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -44,11 +48,12 @@ public class Customer implements Serializable {
 	private List<Bill> bills;
 
 	//bi-directional one-to-one association to CustomersAddress
-	@OneToOne(mappedBy="customer", fetch=FetchType.LAZY)
+	@OneToOne(mappedBy="customer", cascade=CascadeType.ALL)
 	private CustomersAddress customersAddress;
 
 	//bi-directional many-to-one association to CustomersPhone
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer",cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JsonIgnore
 	private List<CustomersPhone> customersPhones;
 
 	//bi-directional many-to-many association to Product
@@ -218,5 +223,20 @@ public class Customer implements Serializable {
 		products.add(theproduct);
 		
 	}
+	/*
+	 * //add convenience method for bi-direction relationship public void add2
+	 * (CustomersPhonePK tempcustomerphone) { if(customersPhones==null) {
+	 * customersPhones=new ArrayList<>();
+	 * 
+	 * } customersPhones.addAll(tempcustomerphone);
+	 * 
+	 * }
+	 * 
+	 * public void addCustomersPhone(Collection<? extends CustomersPhone>
+	 * theCustomersPhone) { // TODO Auto-generated method stub
+	 * if(customersPhones==null) { customersPhones=new ArrayList<>();
+	 * 
+	 * } customersPhones.addAll(theCustomersPhone) }
+	 */
 
 }
