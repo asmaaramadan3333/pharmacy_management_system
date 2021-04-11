@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import graduation.demo.pharmacymanagementsystem.dao.CustomersDAO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 
 @Service
 public class CustomersServiceImpl implements CustomersService {
@@ -70,27 +71,28 @@ public class CustomersServiceImpl implements CustomersService {
 	@Override
 	@Transactional
 
-	public Map<String, Boolean> customerSignIn(String theemail, String thepassword) {
+	public Map<String, Integer> customerSignIn(String theemail, String thepassword) {
 
-		Map<String, Boolean> coordinates = new HashMap<>();
+		Map<String, Integer> coordinates = new HashMap<>();
 
 		Customer thecustomer = CustomersDAO.getCustomerByEmail(theemail);
 
 		if (thecustomer != null) {
 
-			coordinates.put("having_an_account", true);
+			coordinates.put("having_an_account", 1);
 
 			Customer theExistingCustomer = CustomersDAO.signIn(theemail, thepassword);
 
 			if (theExistingCustomer != null) {
 
-				coordinates.put("success", true);
-				coordinates.put("correct_password", true);
+				coordinates.put("success", 1);
+				coordinates.put("correct_password", 1);
+				coordinates.put("the id", thecustomer.getCustomerId());
 			}
 
 			else {
-				coordinates.put("success", false);
-				coordinates.put("correct_password", false);
+				coordinates.put("success", 0);
+				coordinates.put("correct_password", 0);
 
 			}
 
@@ -102,9 +104,9 @@ public class CustomersServiceImpl implements CustomersService {
 
 		{
 
-			coordinates.put("success", false);
-			coordinates.put("having_an_account", false);
-			coordinates.put("correct_password", false);
+			coordinates.put("success", 0);
+			coordinates.put("having_an_account", 0);
+			coordinates.put("correct_password", 0);
 
 			return coordinates;
 
@@ -129,7 +131,9 @@ public class CustomersServiceImpl implements CustomersService {
 
 			coordinates.put("already_has_an_account", 1);
 
-			coordinates.put("customer_id", theCustomer.getCustomerId());
+
+			coordinates.put("user_id", thecustomer1.getCustomerId());
+
 
 		} 
 		else {
@@ -137,14 +141,17 @@ public class CustomersServiceImpl implements CustomersService {
 			coordinates.put("success", 1);
 
 			coordinates.put("already_has_an_account", 0);
+			
 			theCustomer.setCustomerId(0);
 			
 			saveORupdate(theCustomer);
-			
-			coordinates.put("customer_id", theCustomer.getCustomerId());
+
+		  Customer thecustomer2 = getCustomerByEmail(theCustomer.getEmail());
+		  coordinates.put("user_id", thecustomer2.getCustomerId());
+
 
 		}
-
+      	
 		return coordinates;
 	}
 
@@ -153,5 +160,6 @@ public class CustomersServiceImpl implements CustomersService {
 	public void add_products_to_customer(int theCustomerId, int theproductCode) {
             CustomersDAO.add_products_to_customer(theCustomerId, theproductCode);		
 	}
+
 
 }

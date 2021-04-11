@@ -3,6 +3,7 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 
 public interface CustomersDAO {
 
