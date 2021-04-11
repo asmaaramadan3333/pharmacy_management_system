@@ -12,7 +12,9 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
+    defaults:
+     run:
+          working-directory: pharmacy-mnagement-system
     steps:
     - uses: actions/checkout@v2
 
@@ -22,13 +24,14 @@ jobs:
         java-version: '11'
 
     - name: Build with Maven
-      run: mvn clean install
-
+      run: | 
+           mvn install DskipTest
+           mvn clean install
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
         name: java-app
-        path: '${{ github.workspace }}/target/*.jar'
+        path: '${{ github.workspace }}\pharmacy-mnagement-system\target\*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -49,5 +52,5 @@ jobs:
       with:
         app-name: 'pharmacy-management-system'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_7a8bd1a14cd8413daead96f3fb12e014 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_82a2179ee0e547b89a012f75f8733462 }}
         package: '*.jar'
