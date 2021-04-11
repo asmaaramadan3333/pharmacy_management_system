@@ -48,9 +48,9 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 		// get the Supply
 		// Supply theSupply =
 		// currentSession.get(Supply.class, supply_bill_id);
-		Query theQuery = currentSession.createQuery("FROM Supply  WHERE id = :supply_billId", Supply.class);
+		Query theQuery = currentSession.createQuery("FROM Supply  WHERE id = :id", Supply.class);
 
-		theQuery.setParameter("supply_billId", supply_bill_id);
+		theQuery.setParameter("id", supply_bill_id);
 
 		List<Supply> Supplies = theQuery.getResultList();
          
@@ -87,7 +87,7 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 
 	}
 
-	@Override
+/*	@Override
 	public List<Supply> searchByName(String theName) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
@@ -101,17 +101,17 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 
 		// return the results
 		return Supplies;
-	}
+	}*/
 
 	@Override
-	public void deleteByCode(int theCode) {
+	public void deleteById(int theID) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// delete object with primary key
 
-		Query theQuery = currentSession.createQuery("delete from Supply where code=:SupplyCode");
-		theQuery.setParameter("SupplyCode", theCode);
+		Query theQuery = currentSession.createQuery("delete from Supply where id=:id");
+		theQuery.setParameter("id", theID);
 
 		theQuery.executeUpdate();
 

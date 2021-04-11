@@ -97,7 +97,7 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 
-	// add mapping for GET /signIn/{theemail}/{thepassword} -customer sign in
+	// add mapping for GET /signIn/ {theemail} / {thepassword} - customer sign in
 
 	@GetMapping("/signIn/{theemail}/{thepassword}")
 

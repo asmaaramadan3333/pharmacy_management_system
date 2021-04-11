@@ -25,7 +25,7 @@ public class PharmaCoRestController {
 	}
 
 	////////////////////////////////////////////return the id of the company by taking the company name/////////////////
-	@GetMapping("/return_the__company_Id/{thecompanyname}")
+	@GetMapping("/get_company_Id/{thecompanyname}")
 	public Map returnTheId(@PathVariable String thecompanyname)
 	{    
 		Map <String,Integer> coordinates = new HashMap<>();	
@@ -37,6 +37,7 @@ public class PharmaCoRestController {
 		return coordinates;
 		
 	}
+
 
 	/*
 	 * @GetMapping(
@@ -51,6 +52,7 @@ public class PharmaCoRestController {
 	 * coordinates; }
 	 */
 	//////////////////////////////////// return object of pharmaci by take the company name//////////////////
+  
 	@GetMapping("/return_the_pharmaco/{thecompanyname}")
 	public PharmaCo getPharmaCo(@PathVariable String thecompanyname)
 	{
@@ -62,7 +64,9 @@ public class PharmaCoRestController {
 		
 		return thePharmaCo;
 	}
+
 	//////////////////////////////////return all the company name////////////////////////////////
+
 	@GetMapping("/return_all_companyname/")
 	public List<PharmaCo> findallcomplanyName() 
 	{
