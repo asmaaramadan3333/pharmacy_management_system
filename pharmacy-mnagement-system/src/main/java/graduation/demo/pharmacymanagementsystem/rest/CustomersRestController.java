@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import graduation.demo.pharmacymanagementsystem.dto.CustomersProductsHistoryDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersAddress;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 import graduation.demo.pharmacymanagementsystem.service.CustomersService;
 
 @RestController
@@ -51,6 +54,19 @@ public class CustomersRestController {
 		}
 
 		return theCustomer;
+	}
+	// add mapping for GET /get_phone_by_id/{CustomerId}
+
+	@GetMapping("/get_phone_by_id/{CustomerId}")
+	public List<CustomersPhone> getCustomerphone(@PathVariable int CustomerId) {
+
+		Customer theCustomer = customersService.findByCode(CustomerId);
+
+		if (theCustomer == null) {
+			throw new RuntimeException("Customer id not found - " + CustomerId);
+		}
+
+		return theCustomer.getCustomersPhones();
 	}
 
 	// add mapping for GET /search_by_name/{CustomerName}
@@ -85,9 +101,9 @@ public class CustomersRestController {
 
 	@GetMapping("/signIn/{theemail}/{thepassword}")
 
-	public Map<String, Boolean> Customer_signIn(@PathVariable String theemail, @PathVariable String thepassword) {
+	public Map<String, Integer> Customer_signIn(@PathVariable String theemail, @PathVariable String thepassword) {
 
-		Map<String, Boolean> coordinates = new HashMap<>();
+		Map<String, Integer> coordinates = new HashMap<>();
 
 		coordinates = customersService.customerSignIn(theemail, thepassword);
 
@@ -116,13 +132,9 @@ public class CustomersRestController {
 	@PostMapping("/sign_up")
 
 	public Map<String, Integer> signUp(@RequestBody Customer theCustomer) {
-
 		return customersService.signUp(theCustomer);
 	}
-
-
- 	// add mapping for POST /add_products_to_customer - add products to the customer
-
+	
 	@PostMapping("/add_products")
 	public Customer add_products_to_customer(@RequestBody CustomersProductsHistoryDTO customer_products) {
 
@@ -162,5 +174,43 @@ public class CustomersRestController {
 
 		return "Deleted Customer id - " + CustomerId;
 	}
+	///////////////////add customer phone by /////////////////////
+	/*
+	 * @PostMapping("/add_customer_phone/{CustomerPhone}") public String
+	 * addCustomerPhone(@RequestBody CustomersPhone theCustomerPhone) { i theId=
+	 * theCustomerPhone.getId(); Customer tempCustomer =
+	 * customersService.findByCode(theId);
+	 * 
+	 * // throw exception if null
+	 * 
+	 * if (tempCustomer == null) { throw new
+	 * RuntimeException("Customer code not found - " + CustomerId); }
+	 * 
+	 * tempCustomer.removeCustomersPhone(tempCustomer.getCustomersPhones());
+	 * 
+	 * return "Deleted Customer id - " + CustomerId; }
+	 */
+	@PostMapping("/add_new_address")
+	public CustomersAddress addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) 
+	{
+ 
+       int theId= theCustomersAddress.getCustomerId();
+       System.out.println(theId);
+       Customer thecustomer=customersService.findByCode(theId);
+	   thecustomer.setCustomersAddress(theCustomersAddress);
+	    
+		customersService.saveORupdate(thecustomer);
 
+		return theCustomersAddress;
+	}
+	@PostMapping("/add_new_phone")
+	public CustomersPhone addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone )
+	{
+		 Customer thecustomer= theCustomersPhone.getCustomer();
+		 //int theId2=theCustomersPhone.getPhoneNumber();
+	
+		 //Customer thecustomer=customersService.findByCode(theId);
+		 thecustomer.addCustomersPhone(theCustomersPhone);
+		 return theCustomersPhone;
+	}
 }

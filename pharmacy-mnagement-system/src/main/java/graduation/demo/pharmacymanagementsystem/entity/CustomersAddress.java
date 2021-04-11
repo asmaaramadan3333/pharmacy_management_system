@@ -33,7 +33,7 @@ public class CustomersAddress implements Serializable {
 	private String street;
 
 	//bi-directional one-to-one association to Customer
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_id")
 	@JsonIgnore
 	private Customer customer;
