@@ -6,7 +6,7 @@ name: Build and deploy JAR app to Azure Web App - pharmacy-management-system
 on:
   push:
     branches:
-      - FirstBranch
+      - main
   workflow_dispatch:
 
 jobs:
@@ -24,9 +24,8 @@ jobs:
         java-version: '11'
 
     - name: Build with Maven
-      run: | 
-           mvn install DskipTest
-           mvn clean install
+      run: mvn clean install
+
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
@@ -52,5 +51,5 @@ jobs:
       with:
         app-name: 'pharmacy-management-system'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_82a2179ee0e547b89a012f75f8733462 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_be5a0d59cfbb4e8aafbc759c5fbb60d1 }}
         package: '*.jar'

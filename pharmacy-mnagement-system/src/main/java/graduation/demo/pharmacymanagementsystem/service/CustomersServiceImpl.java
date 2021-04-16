@@ -134,7 +134,6 @@ public class CustomersServiceImpl implements CustomersService {
 
 			coordinates.put("the_customer", thecustomer1);
 		
-
 		} 
 		else {
 			
@@ -145,9 +144,11 @@ public class CustomersServiceImpl implements CustomersService {
 			theCustomer.setCustomerId(0);
 			
 			saveORupdate(theCustomer);
+
 		  Customer thecustomer2 = getCustomerByEmail(theCustomer.getEmail());
 
 		  coordinates.put("the_customer", thecustomer2);
+
 
 		}
       	
