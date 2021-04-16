@@ -3,6 +3,7 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 
 public interface CustomersDAO {
@@ -22,6 +23,12 @@ public interface CustomersDAO {
 	public Customer signIn(String theemail, String thepassword);
 
 	public void add_products_to_customer(int theCustomerId, int theproductCode);
+
+	public void add_Phones_to_customer(CustomersPhone Custmersphone);
 	
-	
+	public CustomersPhone findCustomerPhoneByCustomrId(int customerid, int customerphone);
+
+	public Customer saveandreturncustomer(Customer theCustomer);
+
+	public void updatePassword(int customerId, String newPassword);
 }

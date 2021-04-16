@@ -9,6 +9,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
+import graduation.demo.pharmacymanagementsystem.entity.Product;
+import graduation.demo.pharmacymanagementsystem.entity.Supply;
 
 @Repository
 public class BillsProductsDAOImpl implements BillsProductsDAO {
@@ -41,16 +43,22 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 	}
 
 	@Override
-	public BillsProduct findByBillsProductID(int thebill_id) {
+	public List<BillsProduct> find_BillsProductby_Bill_ID(long bill_id) {
 		// get the current hibernate session
+		System.out.println(bill_id);
 		Session currentSession = entityManager.unwrap(Session.class);
 				
 		// get the Bill
-		BillsProduct theBillsProduct =
-				currentSession.get(BillsProduct.class, thebill_id);
+		Query theQuery = currentSession.createQuery("FROM BillsProduct  WHERE id.billId = : the_billid" , BillsProduct.class);
+
+		theQuery.setParameter("the_billid", bill_id);
+		
+        System.out.println(theQuery);
+		List<BillsProduct> theBillsProducts = theQuery.getResultList();
+	
 				
 		// return the Bill
-		return theBillsProduct;
+		return theBillsProducts;
 	}
 
 	
@@ -100,6 +108,20 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 		theQuery.executeUpdate();
 
 		
+	}
+	
+	
+	@Override
+	public Product findProductByCode(int theCode) {
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
+		// get the product
+		Product theProduct =
+				currentSession.get(Product.class, theCode);
+				
+		// return the product
+		return theProduct;
 	}
 	
 }

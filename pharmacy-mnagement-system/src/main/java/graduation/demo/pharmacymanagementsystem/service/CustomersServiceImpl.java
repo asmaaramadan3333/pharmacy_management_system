@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import graduation.demo.pharmacymanagementsystem.dao.CustomersDAO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 
 @Service
@@ -70,10 +71,9 @@ public class CustomersServiceImpl implements CustomersService {
 
 	@Override
 	@Transactional
+	public Map<String, Object> customerSignIn(String theemail, String thepassword) {
 
-	public Map<String, Integer> customerSignIn(String theemail, String thepassword) {
-
-		Map<String, Integer> coordinates = new HashMap<>();
+		Map<String, Object> coordinates = new HashMap<>();
 
 		Customer thecustomer = CustomersDAO.getCustomerByEmail(theemail);
 
@@ -85,15 +85,15 @@ public class CustomersServiceImpl implements CustomersService {
 
 			if (theExistingCustomer != null) {
 
-				coordinates.put("success", 1);
+				coordinates.put("status", 1);
 				coordinates.put("correct_password", 1);
-				coordinates.put("the id", thecustomer.getCustomerId());
+				coordinates.put("the_customer", thecustomer);
 			}
 
 			else {
-				coordinates.put("success", 0);
+				coordinates.put("status", 0);
 				coordinates.put("correct_password", 0);
-
+				coordinates.put("the_customer", thecustomer);
 			}
 
 			return coordinates;
@@ -104,7 +104,7 @@ public class CustomersServiceImpl implements CustomersService {
 
 		{
 
-			coordinates.put("success", 0);
+			coordinates.put("status", 0);
 			coordinates.put("having_an_account", 0);
 			coordinates.put("correct_password", 0);
 
@@ -122,33 +122,32 @@ public class CustomersServiceImpl implements CustomersService {
 	@Transactional
 	public Map signUp(Customer theCustomer) {
 
-		Map<String, Integer> coordinates = new HashMap<>();
+		Map<String, Object> coordinates = new HashMap<>();
 
 		Customer thecustomer1 = getCustomerByEmail(theCustomer.getEmail());
 
 		if (thecustomer1 != null) {
-			coordinates.put("success", 0);
+			
+			coordinates.put("status", 0);
 
 			coordinates.put("already_has_an_account", 1);
 
-
-			coordinates.put("user_id", thecustomer1.getCustomerId());
-
+			coordinates.put("the_customer", thecustomer1);
+		
 
 		} 
 		else {
 			
-			coordinates.put("success", 1);
+			coordinates.put("status", 1);
 
 			coordinates.put("already_has_an_account", 0);
 			
 			theCustomer.setCustomerId(0);
 			
 			saveORupdate(theCustomer);
-
 		  Customer thecustomer2 = getCustomerByEmail(theCustomer.getEmail());
-		  coordinates.put("user_id", thecustomer2.getCustomerId());
 
+		  coordinates.put("the_customer", thecustomer2);
 
 		}
       	
@@ -159,6 +158,53 @@ public class CustomersServiceImpl implements CustomersService {
 	@Transactional
 	public void add_products_to_customer(int theCustomerId, int theproductCode) {
             CustomersDAO.add_products_to_customer(theCustomerId, theproductCode);		
+	}
+
+	@Override
+	public void add_Phones_to_customer(CustomersPhone Custmersphone) {
+		// TODO Auto-generated method stub
+		CustomersDAO.add_Phones_to_customer(Custmersphone);
+	}
+
+	@Override
+	public CustomersPhone findCustomerPhoneByCustomrId(int customerid,int customerphone) {
+		// TODO Auto-generated method stub
+		return CustomersDAO.findCustomerPhoneByCustomrId(customerid,customerphone);
+	}
+
+	@Override
+	public Customer saveandreturncustomer(Customer theCustomer) {
+		Customer thecustomer1 = getCustomerByEmail(theCustomer.getEmail());
+	  
+	if(thecustomer1 != null) {
+		
+		//theCustomer.setCustomerId(0);
+		
+		saveORupdate(theCustomer);
+	  Customer thecustomer2 = getCustomerByEmail(theCustomer.getEmail());
+	  Customer thecustomer3 = findByCode(theCustomer.getCustomerId());
+	   System.out.println(thecustomer2.getCustomerId());
+	   theCustomer=thecustomer3 ;
+	   }
+	
+		return theCustomer;
+	}
+
+	@Override
+	public Map<String, Object> updatePassword(int customerId, String newPassword) {
+		Map<String, Object> coordinates = new HashMap<>();
+		Customer theCustomer = findByCode(customerId);
+
+		if (theCustomer == null) {
+			
+			coordinates.put("status", 0);
+			coordinates.put("message", "the customer not found");
+		}
+		else {
+		CustomersDAO.updatePassword(customerId,newPassword);
+		coordinates.put("status", 1);
+		}
+		return coordinates;
 	}
 
 

@@ -2,10 +2,18 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.List;
-
-
+import java.sql.Time;
+import java.util.TimeZone;
 /**
  * The persistent class for the bills database table.
  * 
@@ -34,8 +42,14 @@ public class Bill implements Serializable {
 	@Column(name="phone_number")
 	private int phoneNumber;
 
+	@CreationTimestamp()
+	//@JsonFormat(timezone = "GMT+02:00")
+
+	//@DateTimeFormat(pattern="hh:mm:ss" )
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date time;
+    //@Temporal(TemporalType.TIME)
+	@Column(name = "time", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private java.util.Date time;
 
 	@Column(name="total_price")
 	private float totalPrice;
@@ -43,20 +57,24 @@ public class Bill implements Serializable {
 	//bi-directional many-to-one association to Customer
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="customer_id")
+	@JsonIgnore
 	private Customer customer;
 
 	//bi-directional many-to-one association to Employee
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="employee_id")
+	@JsonIgnore
 	private Employee employee1;
 
 	//bi-directional many-to-one association to Employee
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="delivery_man_id")
+	@JsonIgnore
 	private Employee employee2;
 
 	//bi-directional many-to-one association to BillsProduct
 	@OneToMany(mappedBy="bill")
+	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 	private List<BillsProduct> billsProducts;
 
 	public Bill() {

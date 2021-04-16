@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
@@ -23,43 +24,65 @@ public class CustomersPhoneRestController {
 		customersPhoneService =theCustomersPhoneService;
 	}
 
-	/*
-	 * @DeleteMapping("/delete_phone_by_id/{CustomerId}/{customersPhone}") public
-	 * CustomersPhone getCustomerphone(@PathVariable int CustomerId,@PathVariable
-	 * CustomersPhone customersPhone) {
-	 * 
-	 * Customer theCustomer = customersPhoneService.findByCode(CustomerId);
-	 * 
-	 * if (theCustomer == null) { throw new
-	 * RuntimeException("Customer id not found - " + CustomerId); }
-	 * 
-	 * return theCustomer.removeCustomersPhone(customersPhone); }
-	 */
+	/////////////////////////////////// get list of customer phones by customer id///////////////////////////
+	@GetMapping("/get_customerphones_bycid/{CustomerId}")
+	public List <CustomersPhone> getCustomerphone (@PathVariable int CustomerId)
+	{
+
+		  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
+		  
+		  if (theCustomer_phones == null && theCustomer_phones.isEmpty()) {
+				throw new RuntimeException("the customer not found " + CustomerId);
+			}
+
+		return theCustomer_phones;
+	}
 	
-	/*
-	 * @PostMapping("/add_new_phone") public CustomersPhone
-	 * addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone ) {
-	 * 
-	 * customersPhoneService.save(theCustomersPhone);
-	 * 
-	 * return theCustomersPhone; }
-	 */
+	/////////////////////////// get Specific CustomerPhone by the customer id and the phone number ////////////////////////
+	
+	@GetMapping("/get_rowof_customersphone/{CustomerId}/{phone}")
+	public CustomersPhone getrowOfCustomerphone (@PathVariable int CustomerId ,@PathVariable int phone)
+	{
+
+		  CustomersPhone theCustomer_phone = customersPhoneService.findSpecificCustomerPhone (CustomerId,phone);
+		  
+		  if (theCustomer_phone == null  )
+			{
+			  
+			  throw new RuntimeException("the customer phone not found " + phone);
+			}
+		  else
+			  
+		return theCustomer_phone;
+	}
+	
+	/////////////////////////////// delete the customer phone //////////////////////////////////
+	
+	  @DeleteMapping("/delete_phone_by_id/{CustomerId}/{customerPhone}") 
+	  public String deleteCustomerphone(@PathVariable int CustomerId,@PathVariable int customerPhone) 
+	  {
+	  
+	  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
+	  
+	  CustomersPhone theCustomer = getrowOfCustomerphone (CustomerId,customerPhone);
+		 
+	  customersPhoneService.deleteById(CustomerId,customerPhone);
+	 
+	  return "success";
+			   
+	  }
+	
+	  
+	  @PostMapping("/add_new_phone") 
+	  public int addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone ) {
+	  
+	  customersPhoneService.save(theCustomersPhone);
+	  
+	  return theCustomersPhone.getId().getCustomerId(); 
+	  
+	  }
+	 
 	
 	
 	
-	/*
-	 * @DeleteMapping("delete_by_customer_id") public String
-	 * deleteSupply(@PathVariable int supply_bill_id) {
-	 * 
-	 * Supply tempSupply =customersPhoneService.;
-	 * 
-	 * // throw exception if null
-	 * 
-	 * if (tempSupply == null) { throw new
-	 * RuntimeException("Supply code not found - " + supply_bill_id); }
-	 * 
-	 * SuppliesService.deleteByCode(supply_bill_id);
-	 * 
-	 * return "Deleted Supply id - " + supply_bill_id; }
-	 */
 }

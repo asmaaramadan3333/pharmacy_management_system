@@ -1,5 +1,7 @@
 package graduation.demo.pharmacymanagementsystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +16,28 @@ public class CustomersPhoneServiceImpl implements CustomersPhoneService {
 	public CustomersPhoneServiceImpl(CustomersPhoneDAO theCustomersPhoneDAO) {
 		CustomersPhoneDAO = theCustomersPhoneDAO;
 	}
+	
 	@Override
-	public CustomersPhonePK findCustomerPhoneByCustomrId(int theCustomerId) {
-		// TODO Auto-generated method stub
+	public List<CustomersPhone> findCustomerPhoneByCustomrId(int theCustomerId) {
+		
 		return CustomersPhoneDAO.findCustomerPhoneById(theCustomerId);
 	}
 	
 	@Override
 	public void save(CustomersPhone theCustomersPhone) {
-		// TODO Auto-generated method stub
 		 CustomersPhoneDAO.save(theCustomersPhone);
 	}
+	
 	@Override
-	public void deleteById(int theid) {
-		 CustomersPhoneDAO.deleteById(theid);
+	public void deleteById(int thecustomerid,int thehpone) {
+		 CustomersPhoneDAO.deleteById( thecustomerid,  thehpone);
+
 		
+	}
+	@Override
+	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone) {
+		
+		return  CustomersPhoneDAO.findSpecificCustomerPhone(customerId,phone);
 	}
 
 }

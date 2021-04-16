@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,7 +44,8 @@ public class Customer implements Serializable {
 	private String password;
 
 	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	
 	private List<Bill> bills;
 
 	//bi-directional one-to-one association to CustomersAddress
@@ -53,7 +54,7 @@ public class Customer implements Serializable {
 
 	//bi-directional many-to-one association to CustomersPhone
 	@OneToMany(mappedBy="customer",cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JsonIgnore
+	
 	private List<CustomersPhone> customersPhones;
 
 	//bi-directional many-to-many association to Product
@@ -183,8 +184,9 @@ public class Customer implements Serializable {
 		this.customersPhones = customersPhones;
 	}
 
-	public CustomersPhone addCustomersPhone(CustomersPhone customersPhone) {
+	public CustomersPhone addCustomersPhone (CustomersPhone customersPhone) {
 		getCustomersPhones().add(customersPhone);
+		
 		customersPhone.setCustomer(this);
 
 		return customersPhone;
@@ -224,7 +226,7 @@ public class Customer implements Serializable {
 		
 	}
 	/*
-	 * //add convenience method for bi-direction relationship public void add2
+	 add convenience method for bi-direction relationship public void add2
 	 * (CustomersPhonePK tempcustomerphone) { if(customersPhones==null) {
 	 * customersPhones=new ArrayList<>();
 	 * 

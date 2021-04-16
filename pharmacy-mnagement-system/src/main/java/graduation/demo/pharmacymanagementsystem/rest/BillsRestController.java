@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.service.BillsService;
 
 @RestController
-@RequestMapping("/Bill")
+@RequestMapping("/Bills")
 public class BillsRestController {
 
 	private BillsService BillsService;
@@ -28,7 +29,7 @@ public class BillsRestController {
 
 	// expose "/Bills" and return list of Bills
 	
-	@GetMapping("/Bills")
+	@GetMapping("/get_all")
 	public List <Bill> findAllBills() {
 		return BillsService.findAllBills();
 	}
@@ -47,6 +48,22 @@ public class BillsRestController {
 		return theBill;
 	}
 	
+	
+	@SuppressWarnings("null")
+	@GetMapping("/get_customer_Bills_bycid/{CustomerId}")
+	public List<Bill> getCustomerphone (@PathVariable int CustomerId)
+	{
+
+		  List<Bill> theCustomer_Bills = BillsService.findCustomerBillsById (CustomerId);
+		  
+		  if (theCustomer_Bills == null && theCustomer_Bills.isEmpty()) {
+				throw new RuntimeException("the customer not found " + CustomerId);
+			}
+
+		return theCustomer_Bills;
+	}
+	
+	
 	/*@GetMapping("/Bills_search/{BillName}")
 	public List<Bill> getBill(@PathVariable String BillName) {
 		
@@ -60,22 +77,19 @@ public class BillsRestController {
 	}*/
 	
 	
-	
-	
 	// add mapping for POST /Bills - add new Bills
 	
-	@PostMapping("/Bills")
+	@PostMapping("/add_new_Bills")
 	public Bill addBill(@RequestBody Bill theBill) {
 		
-		// also just in case they pass an id in JSON ... set id to 0
+				
+		//theBill.setBillId(0);
 		
-		// this is to force a save of new item ... instead of update
-		
-		theBill.setBillId(0);
-		
-		BillsService.saveORupdate(theBill);
+		BillsService.save(theBill);
+		//return BillsService.findByBillID(theBill.getBillId());
 		
 		return theBill;
+		
 	}
 	
 	

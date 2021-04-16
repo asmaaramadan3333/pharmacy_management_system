@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 
 @Repository
 public class BillsDAOImpl implements BillsDAO {
@@ -41,7 +42,7 @@ public class BillsDAOImpl implements BillsDAO {
 	}
 
 	@Override
-	public Bill findByBillID(int thebill_id) {
+	public Bill findByBillID(long thebill_id) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 				
@@ -52,7 +53,20 @@ public class BillsDAOImpl implements BillsDAO {
 		// return the Bill
 		return theBill;
 	}
+	
 
+	@Override
+	public void save(Bill theBill) {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		// save Bill
+		currentSession.save(theBill);
+		
+		
+	}
+	
+	
 	
 	@Override
 	public void saveORupdate(Bill theBill) {
@@ -64,6 +78,29 @@ public class BillsDAOImpl implements BillsDAO {
 		currentSession.saveOrUpdate(theBill);
 		
 	}
+
+	
+	@Override
+	public List<Bill> findCustomerBillsById(int theCustomerId)
+	{
+
+	// get the current hibernate session
+	Session currentSession = entityManager.unwrap(Session.class);
+		
+	
+	//Query theQuery = currentSession.createQuery("FROM Bill WHERE customerId =: theCustomer_Id " , Bill.class);
+
+	Query theQuery = currentSession.createQuery("FROM Bill WHERE customer.customerId =: theCustomer_Id " , Bill.class);
+	
+	theQuery.setParameter("theCustomer_Id", theCustomerId);
+	
+	System.out.println(theQuery);
+	
+	List<Bill> customer_bills = theQuery.getResultList();
+	// return the Customer
+	return customer_bills;
+	}
+	
 	
 	
 	/*@Override
