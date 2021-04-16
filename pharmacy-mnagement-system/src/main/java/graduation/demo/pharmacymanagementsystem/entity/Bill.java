@@ -2,6 +2,9 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class Bill implements Serializable {
 	//bi-directional many-to-one association to Customer
 	@ManyToOne
 	@JoinColumn(name="customer_id")
+	@JsonIgnore
 	private Customer customer;
 
 	//bi-directional many-to-one association to Employee

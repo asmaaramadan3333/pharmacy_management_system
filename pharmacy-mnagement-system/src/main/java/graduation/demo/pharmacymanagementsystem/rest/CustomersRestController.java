@@ -30,20 +30,19 @@ public class CustomersRestController {
 
 	private CustomersService customersService;
 
-
 	@Autowired
 	public CustomersRestController(CustomersService theCustomersService) {
 		customersService = theCustomersService;
 	}
 
-	// expose "/get_all" and return list of Customers
+//////////////////////// get requests///////////////
+	// return list of customers //
 	@GetMapping("/get_all")
 	public List<Customer> findAllCustomers() {
 		return customersService.findAllCustomers();
 	}
 
-	// add mapping for GET /get_by_id/{CustomerId}
-
+	// get customer by customer id//
 	@GetMapping("/get_by_id/{CustomerId}")
 	public Customer getCustomer(@PathVariable int CustomerId) {
 
@@ -55,22 +54,8 @@ public class CustomersRestController {
 
 		return theCustomer;
 	}
-	// add mapping for GET /get_phone_by_id/{CustomerId}
 
-	@GetMapping("/get_phone_by_id/{CustomerId}")
-	public List<CustomersPhone> getCustomerphone(@PathVariable int CustomerId) {
-
-		Customer theCustomer = customersService.findByCode(CustomerId);
-
-		if (theCustomer == null) {
-			throw new RuntimeException("Customer id not found - " + CustomerId);
-		}
-
-		return theCustomer.getCustomersPhones();
-	}
-
-	// add mapping for GET /search_by_name/{CustomerName}
-
+	// search for certain customers by customer name//
 	@GetMapping("/search_by_name/{CustomerName}")
 	public List<Customer> getCustomer(@PathVariable String CustomerName) {
 
@@ -83,9 +68,8 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 
-	// add mapping for GET /search_by_email/{CustomerEmail}
-
-	@GetMapping("/search_by_email/{CustomerEmail}")
+	// get customer by customer email//
+	@GetMapping("/get_by_email/{CustomerEmail}")
 	public Customer getCustomerByemail(@PathVariable String CustomerEmail) {
 
 		Customer theCustomer = customersService.getCustomerByEmail(CustomerEmail);
@@ -97,68 +81,97 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 
-	// add mapping for GET /signIn/ {theemail} / {thepassword} - customer sign in
-
+  
+	// sign in customer by email and password //
 	@GetMapping("/signIn/{theemail}/{thepassword}")
+	public Map<String, Object> Customer_signIn(@PathVariable String theemail, @PathVariable String thepassword) {
 
-	public Map<String, Integer> Customer_signIn(@PathVariable String theemail, @PathVariable String thepassword) {
-
-		Map<String, Integer> coordinates = new HashMap<>();
+		Map<String, Object> coordinates = new HashMap<>();
 
 		coordinates = customersService.customerSignIn(theemail, thepassword);
 
 		return coordinates;
 	}
 
-	// add mapping for POST /add_new - add new Customers
+	// *********** post requests///////////////
 
-	@PostMapping("/add_new")
-	public Customer addCustomer(@RequestBody Customer theCustomer) {
+	/*
+	 * // add mapping for POST /add_new - add new Customers for desktop //
+	 * 
+	 * @PostMapping("/add_new") public Map<String, Integer> addCustomer(@RequestBody
+	 * Customer theCustomer) { Map<String, Integer> coordinates = new HashMap<>();
+	 * Customer customer1= customersService.saveandreturncustomer(theCustomer);
+	 * coordinates.put("customerId", customer1.getCustomerId()); return coordinates;
+	 * }
+	 */
 
-		// also just in case they pass an id in JSON ... set id to 0
+	//////////////////////// add_new_phone_to_customer/////////////
+	@PostMapping("/add_new_phone_to_customer")
+	public CustomersPhone addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone) {
+		Customer thecustomer = customersService.findByCode(theCustomersPhone.getId().getCustomerId());
+		if (thecustomer == null) {
+			throw new RuntimeException(" the Customer  not found ");
+		}
 
-		// this is to force a save of new item ... instead of update
-
-		theCustomer.setCustomerId(0);
-
-		customersService.saveORupdate(theCustomer);
-
-		return theCustomer;
+		thecustomer.addCustomersPhone(theCustomersPhone);
+		customersService.saveORupdate(thecustomer);
+		return theCustomersPhone;
 	}
 
-	// 	 add mapping for POST /signup -  Customers sign up
-
+	/////////////////// sign up customer for mobile //////////////////////
 	@SuppressWarnings("unchecked")
 	@PostMapping("/sign_up")
-
-	public Map<String, Integer> signUp(@RequestBody Customer theCustomer) {
+	public Map<String, Object> signUp(@RequestBody Customer theCustomer) {
 		return customersService.signUp(theCustomer);
 	}
-	
+
+	/////////////////// add products to customer ////////////////////
 	@PostMapping("/add_products")
 	public Customer add_products_to_customer(@RequestBody CustomersProductsHistoryDTO customer_products) {
 
 		int theCustomerId = customer_products.getCustomerId();
-		int theproductCode =  customer_products.getCode();
+		int theproductCode = customer_products.getCode();
 
 		customersService.add_products_to_customer(theCustomerId, theproductCode);
-		
+
 		return getCustomer(theCustomerId);
 
 	}
 
-	// add mapping for PUT /update - update existing Customer
+	/////////////////////// add new address to customer //////////////
+	@PostMapping("/add_new_address")
+	public CustomersAddress addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
+
+		int theId = theCustomersAddress.getCustomerId();
+		System.out.println(theId);
+		Customer thecustomer = customersService.findByCode(theId);
+		thecustomer.setCustomersAddress(theCustomersAddress);
+
+		customersService.saveORupdate(thecustomer);
+
+		return theCustomersAddress;
+	}
+
+	////////////////// edit customer /////////////////////////
 
 	@PutMapping("/update")
 	public Customer updateCustomer(@RequestBody Customer theCustomer) {
-
+		
 		customersService.saveORupdate(theCustomer);
-
 		return theCustomer;
 	}
+//////////////////edit customer password /////////////////////////
+	@PutMapping("/update_password")
+	public Map<String, Object> updateCustomerPassword(@RequestBody Customer theCustomer) {
+	    
+		Map<String, Object> coordinates = new HashMap<>();
+	    
+		coordinates = customersService.updatePassword(theCustomer.getCustomerId(),theCustomer.getPassword());
 
-	// add mapping for DELETE /delete_by_id/{CustomerCode} - delete Customer
-
+		return coordinates;
+	}
+ 
+	//////////////////////// delete customer by customer id //////////////////////////
 	@DeleteMapping("/delete_by_id/{CustomerId}")
 	public String deleteCustomer(@PathVariable int CustomerId) {
 
@@ -174,43 +187,5 @@ public class CustomersRestController {
 
 		return "Deleted Customer id - " + CustomerId;
 	}
-	///////////////////add customer phone by /////////////////////
-	/*
-	 * @PostMapping("/add_customer_phone/{CustomerPhone}") public String
-	 * addCustomerPhone(@RequestBody CustomersPhone theCustomerPhone) { i theId=
-	 * theCustomerPhone.getId(); Customer tempCustomer =
-	 * customersService.findByCode(theId);
-	 * 
-	 * // throw exception if null
-	 * 
-	 * if (tempCustomer == null) { throw new
-	 * RuntimeException("Customer code not found - " + CustomerId); }
-	 * 
-	 * tempCustomer.removeCustomersPhone(tempCustomer.getCustomersPhones());
-	 * 
-	 * return "Deleted Customer id - " + CustomerId; }
-	 */
-	@PostMapping("/add_new_address")
-	public CustomersAddress addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) 
-	{
- 
-       int theId= theCustomersAddress.getCustomerId();
-       System.out.println(theId);
-       Customer thecustomer=customersService.findByCode(theId);
-	   thecustomer.setCustomersAddress(theCustomersAddress);
-	    
-		customersService.saveORupdate(thecustomer);
 
-		return theCustomersAddress;
-	}
-	@PostMapping("/add_new_phone")
-	public CustomersPhone addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone )
-	{
-		 Customer thecustomer= theCustomersPhone.getCustomer();
-		 //int theId2=theCustomersPhone.getPhoneNumber();
-	
-		 //Customer thecustomer=customersService.findByCode(theId);
-		 thecustomer.addCustomersPhone(theCustomersPhone);
-		 return theCustomersPhone;
-	}
 }

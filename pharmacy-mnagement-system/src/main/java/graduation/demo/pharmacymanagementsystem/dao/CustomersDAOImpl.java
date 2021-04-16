@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 @Repository
@@ -63,12 +64,29 @@ public class CustomersDAOImpl implements CustomersDAO {
 		
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
-				
+		
 		// save Customer
 		currentSession.saveOrUpdate(theCustomer);
+
 		
 	}
 	
+	
+	@Override
+	public Customer saveandreturncustomer(Customer theCustomer) {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
+		// save Customer
+		currentSession.save(theCustomer);
+		String customeremail=theCustomer.getEmail();
+		System.out.println(customeremail);
+		Customer theCustomer1=getCustomerByEmail(customeremail);
+		System.out.println(theCustomer1);
+		return theCustomer1;
+		
+	}
 	
 	@Override
 	public List<Customer> searchByName(String theCustomerName) {
@@ -172,7 +190,25 @@ public class CustomersDAOImpl implements CustomersDAO {
 		currentSession.saveOrUpdate(theCustomer);
 
 	}
-	
+	////////////////dao////////////////
+	@Override
+	public void add_Phones_to_customer( CustomersPhone Custmersphone) {
+
+		Session currentSession = entityManager.unwrap(Session.class);
+        
+		Customer theCustomer =findByCode(Custmersphone.getId().getCustomerId());
+		
+				
+		//theCustomer.add2(Custmersphone);
+
+		//currentSession.saveOrUpdate(Custmersphone);
+		
+		//currentSession.saveOrUpdate(theCustomer);
+      CustomersPhone customerPhone1 = new CustomersPhone();
+      customerPhone1.setIdParam(Custmersphone.getId().getCustomerId(), Custmersphone.getId().getPhoneNumber());
+ 
+      currentSession.saveOrUpdate(customerPhone1);
+	}
 	@Override
 	public void deleteByCode(int theCustomerId) {
 		// get the current hibernate session
@@ -190,5 +226,33 @@ public class CustomersDAOImpl implements CustomersDAO {
 		
 	}
 
+	public CustomersPhone findCustomerPhoneByCustomrId(int theCustomerId,int customerphone) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
 	
+		// get the Customer
+		Query theQuery=currentSession.createQuery("FROM CustomersPhone WHERE id.customerId =:theCustomer_Id and " +  
+		" id.phoneNumber =: thecustomerphone ",CustomersPhone.class);
+		theQuery.setParameter("theCustomer_Id", theCustomerId);
+		theQuery.setParameter("thecustomerphone", customerphone);
+		CustomersPhone theCustomerPhone=(CustomersPhone)theQuery.getResultList().get(0)	;
+			//currentSession.get(CustomersPhone.class,theCustomerId,phoneNumber);
+		// return the Customer
+		return theCustomerPhone;
+	}
+
+
+	@org.springframework.transaction.annotation.Transactional
+	@Override
+	public void updatePassword(int customerId, String newPassword) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		  Query<?> theQuery = currentSession.
+		  createQuery(" update Customer c SET c.password =: thePassword  WHERE c.customerId =: theCustomer_Id "); 
+		  theQuery.setParameter("theCustomer_Id", customerId);
+		  theQuery.setParameter("thePassword", newPassword);
+		  theQuery.executeUpdate();
+		
+	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 
 public interface CustomersService {
@@ -20,11 +21,17 @@ public interface CustomersService {
 
 	public Customer getCustomerByEmail(String theemail);
 	
-	public Map<String, Integer>  customerSignIn(String theemail, String thepassword);
+	public Map<String, Object>  customerSignIn(String theemail, String thepassword);
 
 	public Map signUp(Customer theCustomer);
 	
 	public void add_products_to_customer(int theCustomerId,int theproductCode); 
 
-	
+	public void add_Phones_to_customer(CustomersPhone Custmersphone);
+
+	public CustomersPhone findCustomerPhoneByCustomrId(int customerid, int customerphone);
+	public Customer saveandreturncustomer(Customer theCustomer);
+
+
+	public Map<String, Object> updatePassword(int customerId, String password);
 }
