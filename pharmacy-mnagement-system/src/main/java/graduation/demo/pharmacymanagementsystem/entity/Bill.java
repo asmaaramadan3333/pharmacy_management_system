@@ -2,6 +2,9 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,13 +15,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="bills")
-@NamedQuery(name="Bill.findAll", query="SELECT b FROM Bill b")
 public class Bill implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="bill_id")
-	private String billId;
+	private long billId;
 
 	@Column(name="bill_state")
 	private String billState;
@@ -44,6 +46,7 @@ public class Bill implements Serializable {
 	//bi-directional many-to-one association to Customer
 	@ManyToOne
 	@JoinColumn(name="customer_id")
+	@JsonIgnore
 	private Customer customer;
 
 	//bi-directional many-to-one association to Employee
@@ -63,11 +66,11 @@ public class Bill implements Serializable {
 	public Bill() {
 	}
 
-	public String getBillId() {
+	public long getBillId() {
 		return this.billId;
 	}
 
-	public void setBillId(String billId) {
+	public void setBillId(long billId) {
 		this.billId = billId;
 	}
 

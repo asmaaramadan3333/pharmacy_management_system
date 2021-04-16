@@ -3,6 +3,10 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.springframework.data.annotation.Immutable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the customers_phones database table.
@@ -10,7 +14,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="customers_phones")
-@NamedQuery(name="CustomersPhone.findAll", query="SELECT c FROM CustomersPhone c")
+
 public class CustomersPhone implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -18,11 +22,18 @@ public class CustomersPhone implements Serializable {
 	private CustomersPhonePK id;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-
+	//@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	//@ManyToOne(cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@ManyToOne(cascade=CascadeType.ALL)
+	//@JoinColumn(name="customer_id",insertable=false,updatable=false)
 	@JoinColumn(name="customer_id",insertable=false,updatable=false)
-
+	@JsonIgnore
 	private Customer customer;
+	public void setIdParam (int customerId,int phoneNumber ) {
+		this.id.setPhoneNumber(phoneNumber);
+		this.id.setCustomerId(customerId);
+		
+	}
 
 	public CustomersPhone() {
 	}
@@ -42,5 +53,8 @@ public class CustomersPhone implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+
+
 
 }

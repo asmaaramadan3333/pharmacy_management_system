@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 import graduation.demo.pharmacymanagementsystem.service.ProductsService;
 
@@ -34,6 +35,7 @@ public class ProductsRestController {
 	}
 
 	// expose "/products" and return list of products
+	
 	@GetMapping("/get_all")
 	public List<Product> findAllProducts() {
 		return productsService.findAllProducts();
@@ -67,8 +69,7 @@ public class ProductsRestController {
 		return theProduct;
 	}
 
-	// add mapping for GET /products/{productName} - to get product by the two
-	// categories
+	// add mapping for GET /products/{productName} - to get product by the two categories
 
 	@GetMapping("/products_category_search/{main_category}/{secondary_category}")
 	public List<Product> getProduct(@PathVariable String main_category, @PathVariable String secondary_category) {

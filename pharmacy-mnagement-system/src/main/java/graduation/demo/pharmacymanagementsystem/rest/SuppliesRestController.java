@@ -109,7 +109,7 @@ public class SuppliesRestController {
 			throw new RuntimeException("Supply code not found - " + supply_bill_id);
 		}
 
-		SuppliesService.deleteByCode(supply_bill_id);
+		SuppliesService.deleteById(supply_bill_id);
 
 		return "Deleted Supply id - " + supply_bill_id;
 	}*/

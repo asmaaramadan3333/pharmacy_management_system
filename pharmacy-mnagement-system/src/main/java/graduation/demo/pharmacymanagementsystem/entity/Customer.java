@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +20,7 @@ import java.util.List;
 @Table(name="customers")
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="customer_id")
@@ -52,8 +53,8 @@ public class Customer implements Serializable {
 	private CustomersAddress customersAddress;
 
 	//bi-directional many-to-one association to CustomersPhone
-	@OneToMany(mappedBy="customer",cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JsonIgnore
+	//@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPhone> customersPhones;
 
 	//bi-directional many-to-many association to Product
@@ -79,6 +80,24 @@ public class Customer implements Serializable {
 	private List<Employee> employees;
 
 	public Customer() {
+	}
+
+	public Customer(float credit, Date dateOfBirth, String email, String firstName, String gender, String lastName,
+			String password, List<Bill> bills, CustomersAddress customersAddress, List<CustomersPhone> customersPhones,
+			List<Product> products, List<Employee> employees) {
+		
+		this.credit = credit;
+		this.dateOfBirth = dateOfBirth;
+		this.email = email;
+		this.firstName = firstName;
+		this.gender = gender;
+		this.lastName = lastName;
+		this.password = password;
+		this.bills = bills;
+		this.customersAddress = customersAddress;
+		this.customersPhones = customersPhones;
+		this.products = products;
+		this.employees = employees;
 	}
 
 	public int getCustomerId() {
@@ -183,20 +202,18 @@ public class Customer implements Serializable {
 		this.customersPhones = customersPhones;
 	}
 
-	public CustomersPhone addCustomersPhone(CustomersPhone customersPhone) {
-		getCustomersPhones().add(customersPhone);
-		customersPhone.setCustomer(this);
-
-		return customersPhone;
-	}
-
-	public CustomersPhone removeCustomersPhone(CustomersPhone customersPhone) {
-		getCustomersPhones().remove(customersPhone);
-		customersPhone.setCustomer(null);
-
-		return customersPhone;
-	}
-
+	
+	  public CustomersPhone addCustomersPhone(CustomersPhone customersPhone) {
+	  getCustomersPhones().add(customersPhone); customersPhone.setCustomer(this);
+	  
+	  return customersPhone; }
+	  
+	  public CustomersPhone removeCustomersPhone(CustomersPhone customersPhone) {
+	  getCustomersPhones().remove(customersPhone);
+	  customersPhone.setCustomer(null);
+	  
+	  return customersPhone; }
+	 
 	public List<Product> getProducts() {
 		return this.products;
 	}
@@ -223,20 +240,20 @@ public class Customer implements Serializable {
 		products.add(theproduct);
 		
 	}
-	/*
-	 * //add convenience method for bi-direction relationship public void add2
-	 * (CustomersPhonePK tempcustomerphone) { if(customersPhones==null) {
-	 * customersPhones=new ArrayList<>();
-	 * 
-	 * } customersPhones.addAll(tempcustomerphone);
-	 * 
-	 * }
-	 * 
-	 * public void addCustomersPhone(Collection<? extends CustomersPhone>
-	 * theCustomersPhone) { // TODO Auto-generated method stub
-	 * if(customersPhones==null) { customersPhones=new ArrayList<>();
-	 * 
-	 * } customersPhones.addAll(theCustomersPhone) }
-	 */
-
+	
+	 
+	  
+	 
+	
+	  
+	public void add2 (CustomersPhone tempCustomersPhone)
+	{
+		if(customersPhones ==null)
+		{
+			customersPhones=new ArrayList<>();
+			
+		}
+		customersPhones.add(tempCustomersPhone);
+		tempCustomersPhone.setCustomer(this);
+	}
 }
