@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import graduation.demo.pharmacymanagementsystem.dto.CustomersPhoneDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
@@ -26,66 +27,65 @@ public class CustomersPhoneRestController {
 	public CustomersPhoneRestController(CustomersPhoneService theCustomersPhoneService) {
 		customersPhoneService =theCustomersPhoneService;
 	}
-	
+
 	/////////////////////////////////// get list of customer phones by customer id///////////////////////////
 	@GetMapping("/get_customerphones_bycid/{CustomerId}")
 	public List <CustomersPhone> getCustomerphone (@PathVariable int CustomerId)
 	{
-	
-	List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
-	
-	if (theCustomer_phones == null || theCustomer_phones.isEmpty()) {
-	throw new RuntimeException("the customer not found " + CustomerId);
+
+
+		  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
+		  
+		  if (theCustomer_phones == null && theCustomer_phones.isEmpty()) {
+				throw new RuntimeException("the customer not found " + CustomerId);
+			}
+
+		return theCustomer_phones;
 	}
 	
-	return theCustomer_phones;
-	}
-	
+	/////////////////////////// get Specific CustomerPhone by the customer id and the phone number ////////////////////////
 	@GetMapping("/get_rowof_customersphone/{CustomerId}/{phone}")
 	public CustomersPhone getrowOfCustomerphone (@PathVariable int CustomerId ,@PathVariable int phone)
 	{
-	
-	CustomersPhone theCustomer_phone = customersPhoneService.findSpecificCustomerPhone (CustomerId,phone);
-	
-	if (theCustomer_phone == null  )
-	{
-	
-	throw new RuntimeException("the customer phone not found " + phone);
-	}
-	else
-	return theCustomer_phone;
-	}
-	
-	
-	@DeleteMapping("/delete_phone_by_id/{CustomerId}/{customerPhone}") 
-	public int deleteCustomerphone(@PathVariable int CustomerId,@PathVariable int customerPhone) 
-	{
-	
-	//Customer theCustomer = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
-	List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
-	
-	if (theCustomer_phones == null &&theCustomer_phones.isEmpty()) 
-	{ 
-	throw new RuntimeException("Customer id not found - " + CustomerId); 
-	
+		  CustomersPhone theCustomer_phone = customersPhoneService.findSpecificCustomerPhone (CustomerId,phone);
+		  
+		  if (theCustomer_phone == null  )
+			{
+			  
+			  throw new RuntimeException("the customer phone not found " + phone);
+			}
+		  else
+			  
+		return theCustomer_phone;
 	}
 	
-	//return theCustomer_phone.removeCustomersPhone(customersPhone); 
-	else {
-	customersPhoneService.deleteById(CustomerId,customerPhone);
-	return CustomerId;
-	// "Deleted product id - " + 
-	}
-	}
-		
-	@PostMapping("/add_new_phone") 
-	public int addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone ) {
+	/////////////////////////////// delete the customer phone //////////////////////////////////
 	
-	customersPhoneService.save(theCustomersPhone);
+	  @DeleteMapping("/delete_phone_by_id/{CustomerId}/{customerPhone}") 
+	  public String deleteCustomerphone(@PathVariable int CustomerId,@PathVariable int customerPhone) 
+	  {
+	  
+	  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
+	  
+	  CustomersPhone theCustomer = getrowOfCustomerphone (CustomerId,customerPhone);
+		 
+	  customersPhoneService.deleteById(CustomerId,customerPhone);
+	 
+	  return "success";
+			   
+	  }
 	
-	return theCustomersPhone.getId().getCustomerId(); 
-	
-	}
+	  
+	  @PostMapping("/add_new_phone") 
+	  public int addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone ) {
+	  
+	  customersPhoneService.save(theCustomersPhone);
+	  
+	  return theCustomersPhone.getId().getCustomerId(); 
+	  
+	  }
+	 
+
 	
     @PutMapping("/phone")
   	public CustomersPhone updatecustomersPhone(@RequestBody CustomersPhoneDTO thecustomersphone) {

@@ -8,12 +8,17 @@ public interface BillsService {
 
     public List <Bill> findAllBills();
 	
-	public Bill findByBillID (int thebill_id);
+	public Bill findByBillID (long thebill_id);
 	
 	public void saveORupdate (Bill theBill);
 	
 	public void deleteByBillID (int thebill_id);
+
+	void save(Bill theBill);
 	
 	//public List<Bill> searchByName(String theName);
+	
+	public List<Bill> findCustomerBillsById(int theCustomerId);
+
 	
 }

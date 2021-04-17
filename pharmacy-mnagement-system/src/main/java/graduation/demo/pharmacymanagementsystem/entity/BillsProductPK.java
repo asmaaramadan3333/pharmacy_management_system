@@ -13,17 +13,17 @@ public class BillsProductPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="bill_id", insertable=false, updatable=false)
-	private String billId;
+	private long billId;
 
 	@Column(name="product_code", insertable=false, updatable=false)
 	private int productCode;
 
 	public BillsProductPK() {
 	}
-	public String getBillId() {
+	public long getBillId() {
 		return this.billId;
 	}
-	public void setBillId(String billId) {
+	public void setBillId(long billId) {
 		this.billId = billId;
 	}
 	public int getProductCode() {
@@ -32,7 +32,6 @@ public class BillsProductPK implements Serializable {
 	public void setProductCode(int productCode) {
 		this.productCode = productCode;
 	}
-
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
@@ -42,16 +41,18 @@ public class BillsProductPK implements Serializable {
 		}
 		BillsProductPK castOther = (BillsProductPK)other;
 		return 
-			this.billId.equals(castOther.billId)
+			this.billId==castOther.billId
 			&& (this.productCode == castOther.productCode);
 	}
 
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
-		hash = hash * prime + this.billId.hashCode();
+		hash = (int) (hash * prime + this.billId);
 		hash = hash * prime + this.productCode;
 		
 		return hash;
 	}
+
+	
 }

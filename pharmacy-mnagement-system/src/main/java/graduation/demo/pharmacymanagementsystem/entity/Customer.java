@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,7 +45,8 @@ public class Customer implements Serializable {
 	private String password;
 
 	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	
 	private List<Bill> bills;
 
 	//bi-directional one-to-one association to CustomersAddress
@@ -53,7 +54,7 @@ public class Customer implements Serializable {
 	private CustomersAddress customersAddress;
 
 	//bi-directional many-to-one association to CustomersPhone
-	//@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPhone> customersPhones;
 
@@ -202,18 +203,22 @@ public class Customer implements Serializable {
 		this.customersPhones = customersPhones;
 	}
 
-	
-	  public CustomersPhone addCustomersPhone(CustomersPhone customersPhone) {
-	  getCustomersPhones().add(customersPhone); customersPhone.setCustomer(this);
-	  
-	  return customersPhone; }
-	  
-	  public CustomersPhone removeCustomersPhone(CustomersPhone customersPhone) {
-	  getCustomersPhones().remove(customersPhone);
-	  customersPhone.setCustomer(null);
-	  
-	  return customersPhone; }
-	 
+	public CustomersPhone addCustomersPhone (CustomersPhone customersPhone) {
+		getCustomersPhones().add(customersPhone);
+		
+		customersPhone.setCustomer(this);
+
+		return customersPhone;
+	}
+
+	public CustomersPhone removeCustomersPhone(CustomersPhone customersPhone) {
+		getCustomersPhones().remove(customersPhone);
+		customersPhone.setCustomer(null);
+
+		return customersPhone;
+	}
+
+
 	public List<Product> getProducts() {
 		return this.products;
 	}
@@ -240,11 +245,7 @@ public class Customer implements Serializable {
 		products.add(theproduct);
 		
 	}
-	
-	 
-	  
-	 
-	
+
 	  
 	public void add2 (CustomersPhone tempCustomersPhone)
 	{
@@ -256,4 +257,5 @@ public class Customer implements Serializable {
 		customersPhones.add(tempCustomersPhone);
 		tempCustomersPhone.setCustomer(this);
 	}
+
 }
