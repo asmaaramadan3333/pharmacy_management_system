@@ -82,6 +82,22 @@ public class CustomersDAOImpl implements CustomersDAO {
 	}
 
 	@Override
+	public Customer saveandreturncustomer(Customer theCustomer) {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
+		// save Customer
+		currentSession.save(theCustomer);
+		String customeremail=theCustomer.getEmail();
+		System.out.println(customeremail);
+		Customer theCustomer1=getCustomerByEmail(customeremail);
+		System.out.println(theCustomer1);
+		return theCustomer1;
+		
+	}
+	
+	@Override
 	public List<Customer> searchByName(String theCustomerName) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
@@ -168,26 +184,27 @@ public class CustomersDAOImpl implements CustomersDAO {
 		currentSession.saveOrUpdate(theCustomer);
 
 	}
-
-	//////////////// dao////////////////
+	////////////////dao////////////////
 	@Override
-	public void add_Phones_to_customer(CustomersPhone Custmersphone) {
+	public void add_Phones_to_customer( CustomersPhone Custmersphone) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
+        
+		Customer theCustomer =findByCode(Custmersphone.getId().getCustomerId());
+		
+				
+		//theCustomer.add2(Custmersphone);
 
-		Customer theCustomer = findByCode(Custmersphone.getId().getCustomerId());
-
-		// theCustomer.add2(Custmersphone);
-
-		// currentSession.saveOrUpdate(Custmersphone);
-
-		// currentSession.saveOrUpdate(theCustomer);
-		CustomersPhone customerPhone1 = new CustomersPhone();
-		customerPhone1.setIdParam(Custmersphone.getId().getCustomerId(), Custmersphone.getId().getPhoneNumber());
-
-		currentSession.saveOrUpdate(customerPhone1);
+		//currentSession.saveOrUpdate(Custmersphone);
+		
+		//currentSession.saveOrUpdate(theCustomer);
+      CustomersPhone customerPhone1 = new CustomersPhone();
+      customerPhone1.setIdParam(Custmersphone.getId().getCustomerId(), Custmersphone.getId().getPhoneNumber());
+ 
+      currentSession.saveOrUpdate(customerPhone1);
 	}
-
+  
+  
 	@Override
 	public void deleteByCode(int theCustomerId) {
 		// get the current hibernate session
@@ -214,9 +231,12 @@ public class CustomersDAOImpl implements CustomersDAO {
 		theQuery.setParameter("thecustomerphone", customerphone);
 		CustomersPhone theCustomerPhone = (CustomersPhone) theQuery.getResultList().get(0);
 		// currentSession.get(CustomersPhone.class,theCustomerId,phoneNumber);
+
+	
 		// return the Customer
 		return theCustomerPhone;
 	}
+
 
 	@org.springframework.transaction.annotation.Transactional
 	@Override

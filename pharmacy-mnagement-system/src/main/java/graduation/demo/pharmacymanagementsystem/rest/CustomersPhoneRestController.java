@@ -1,15 +1,19 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import graduation.demo.pharmacymanagementsystem.dto.CustomersPhoneDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
@@ -29,6 +33,7 @@ public class CustomersPhoneRestController {
 	public List <CustomersPhone> getCustomerphone (@PathVariable int CustomerId)
 	{
 
+
 		  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
 		  
 		  if (theCustomer_phones == null && theCustomer_phones.isEmpty()) {
@@ -39,11 +44,9 @@ public class CustomersPhoneRestController {
 	}
 	
 	/////////////////////////// get Specific CustomerPhone by the customer id and the phone number ////////////////////////
-	
 	@GetMapping("/get_rowof_customersphone/{CustomerId}/{phone}")
 	public CustomersPhone getrowOfCustomerphone (@PathVariable int CustomerId ,@PathVariable int phone)
 	{
-
 		  CustomersPhone theCustomer_phone = customersPhoneService.findSpecificCustomerPhone (CustomerId,phone);
 		  
 		  if (theCustomer_phone == null  )
@@ -82,7 +85,18 @@ public class CustomersPhoneRestController {
 	  
 	  }
 	 
+
 	
-	
-	
+    @PutMapping("/phone")
+  	public CustomersPhone updatecustomersPhone(@RequestBody CustomersPhoneDTO thecustomersphone) {
+    	 int theCustomerId=thecustomersphone.getTheCustomerId();
+    	 int theCustomerPhoneold=thecustomersphone.getTheCustomerPhoneold();
+    	 int theCustomerPhonenew=thecustomersphone.getTheCustomerPhonenew();
+    	CustomersPhone tempcustomerphone =
+    			getrowOfCustomerphone(theCustomerId, theCustomerPhoneold);
+    	System.out.println(tempcustomerphone);
+    	customersPhoneService.update(tempcustomerphone,theCustomerPhonenew);
+    	CustomersPhone tempcustomerphone2=getrowOfCustomerphone(theCustomerId, theCustomerPhonenew);
+  		return tempcustomerphone2;
+  	}
 }

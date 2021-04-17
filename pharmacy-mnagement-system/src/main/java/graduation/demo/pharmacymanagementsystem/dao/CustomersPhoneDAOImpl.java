@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
+import graduation.demo.pharmacymanagementsystem.entity.Supply;
 @Repository
 public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	// define field for entity manager	
@@ -20,8 +21,8 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 		entityManager = theEntityManager;
 	}
 	
-	
 	////////////////////// get customer phonessss by the id of customer///////////
+
 	@Override
 	public List<CustomersPhone> findCustomerPhoneById(int theCustomerId)
 	{
@@ -40,6 +41,35 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	return customer_phones;
 	}
 
+
+	@Override
+	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		// get the Customer
+		//CustomersPhonePK theCustomerPhone = currentSession.get(CustomersPhonePK.class, theCustomerId);
+		//CustomersPhone theCustomerPhone = currentSession.get(CustomersPhone.class, theCustomerId);
+		Query theQuery = currentSession.createQuery("FROM CustomersPhone  WHERE id.customerId =: theCustomer_Id and " + 
+		 "id.phoneNumber =: thephonen", CustomersPhone.class);
+
+		theQuery.setParameter("theCustomer_Id", customerId);
+		theQuery.setParameter("thephonen", phone);
+		
+		if (theQuery.getResultList() != null && !theQuery.getResultList().isEmpty()) {
+
+		CustomersPhone thecustomer_phones = (CustomersPhone) theQuery.getResultList().get(0);
+		
+		// return the Customer
+		return thecustomer_phones;
+		}
+		else
+			return null;
+	}
+	
+	
+	
+	
 	@Override
 	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone) {
 		
@@ -99,8 +129,26 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 
 	}
 
-
 	
+	@org.springframework.transaction.annotation.Transactional
+	@Override
+	public void update(CustomersPhone theCustomersPhone,int CustomersPhone)
+	{
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.update(theCustomersPhone);
+		
+		  Query<?> theQuery = currentSession.
+		  createQuery(" update CustomersPhone c SET c.id.phoneNumber =: thePhoneNumber WHERE c.id.customerId =: theCustomer_Id and  " + 
+		   "c.id.phoneNumber =: thePhoneold"); 
+		  theQuery.setParameter("theCustomer_Id", theCustomersPhone.getId().getCustomerId());
+		  theQuery.setParameter("thePhoneold", theCustomersPhone.getId().getPhoneNumber());
+		  theQuery.setParameter("thePhoneNumber", CustomersPhone);
+		  theQuery.executeUpdate();
+		 
+	}
+
+
 }
 
 

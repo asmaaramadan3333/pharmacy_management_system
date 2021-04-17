@@ -130,6 +130,7 @@ public class CustomersServiceImpl implements CustomersService {
 			
 			coordinates.put("status", 0);
 
+
 			coordinates.put("already_has_an_account", 1);
 
 			coordinates.put("the_customer", thecustomer1);
@@ -146,7 +147,6 @@ public class CustomersServiceImpl implements CustomersService {
 			
 			saveORupdate(theCustomer);
 		  Customer thecustomer2 = getCustomerByEmail(theCustomer.getEmail());
-
 		  coordinates.put("the_customer", thecustomer2);
 
 		}

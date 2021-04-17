@@ -157,6 +157,7 @@ public class CustomersRestController {
 		return theCustomer;
 	}
    //////////////////edit customer password /////////////////////////
+
 	@PutMapping("/update_password")
 	public Map<String, Object> updateCustomerPassword(@RequestBody Customer theCustomer) {
 	    
