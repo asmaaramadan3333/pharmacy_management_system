@@ -65,6 +65,21 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	}
 
+	@Override
+	public Customer saveandreturncustomer(Customer theCustomer) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// save Customer
+		currentSession.save(theCustomer);
+		String customeremail = theCustomer.getEmail();
+		System.out.println(customeremail);
+		Customer theCustomer1 = getCustomerByEmail(customeremail);
+		System.out.println(theCustomer1);
+		return theCustomer1;
+
+	}
 
 	@Override
 	public Customer saveandreturncustomer(Customer theCustomer) {

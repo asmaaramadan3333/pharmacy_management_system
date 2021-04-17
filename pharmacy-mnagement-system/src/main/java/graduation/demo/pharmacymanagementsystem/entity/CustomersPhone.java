@@ -46,7 +46,12 @@ public class CustomersPhone implements Serializable {
 	public void setId(CustomersPhonePK id) {
 		this.id = id;
 	}
-
+	
+	public void setIdParam (int customerId,int phoneNumber ) {
+		this.id.setPhoneNumber(phoneNumber);
+		this.id.setCustomerId(customerId);
+		
+	}
 	public Customer getCustomer() {
 		return this.customer;
 	}
