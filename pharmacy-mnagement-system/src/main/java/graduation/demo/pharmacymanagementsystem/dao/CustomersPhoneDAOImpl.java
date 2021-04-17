@@ -40,33 +40,6 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	// return the Customer
 	return customer_phones;
 	}
-
-
-	@Override
-	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone) {
-		
-		Session currentSession = entityManager.unwrap(Session.class);
-		
-		// get the Customer
-		//CustomersPhonePK theCustomerPhone = currentSession.get(CustomersPhonePK.class, theCustomerId);
-		//CustomersPhone theCustomerPhone = currentSession.get(CustomersPhone.class, theCustomerId);
-		Query theQuery = currentSession.createQuery("FROM CustomersPhone  WHERE id.customerId =: theCustomer_Id and " + 
-		 "id.phoneNumber =: thephonen", CustomersPhone.class);
-
-		theQuery.setParameter("theCustomer_Id", customerId);
-		theQuery.setParameter("thephonen", phone);
-		
-		if (theQuery.getResultList() != null && !theQuery.getResultList().isEmpty()) {
-
-		CustomersPhone thecustomer_phones = (CustomersPhone) theQuery.getResultList().get(0);
-		
-		// return the Customer
-		return thecustomer_phones;
-		}
-		else
-			return null;
-	}
-	
 	
 	
 	
