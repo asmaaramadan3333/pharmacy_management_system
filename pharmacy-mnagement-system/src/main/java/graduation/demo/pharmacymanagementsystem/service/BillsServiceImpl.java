@@ -27,7 +27,7 @@ public class BillsServiceImpl implements BillsService {
 
 	@Override
 	@Transactional
-	public Bill findByBillID(int thebill_id) {
+	public Bill findByBillID(long thebill_id) {
 		
 		return BillsDAO.findByBillID(thebill_id);
 	}
@@ -41,10 +41,26 @@ public class BillsServiceImpl implements BillsService {
 
 	@Override
 	@Transactional
+	public void save(Bill theBill) {
+		
+		BillsDAO.save(theBill);
+		
+		//Bill thebill=theBill.getBillId();
+		
+	}
+
+	
+	@Override
+	@Transactional
 	public void deleteByBillID(int thebill_id) {
 		
 		BillsDAO.deleteByBillID(thebill_id);
 		
+	}
+
+	@Override
+	public List<Bill> findCustomerBillsById(int theCustomerId) {
+		return BillsDAO.findCustomerBillsById(theCustomerId) ;
 	}
 
 	/*@Override

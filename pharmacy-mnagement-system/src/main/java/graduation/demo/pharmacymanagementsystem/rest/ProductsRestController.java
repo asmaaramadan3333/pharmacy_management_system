@@ -55,9 +55,11 @@ public class ProductsRestController {
 		return theProduct;
 	}
 
+	
 	// add mapping for GET /products/{productName} - to get product by name
 
-	@GetMapping("/products_search/{productName}")
+	@GetMapping("/products_name_search/{productName}")
+	
 	public List<Product> getProduct(@PathVariable String productName) {
 
 		List<Product> theProduct = productsService.searchByName(productName);
@@ -83,7 +85,7 @@ public class ProductsRestController {
 	}
 
 	@GetMapping("/return_the_product_code/{theproductname}/{theproducttype}/{theproductsize}")
-	public Map returnTheIdbyname(@PathVariable String theproductname, @PathVariable String theproducttype,
+	public Map returnThe_Id_by_name(@PathVariable String theproductname, @PathVariable String theproducttype,
 			@PathVariable int theproductsize) {
 		Map<String, Integer> coordinates = new HashMap<>();
 		coordinates.put("theID", productsService.returnproductcode(theproductname, theproducttype, theproductsize));

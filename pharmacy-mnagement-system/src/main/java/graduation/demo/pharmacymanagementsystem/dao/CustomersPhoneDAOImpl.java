@@ -8,10 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import graduation.demo.pharmacymanagementsystem.entity.Customer;
-import graduation.demo.pharmacymanagementsystem.entity.CustomersAddress;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 import graduation.demo.pharmacymanagementsystem.entity.Supply;
@@ -24,9 +20,9 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	public CustomersPhoneDAOImpl(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
 	}
-
-	//////////////////////find phone oc customer by the id of customer///////////
 	
+	////////////////////// get customer phonessss by the id of customer///////////
+
 	@Override
 	public List<CustomersPhone> findCustomerPhoneById(int theCustomerId)
 	{
@@ -74,6 +70,11 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	
 	
 	
+	
+	
+	
+	
+	
 	@Override
 	public void save(CustomersPhone theCustomersphone) {
 		
@@ -105,72 +106,6 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 
 	}
 
-
-	
-	
-	/*
-	 * @Override public void save(CustomersPhone theCustomersphone) {
-	 * 
-	 * // get the current hibernate session Session currentSession =
-	 * entityManager.unwrap(Session.class);
-	 * 
-	 * // save Customer currentSession.save(theCustomersphone);
-	 * 
-	 * } ///
-	 * 
-	 * @Override public void deleteById(int theid,int thecustomerphone) { // get the
-	 * current hibernate session Session currentSession =
-	 * entityManager.unwrap(Session.class);
-	 * 
-	 * // delete object with primary key
-	 * 
-	 * Query theQuery = currentSession.
-	 * createQuery("delete from CustomersPhonePK where customer_id=:theId and ,int customerphone:=customerphone"
-	 * ); theQuery.setParameter("theId", theid);
-	 * theQuery.setParameter("customerphone",thecustomerphone);
-	 * 
-	 * theQuery.executeUpdate();
-	 * 
-	 * }
-	 * 
-	 * @Override public void saveORupdateCustomerPhone(CustomersPhone
-	 * theCustomersPhone) { // TODO Auto-generated method stub // get the current
-	 * hibernate session Session currentSession =
-	 * entityManager.unwrap(Session.class);
-	 * 
-	 * // save Customer currentSession.saveOrUpdate(theCustomersPhone); } public
-	 * CustomersPhone findCustomerPhoneByCustomrId(int theCustomerId,int
-	 * CustomerPhone) {
-	 * 
-	 * // get the current hibernate session Session currentSession =
-	 * entityManager.unwrap(Session.class);
-	 * 
-	 * // get the Customer Query theQuery=currentSession.
-	 * createQuery("FROM CustomersPhone WHERE id.customerId =:theCustomer_Id and id.phoneNumber =: theCustomerPhone"
-	 * ,CustomersPhone.class); theQuery.setParameter("theCustomer_Id",
-	 * theCustomerId); theQuery.setParameter("theCustomerPhone", CustomerPhone);
-	 * CustomersPhone
-	 * theCustomerPhone=(CustomersPhone)theQuery.getResultList().get(0) ;
-	 * //currentSession.get(CustomersPhone.class,theCustomerId,phoneNumber); //
-	 * return the Customer return theCustomerPhone; }
-	 * 
-	 * @Override public Customer findByCode(int theCustomerId) { // get the current
-	 * hibernate session Session currentSession =
-	 * entityManager.unwrap(Session.class);
-	 * 
-	 * // get the Customer Customer theCustomer = currentSession.get(Customer.class,
-	 * theCustomerId);
-	 * 
-	 * // return the Customer return theCustomer; }
-	 * 
-	 * 
-	 * 
-	 * @Override public void saveORupdate(Customer theCustomer) { // get the current
-	 * hibernate session Session currentSession =
-	 * entityManager.unwrap(Session.class);
-	 * 
-	 * // save Customer currentSession.saveOrUpdate(theCustomer); }
-	 */
 	
 	@org.springframework.transaction.annotation.Transactional
 	@Override
@@ -192,3 +127,6 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 
 
 }
+
+
+

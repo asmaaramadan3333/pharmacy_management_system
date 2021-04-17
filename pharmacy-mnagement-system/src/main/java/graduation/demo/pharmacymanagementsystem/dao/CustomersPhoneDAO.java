@@ -2,21 +2,20 @@ package graduation.demo.pharmacymanagementsystem.dao;
 
 import java.util.List;
 
-import graduation.demo.pharmacymanagementsystem.entity.Customer;
-import graduation.demo.pharmacymanagementsystem.entity.CustomersAddress;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 
 public interface CustomersPhoneDAO {
-
 	
-	public void save(CustomersPhone theCustomersphone);
+	public  List<CustomersPhone> findCustomerPhoneById (int theCustomerId);
 
-	public void deleteById(int theid, int customerphone);
+	public void save(CustomersPhone theCustomersphone);
+ 
+	public void deleteById(int thecustomerid, int thehpone);
+  
+	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone);
 	
 	public void update(CustomersPhone theCustomersPhone,int theCustomersPhone2);
 
-	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone);
 
-	public List<CustomersPhone> findCustomerPhoneById(int theCustomerId);
 }

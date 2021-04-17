@@ -81,7 +81,9 @@ public class ProductsDAOImpl implements ProductsDAO {
 		theQuery.setParameter("thename", name);
 		theQuery.setParameter("thesize",size);
 		theQuery.setParameter("thetype",type);
+		
 		theProduct=(Product) theQuery.getResultList().get(0);
+		
 		return theProduct;
 	}
 	

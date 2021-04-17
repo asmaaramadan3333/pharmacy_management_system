@@ -19,8 +19,6 @@ public class CustomersPhoneServiceImpl implements CustomersPhoneService {
 		CustomersPhoneDAO = theCustomersPhoneDAO;
 	}
 
-
-
 	@Override
 	public List<CustomersPhone> findCustomerPhoneByCustomrId(int theCustomerId) {
 		
@@ -34,17 +32,16 @@ public class CustomersPhoneServiceImpl implements CustomersPhoneService {
 	
 	@Override
 	public void deleteById(int thecustomerid,int thehpone) {
-		 
-		CustomersPhoneDAO.deleteById( thecustomerid,  thehpone);
-
-		
+		 CustomersPhoneDAO.deleteById( thecustomerid,  thehpone);		
 	}
-	
+  
 	@Override
 	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone) {
-		
+
 		return  CustomersPhoneDAO.findSpecificCustomerPhone(customerId,phone);
 	}
+	
+
 	/*
 	 * @Override public void save(CustomersPhone theCustomersPhone) { // TODO
 	 * Auto-generated method stub CustomersPhoneDAO.save(theCustomersPhone); }

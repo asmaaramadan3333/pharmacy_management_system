@@ -3,8 +3,8 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Immutable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -27,13 +27,10 @@ public class CustomersPhone implements Serializable {
 	@ManyToOne(cascade=CascadeType.ALL)
 	//@JoinColumn(name="customer_id",insertable=false,updatable=false)
 	@JoinColumn(name="customer_id",insertable=false,updatable=false)
-	@JsonIgnore
+
+    @JsonIgnore
 	private Customer customer;
-	public void setIdParam (int customerId,int phoneNumber ) {
-		this.id.setPhoneNumber(phoneNumber);
-		this.id.setCustomerId(customerId);
-		
-	}
+
 
 	public CustomersPhone() {
 	}
@@ -45,7 +42,12 @@ public class CustomersPhone implements Serializable {
 	public void setId(CustomersPhonePK id) {
 		this.id = id;
 	}
-
+	
+	public void setIdParam (int customerId,int phoneNumber ) {
+		this.id.setPhoneNumber(phoneNumber);
+		this.id.setCustomerId(customerId);
+		
+	}
 	public Customer getCustomer() {
 		return this.customer;
 	}
@@ -54,7 +56,10 @@ public class CustomersPhone implements Serializable {
 		this.customer = customer;
 	}
 
-
+	@Override
+	public String toString() {
+		return "CustomersPhone [id=" + id + ", customer=" + customer + "]";
+	}
 
 
 }

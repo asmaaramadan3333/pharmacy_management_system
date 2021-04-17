@@ -38,7 +38,7 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 		// return the results
 		return supply;
 	}
-
+/////////////////////////////////////// edit this func return value
 	@Override
 	public Supply findBybill_id(int supply_bill_id) {
 		// get the current hibernate session

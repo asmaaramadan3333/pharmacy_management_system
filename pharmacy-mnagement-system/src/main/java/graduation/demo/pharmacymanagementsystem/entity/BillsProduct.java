@@ -3,39 +3,50 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the bills_products database table.
  * 
  */
 @Entity
-@Table(name="bills_products")
-@NamedQuery(name="BillsProduct.findAll", query="SELECT b FROM BillsProduct b")
+@Table(name = "bills_products")
 public class BillsProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private BillsProductPK id;
 
+	@Column(name = "quantity")
 	private int quantity;
 
-	@Column(name="total_price")
+	@Column(name = "total_price")
 	private float totalPrice;
 
-	@Column(name="unit_price")
+	@Column(name = "unit_price")
 	private float unitPrice;
 
-	//bi-directional many-to-one association to Bill
-		@ManyToOne(fetch=FetchType.LAZY)
-		@JoinColumn(name="bill_id",insertable=false,updatable=false)
-		private Bill bill;
+	
+	
+	// bi-directional many-to-one association to Bill
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "bill_id",insertable = false, updatable = false)
+	@JsonIgnore // Properties({"hibernateLazyInitializer", "handler"})
+	private Bill bill;
 
-		//bi-directional many-to-one association to Product
-		@ManyToOne(fetch=FetchType.LAZY)
-		@JoinColumn(name="product_code", insertable=false,updatable=false)
+	// bi-directional many-to-one association to Product
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_code", insertable = false, updatable = false)
+	@JsonIgnore
+	private Product product;
 
-		private Product product;
 	public BillsProduct() {
+	}
+
+	@Override
+	public String toString() {
+		return "BillsProduct [id=" + id + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", unitPrice="
+				+ unitPrice + ", bill=" + bill + ", product=" + product + "]";
 	}
 
 	public BillsProductPK getId() {

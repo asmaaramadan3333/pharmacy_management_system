@@ -85,13 +85,13 @@ public class CustomersServiceImpl implements CustomersService {
 
 			if (theExistingCustomer != null) {
 
-				coordinates.put("success", 1);
+				coordinates.put("status", 1);
 				coordinates.put("correct_password", 1);
 				coordinates.put("the_customer", thecustomer);
 			}
 
 			else {
-				coordinates.put("success", 0);
+				coordinates.put("status", 0);
 				coordinates.put("correct_password", 0);
 				coordinates.put("the_customer", thecustomer);
 			}
@@ -104,7 +104,7 @@ public class CustomersServiceImpl implements CustomersService {
 
 		{
 
-			coordinates.put("success", 0);
+			coordinates.put("status", 0);
 			coordinates.put("having_an_account", 0);
 			coordinates.put("correct_password", 0);
 
@@ -128,27 +128,26 @@ public class CustomersServiceImpl implements CustomersService {
 
 		if (thecustomer1 != null) {
 			
-			coordinates.put("success", 0);
+			coordinates.put("status", 0);
+
 
 			coordinates.put("already_has_an_account", 1);
 
 			coordinates.put("the_customer", thecustomer1);
 		
+
 		} 
 		else {
 			
-			coordinates.put("success", 1);
+			coordinates.put("status", 1);
 
 			coordinates.put("already_has_an_account", 0);
 			
 			theCustomer.setCustomerId(0);
 			
 			saveORupdate(theCustomer);
-
 		  Customer thecustomer2 = getCustomerByEmail(theCustomer.getEmail());
-
 		  coordinates.put("the_customer", thecustomer2);
-
 
 		}
       	

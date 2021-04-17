@@ -12,16 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import graduation.demo.pharmacymanagementsystem.dto.CustomersProductsHistoryDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersAddress;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
-import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 import graduation.demo.pharmacymanagementsystem.service.CustomersService;
 
 @RestController
@@ -81,7 +78,6 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 
-  
 	// sign in customer by email and password //
 	@GetMapping("/signIn/{theemail}/{thepassword}")
 	public Map<String, Object> Customer_signIn(@PathVariable String theemail, @PathVariable String thepassword) {
@@ -160,7 +156,8 @@ public class CustomersRestController {
 		customersService.saveORupdate(theCustomer);
 		return theCustomer;
 	}
-//////////////////edit customer password /////////////////////////
+   //////////////////edit customer password /////////////////////////
+
 	@PutMapping("/update_password")
 	public Map<String, Object> updateCustomerPassword(@RequestBody Customer theCustomer) {
 	    
