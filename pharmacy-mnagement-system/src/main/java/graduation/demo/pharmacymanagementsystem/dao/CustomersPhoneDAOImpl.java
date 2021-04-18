@@ -70,7 +70,10 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
+=======
+>>>>>>> parent of d16decc (Merge pull request #20 from asmaaramadan3333/FirstBranch)
 =======
 >>>>>>> parent of d16decc (Merge pull request #20 from asmaaramadan3333/FirstBranch)
 	@Override
