@@ -1,5 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,20 +43,24 @@ public class CustomersAddressRestController {
 
 		return theCustomerAddress;
 	}
-	@DeleteMapping("/delete_address_by_customer_id/{CustomerId}")
-	public String deleteCustomer(@PathVariable int CustomerId) {
+	public Map <String,Object>deleteCustomer(@PathVariable int CustomerId) {
+		Map<String, Object> coordinates = new HashMap<>();
 
 		CustomersAddress theCustomerAddress  = customersAddressService.findCustomerAddressByCustomrId(CustomerId);
 
 		// throw exception if null
 
 		if (theCustomerAddress == null) {
-			throw new RuntimeException("Customer code not found - " + CustomerId);
+			coordinates.put("Customer id not found - " ,CustomerId);
 		}
-
+		else {
+		
 		customersAddressService.deleteById(CustomerId);
 
-		return "Deleted Customer id - " + CustomerId;
+		coordinates.put("the customer address  deleted" ,CustomerId);
+		}
+		return coordinates;
+	
 	}
 	@PutMapping("/update")
 	public CustomersAddress updateCustomersAddress(@RequestBody CustomersAddress theCustomersAddress) {
