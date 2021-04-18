@@ -41,53 +41,7 @@ public class CustomersPhoneServiceImpl implements CustomersPhoneService {
 		return  CustomersPhoneDAO.findSpecificCustomerPhone(customerId,phone);
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
-=======
 
-	/*
-	 * @Override public void save(CustomersPhone theCustomersPhone) { // TODO
-	 * Auto-generated method stub CustomersPhoneDAO.save(theCustomersPhone); }
-	 * 
-	 * @Override public void deleteById(int theid,int customerphone) {
-	 * CustomersPhoneDAO.deleteById(theid,customerphone);
-	 * 
-	 * }
-	 * 
-	 * @Override public CustomersPhone findCustomerPhoneByCustomrId(int
-	 * theCustomerId,int CustomerPhone) { // TODO Auto-generated method stub return
-	 * CustomersPhoneDAO.findCustomerPhoneByCustomrId(theCustomerId,CustomerPhone);
-	 * }
-	 * 
-	 * @Override public void saveORupdateCustomerPhone(CustomersPhone
-	 * theCustomersPhone) {
-	 * CustomersPhoneDAO.saveORupdateCustomerPhone(theCustomersPhone);
-	 * 
-	 * }
-	 * 
-	 * @Override public Customer findByCode(int theCustomerId) { // TODO
-	 * Auto-generated method stub return
-	 * CustomersPhoneDAO.findByCode(theCustomerId); }
-	 * 
-	 * @Override public void saveORupdate(Customer theCustomer) {
-	 * CustomersPhoneDAO.saveORupdate(theCustomer);
-	 * 
-	 * }
-	 * 
-	 * @Override public void saveORupdate(CustomersPhone theCustomersPhone) {
-	 * 
-	 * CustomersPhoneDAO.saveORupdateCustomerPhone(theCustomersPhone); }
-	 */
-
->>>>>>> parent of fadfb97 (Merge branch 'main' into FirstBranch)
-=======
-	
->>>>>>> parent of d16decc (Merge pull request #20 from asmaaramadan3333/FirstBranch)
-=======
-	
->>>>>>> parent of d16decc (Merge pull request #20 from asmaaramadan3333/FirstBranch)
 	@Override
 	public void update(CustomersPhone theCustomersPhone, int phoneNumber) {
 		// TODO Auto-generated method stub
