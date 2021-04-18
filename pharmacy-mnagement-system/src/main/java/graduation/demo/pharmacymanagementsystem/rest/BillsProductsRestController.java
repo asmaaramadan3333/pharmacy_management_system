@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import graduation.demo.pharmacymanagementsystem.dto.BillsProductDTO;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
 import graduation.demo.pharmacymanagementsystem.service.BillsProductsService;
@@ -29,11 +29,10 @@ public class BillsProductsRestController {
 	
 
 	// expose "/BillsProducts" and return list of BillsProducts
-	//@GetMapping("/get_all_BillsProducts")
-	//public List <BillsProduct> findAllBillsProducts() {
-		//return BillsProductsService.findAllBillsProducts();
-	//}
-
+	@GetMapping("/get_all_BillsProducts")
+	public List <BillsProduct> findAllBillsProducts() {
+		return BillsProductsService.findAllBillsProducts();
+	}
 	// add mapping for GET /BillsProducts/{BillsProduct_id} //// find BillsProduct by id
 	
 	@GetMapping("/find_BillsProducts/{Bill_id}")
@@ -50,7 +49,14 @@ public class BillsProductsRestController {
 	
 	
 	
-	
+	@PostMapping("/BillsProductsList")
+	public long  getListOfProduts(@RequestBody List<BillsProduct> theBillsProducts) {
+
+		  BillsProductsService.saveORupdate(theBillsProducts);
+		  System.out.println(theBillsProducts.get(0));
+
+	  return theBillsProducts.get(0).getId().getBillId();
+	}
 	
 	/*@GetMapping("/BillsProducts_search/{BillsProductName}")
 	public List<BillsProduct> getBillsProduct(@PathVariable String BillsProductName) {
