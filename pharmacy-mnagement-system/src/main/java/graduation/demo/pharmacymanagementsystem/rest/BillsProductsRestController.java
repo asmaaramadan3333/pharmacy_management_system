@@ -51,12 +51,10 @@ public class BillsProductsRestController {
 	
 	@PostMapping("/BillsProductsList")
 	public long  getListOfProduts(@RequestBody List<BillsProduct> theBillsProducts) {
-	 
-	  //for(int i=0 ;i<theBillsProducts.size();i++)
-	  //{
+	
 		  BillsProductsService.saveORupdate(theBillsProducts);
 		  System.out.println(theBillsProducts.get(0));
-	 // }
+	
 	  return theBillsProducts.get(0).getId().getBillId();
 	}
 	
