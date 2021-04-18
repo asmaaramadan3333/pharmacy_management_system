@@ -110,7 +110,9 @@ public class CustomersRestController {
 		}
 
 		thecustomer.addCustomersPhone(theCustomersPhone);
+		
 		customersService.saveORupdate(thecustomer);
+		
 		return theCustomersPhone;
 	}
 

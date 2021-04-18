@@ -74,17 +74,7 @@ public class CustomersPhoneRestController {
 	  return "success";
 			   
 	  }
-	
-	  
-	  @PostMapping("/add_new_phone") 
-	  public int addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone ) {
-	  
-	  customersPhoneService.save(theCustomersPhone);
-	  
-	  return theCustomersPhone.getId().getCustomerId(); 
-	  
-	  }
-	 
+
 
 	
     @PutMapping("/phone")

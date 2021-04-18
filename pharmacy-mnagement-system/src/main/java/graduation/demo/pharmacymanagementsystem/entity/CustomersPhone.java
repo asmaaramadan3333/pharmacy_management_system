@@ -25,7 +25,6 @@ public class CustomersPhone implements Serializable {
 	//@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	//@ManyToOne(cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@ManyToOne(cascade=CascadeType.ALL)
-	//@JoinColumn(name="customer_id",insertable=false,updatable=false)
 	@JoinColumn(name="customer_id",insertable=false,updatable=false)
 
   @JsonIgnore
