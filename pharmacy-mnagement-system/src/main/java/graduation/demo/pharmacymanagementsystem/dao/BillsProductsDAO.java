@@ -10,7 +10,7 @@ public interface BillsProductsDAO {
 	public List <BillsProduct> findAllBillsProducts();
 	
 	
-	public void saveORupdate (List<BillsProduct> theBillsProduct);
+	public void saveORupdate (BillsProduct theBillsProduct);
 	
 	public void deleteByBillsProductID (int theCode);
 

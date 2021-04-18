@@ -65,7 +65,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	}
 
-
 	@Override
 	public Customer saveandreturncustomer(Customer theCustomer) {
 		
