@@ -68,7 +68,7 @@ public class CustomersPhoneRestController {
 	  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
 	  
 	  CustomersPhone theCustomer = getrowOfCustomerphone (CustomerId,customerPhone);
-		 
+		 System.out.println(theCustomer);
 	  customersPhoneService.deleteById(CustomerId,customerPhone);
 	 
 	  return "success";
@@ -76,14 +76,7 @@ public class CustomersPhoneRestController {
 	  }
 	
 	  
-	  @PostMapping("/add_new_phone") 
-	  public int addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone ) {
-	  
-	  customersPhoneService.save(theCustomersPhone);
-	  
-	  return theCustomersPhone.getId().getCustomerId(); 
-	  
-	  }
+
 	 
 
 	
