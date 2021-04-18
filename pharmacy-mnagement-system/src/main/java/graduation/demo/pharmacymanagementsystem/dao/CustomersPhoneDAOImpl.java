@@ -69,7 +69,10 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	
 	
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> parent of d16decc (Merge pull request #20 from asmaaramadan3333/FirstBranch)
 	@Override
 	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone) {
 		
