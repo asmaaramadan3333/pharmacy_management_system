@@ -42,40 +42,6 @@ public class CustomersPhoneServiceImpl implements CustomersPhoneService {
 	}
 	
 
-	/*
-	 * @Override public void save(CustomersPhone theCustomersPhone) { // TODO
-	 * Auto-generated method stub CustomersPhoneDAO.save(theCustomersPhone); }
-	 * 
-	 * @Override public void deleteById(int theid,int customerphone) {
-	 * CustomersPhoneDAO.deleteById(theid,customerphone);
-	 * 
-	 * }
-	 * 
-	 * @Override public CustomersPhone findCustomerPhoneByCustomrId(int
-	 * theCustomerId,int CustomerPhone) { // TODO Auto-generated method stub return
-	 * CustomersPhoneDAO.findCustomerPhoneByCustomrId(theCustomerId,CustomerPhone);
-	 * }
-	 * 
-	 * @Override public void saveORupdateCustomerPhone(CustomersPhone
-	 * theCustomersPhone) {
-	 * CustomersPhoneDAO.saveORupdateCustomerPhone(theCustomersPhone);
-	 * 
-	 * }
-	 * 
-	 * @Override public Customer findByCode(int theCustomerId) { // TODO
-	 * Auto-generated method stub return
-	 * CustomersPhoneDAO.findByCode(theCustomerId); }
-	 * 
-	 * @Override public void saveORupdate(Customer theCustomer) {
-	 * CustomersPhoneDAO.saveORupdate(theCustomer);
-	 * 
-	 * }
-	 * 
-	 * @Override public void saveORupdate(CustomersPhone theCustomersPhone) {
-	 * 
-	 * CustomersPhoneDAO.saveORupdateCustomerPhone(theCustomersPhone); }
-	 */
-
 	@Override
 	public void update(CustomersPhone theCustomersPhone, int phoneNumber) {
 		// TODO Auto-generated method stub
