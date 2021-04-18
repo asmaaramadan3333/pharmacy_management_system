@@ -64,18 +64,6 @@ public class BillsRestController {
 	}
 	
 	
-	/*@GetMapping("/Bills_search/{BillName}")
-	public List<Bill> getBill(@PathVariable String BillName) {
-		
-		List<Bill> theBill = BillsService.searchByName(BillName);
-		
-		if (theBill == null) {
-			throw new RuntimeException("Employee id not found - " + BillName);
-		}
-		
-		return theBill;
-	}*/
-	
 	
 	// add mapping for POST /Bills - add new Bills
 	
@@ -86,6 +74,7 @@ public class BillsRestController {
 		//theBill.setBillId(0);
 		
 		BillsService.save(theBill);
+		
 		//return BillsService.findByBillID(theBill.getBillId());
 		
 		return theBill;

@@ -65,12 +65,15 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	}
 
+
+	
+
 	@Override
 	public Customer saveandreturncustomer(Customer theCustomer) {
 		
 		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);
-				
+		Session currentSession = entityManager.unwrap(Session.class);			
+
 		// save Customer
 		currentSession.save(theCustomer);
 		String customeremail=theCustomer.getEmail();
@@ -78,9 +81,9 @@ public class CustomersDAOImpl implements CustomersDAO {
 		Customer theCustomer1=getCustomerByEmail(customeremail);
 		System.out.println(theCustomer1);
 		return theCustomer1;
-		
+
 	}
-	
+
 	@Override
 	public List<Customer> searchByName(String theCustomerName) {
 		// get the current hibernate session
@@ -173,22 +176,22 @@ public class CustomersDAOImpl implements CustomersDAO {
 	public void add_Phones_to_customer( CustomersPhone Custmersphone) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
-        
+
 		Customer theCustomer =findByCode(Custmersphone.getId().getCustomerId());
-		
-				
+
+
 		//theCustomer.add2(Custmersphone);
 
 		//currentSession.saveOrUpdate(Custmersphone);
-		
+
 		//currentSession.saveOrUpdate(theCustomer);
-      CustomersPhone customerPhone1 = new CustomersPhone();
-      customerPhone1.setIdParam(Custmersphone.getId().getCustomerId(), Custmersphone.getId().getPhoneNumber());
- 
-      currentSession.saveOrUpdate(customerPhone1);
+		CustomersPhone customerPhone1 = new CustomersPhone();
+		customerPhone1.setIdParam(Custmersphone.getId().getCustomerId(), Custmersphone.getId().getPhoneNumber());
+
+		currentSession.saveOrUpdate(customerPhone1);
 	}
-  
-  
+
+
 	@Override
 	public void deleteByCode(int theCustomerId) {
 		// get the current hibernate session
@@ -196,7 +199,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 		// delete object with primary key
 
-		Query theQuery = currentSession.createQuery("delete from Customer where code=:Customerid");
+		Query theQuery = currentSession.createQuery("delete from Customer  where code =: Customerid");
 		theQuery.setParameter("Customerid", theCustomerId);
 
 		theQuery.executeUpdate();
@@ -209,14 +212,14 @@ public class CustomersDAOImpl implements CustomersDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// get the Customer
-		Query theQuery = currentSession.createQuery("FROM CustomersPhone WHERE id.customerId =:theCustomer_Id and "
+		Query theQuery = currentSession.createQuery(" FROM CustomersPhone WHERE id.customerId =:theCustomer_Id and "
 				+ " id.phoneNumber =: thecustomerphone ", CustomersPhone.class);
 		theQuery.setParameter("theCustomer_Id", theCustomerId);
 		theQuery.setParameter("thecustomerphone", customerphone);
 		CustomersPhone theCustomerPhone = (CustomersPhone) theQuery.getResultList().get(0);
 		// currentSession.get(CustomersPhone.class,theCustomerId,phoneNumber);
 
-	
+
 		// return the Customer
 		return theCustomerPhone;
 	}
