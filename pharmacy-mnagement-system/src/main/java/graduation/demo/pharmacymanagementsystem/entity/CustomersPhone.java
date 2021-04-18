@@ -56,5 +56,11 @@ public class CustomersPhone implements Serializable {
 		return "CustomersPhone [id=" + id + ", customer=" + customer + "]";
 	}
 
+	public void setIdParam (int customerId,int phoneNumber ) {
+		this.id.setPhoneNumber(phoneNumber);
+		this.id.setCustomerId(customerId);
+		
+	}
+
 
 }
