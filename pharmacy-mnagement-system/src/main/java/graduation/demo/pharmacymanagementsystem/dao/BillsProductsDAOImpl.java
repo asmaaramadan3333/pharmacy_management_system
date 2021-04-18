@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -63,14 +64,21 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 
 	
 	@Override
-	public void saveORupdate(BillsProduct theBillsProduct) {
+	public void saveORupdate(List<BillsProduct>  theBillsProduct) {
 		
-		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
-				
-		// save BillsProduct
-		currentSession.saveOrUpdate(theBillsProduct);
+		Transaction tx = currentSession.beginTransaction();
+		for(int i=0 ;i<theBillsProduct.size();i++)
+		{
+		// get the current hibernate session
 		
+	
+		// save BillsProduct
+		currentSession.save(theBillsProduct.get(i));
+	
+		}
+		tx.commit();
+		currentSession.close();
 	}
 	
 	

@@ -28,13 +28,9 @@ public class CustomersPhone implements Serializable {
 	//@JoinColumn(name="customer_id",insertable=false,updatable=false)
 	@JoinColumn(name="customer_id",insertable=false,updatable=false)
 
-  @JsonIgnore
+    @JsonIgnore
 	private Customer customer;
-	public void setIdParam (int customerId,int phoneNumber ) {
-		this.id.setPhoneNumber(phoneNumber);
-		this.id.setCustomerId(customerId);
-		
-	}
+
 
 	public CustomersPhone() {
 	}

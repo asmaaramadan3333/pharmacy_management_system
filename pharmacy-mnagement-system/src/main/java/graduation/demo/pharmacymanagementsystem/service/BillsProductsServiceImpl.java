@@ -72,4 +72,17 @@ public class BillsProductsServiceImpl implements BillsProductsService {
 		return theBillsProductsdtoList;
 	}
 
+	@Override
+	public void saveORupdate(List<BillsProduct>  theBillsProduct) {
+		
+		BillsProductsDAO.saveORupdate(theBillsProduct);
+	}
+
+	
+	@Override
+	public List<BillsProduct> findAllBillsProducts() {
+		// TODO Auto-generated method stub
+		return BillsProductsDAO.findAllBillsProducts();
+	}
+
 }
