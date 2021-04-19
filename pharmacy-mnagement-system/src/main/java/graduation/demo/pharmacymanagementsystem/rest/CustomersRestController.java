@@ -33,7 +33,11 @@ public class CustomersRestController {
 		customersService = theCustomersService;
 	}
 
-//////////////////////// get requests///////////////
+   public CustomersRestController() {
+		// TODO Auto-generated constructor stub
+	}
+
+	//////////////////////// get requests///////////////
 	// return list of customers //
 	@GetMapping("/get_all")
 	public List<Customer> findAllCustomers() {
@@ -167,6 +171,25 @@ public class CustomersRestController {
 		return theCustomersAddress;
 	}
 
+	////////////////////////// add new bill to the customer not finished ////////////////
+	/*  @PostMapping("/add_new_bill_to_customer")
+	public Bill addphoneForCustomer(@RequestBody Bill theBill) {
+	  //public Bill addbillTocustomer(Bill theBill) {	
+        Customer thecustomer = customersService.findByCode(theBill.getCustomer().getCustomerId());
+		if (thecustomer == null) {
+			throw new RuntimeException(" the Customer  not found ");
+		}
+  
+		thecustomer.addBill(theBill);
+		
+		customersService.saveORupdate(thecustomer);
+		
+		return theBill;
+	}*/
+	
+	
+	
+	
 	////////////////// edit customer /////////////////////////
 
 	@PutMapping("/update")
