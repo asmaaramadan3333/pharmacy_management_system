@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Repository;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
@@ -57,12 +58,20 @@ public class BillsDAOImpl implements BillsDAO {
 
 	@Override
 	public void save(Bill theBill) {
-		
+		//Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);
-		// save Bill
-		currentSession.save(theBill);
 		
+		Session currentSession = entityManager.unwrap(Session.class);
+	
+		// save Bill
+		System.out.println("before");
+		long id = (Long)currentSession.save(theBill);
+		if(id==0) 
+		{System.out.println("sucess");}  
+			else {System.out.println("faild");}
+		currentSession.save(theBill);
+		System.out.println("after");
+		currentSession.getTransaction().commit();
 		
 	}
 	
