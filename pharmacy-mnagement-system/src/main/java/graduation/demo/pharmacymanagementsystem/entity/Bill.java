@@ -41,6 +41,15 @@ public class Bill implements Serializable {
 
 	@Column(name="phone_number")
 	private int phoneNumber;
+    @Column(name="customer_id",insertable =false, updatable=false)
+    private int customerId;
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
 
 	@CreationTimestamp()
 	//@JsonFormat(timezone = "GMT+02:00")

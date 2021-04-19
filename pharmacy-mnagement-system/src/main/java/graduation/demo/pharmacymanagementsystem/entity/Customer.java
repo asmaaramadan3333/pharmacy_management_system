@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -45,13 +44,13 @@ public class Customer implements Serializable {
 	private String password;
 
 	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL )
 	
 	private List<Bill> bills;
 
 	//bi-directional one-to-one association to CustomersAddress
-	@OneToOne(mappedBy="customer", cascade=CascadeType.ALL)
-	private CustomersAddress customersAddress;
+	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private List<CustomersAddress> customersAddresses;
 
 	//bi-directional many-to-one association to CustomersPhone
 
@@ -84,7 +83,7 @@ public class Customer implements Serializable {
 	}
 
 	public Customer(float credit, Date dateOfBirth, String email, String firstName, String gender, String lastName,
-			String password, List<Bill> bills, CustomersAddress customersAddress, List<CustomersPhone> customersPhones,
+			String password, List<Bill> bills, List<CustomersAddress> customersAddresses, List<CustomersPhone> customersPhones,
 			List<Product> products, List<Employee> employees) {
 		
 		this.credit = credit;
@@ -95,7 +94,7 @@ public class Customer implements Serializable {
 		this.lastName = lastName;
 		this.password = password;
 		this.bills = bills;
-		this.customersAddress = customersAddress;
+		this.customersAddresses = customersAddresses;
 		this.customersPhones = customersPhones;
 		this.products = products;
 		this.employees = employees;
@@ -187,14 +186,27 @@ public class Customer implements Serializable {
 		return bill;
 	}
 
-	public CustomersAddress getCustomersAddress() {
-		return this.customersAddress;
+	public List<CustomersAddress> getCustomersAddresses() {
+		return this.customersAddresses;
 	}
 
-	public void setCustomersAddress(CustomersAddress customersAddress) {
-		this.customersAddress = customersAddress;
+	public void setCustomersAddresses(List<CustomersAddress> customersAddresses) {
+		this.customersAddresses = customersAddresses;
 	}
 
+	public CustomersAddress addCustomersAddress(CustomersAddress customersAddress) {
+		getCustomersAddresses().add(customersAddress);
+		customersAddress.setCustomer(this);
+
+		return customersAddress;
+	}
+
+	public CustomersAddress removeCustomersAddress(CustomersAddress customersAddress) {
+		getCustomersAddresses().remove(customersAddress);
+		customersAddress.setCustomer(null);
+
+		return customersAddress;
+	}
 	public List<CustomersPhone> getCustomersPhones() {
 		return this.customersPhones;
 	}

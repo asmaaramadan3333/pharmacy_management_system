@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import graduation.demo.pharmacymanagementsystem.dto.CustomersProductsHistoryDTO;
+import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersAddress;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
@@ -116,6 +117,21 @@ public class CustomersRestController {
 		return theCustomersPhone;
 	}
 
+	@PostMapping("/add_new_Bill_to_customer")
+	public Bill addBillForCustomer(@RequestBody Bill theBill) {
+		
+		Customer thecustomer = customersService.findByCode(theBill.getCustomerId());
+		if (thecustomer == null) {
+			throw new RuntimeException(" the Customer  not found ");
+		}
+
+		thecustomer.addBill(theBill);
+		
+		customersService.saveORupdate(thecustomer);
+		
+		return theBill;
+	}
+
 	/////////////////// sign up customer for mobile //////////////////////
 	@SuppressWarnings("unchecked")
 	@PostMapping("/sign_up")
@@ -140,10 +156,11 @@ public class CustomersRestController {
 	@PostMapping("/add_new_address")
 	public CustomersAddress addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
 
-		int theId = theCustomersAddress.getCustomerId();
-		System.out.println(theId);
-		Customer thecustomer = customersService.findByCode(theId);
-		thecustomer.setCustomersAddress(theCustomersAddress);
+		Customer thecustomer = customersService.findByCode(theCustomersAddress.getId().getCustomerId());
+		if (thecustomer == null) {
+			throw new RuntimeException(" the Customer  not found ");
+		}
+		thecustomer.addCustomersAddress(theCustomersAddress);
 
 		customersService.saveORupdate(thecustomer);
 

@@ -34,4 +34,7 @@ public interface CustomersService {
 
 
 	public Map<String, Object> updatePassword(int customerId, String password);
+
+
+	
 }
