@@ -44,7 +44,7 @@ public class Customer implements Serializable {
 	private String password;
 
 	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL )
 	
 	private List<Bill> bills;
 

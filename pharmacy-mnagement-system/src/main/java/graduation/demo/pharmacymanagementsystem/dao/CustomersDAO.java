@@ -31,4 +31,5 @@ public interface CustomersDAO {
 	public Customer saveandreturncustomer(Customer theCustomer);
 
 	public void updatePassword(int customerId, String newPassword);
+
 }
