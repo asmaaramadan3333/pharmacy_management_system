@@ -93,9 +93,7 @@ public class BillsDAOImpl implements BillsDAO {
 	Query theQuery = currentSession.createQuery("FROM Bill WHERE customer.customerId =: theCustomer_Id " , Bill.class);
 	
 	theQuery.setParameter("theCustomer_Id", theCustomerId);
-	
-	System.out.println(theQuery);
-	
+		
 	List<Bill> customer_bills = theQuery.getResultList();
 	// return the Customer
 	return customer_bills;

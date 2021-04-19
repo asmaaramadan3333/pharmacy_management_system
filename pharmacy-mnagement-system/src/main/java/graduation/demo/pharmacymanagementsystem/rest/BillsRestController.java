@@ -1,6 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +18,7 @@ import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.service.BillsService;
 
 @RestController
-@RequestMapping("/Bills")
+@RequestMapping("/bill")
 public class BillsRestController {
 
 	private BillsService BillsService;
@@ -27,40 +29,57 @@ public class BillsRestController {
 	}
 	
 
-	// expose "/Bills" and return list of Bills
-	
+//////////////////////////////////////// get all bills //////////////////////////////	
 	@GetMapping("/get_all")
 	public List <Bill> findAllBills() {
 		return BillsService.findAllBills();
 	}
 
-	// add mapping for GET /Bills/{Bill_id} //// find Bill by id
-	
-	@GetMapping("/Bills/{Bill_id}")
-	public Bill getBill(@PathVariable int Bill_id) {
-		
+	///////////////////////////get the bill by bill id ////////////////////////////
+	@GetMapping("/get_bill_by_id/{Bill_id}")
+	public Map<String, Object> getBillbybillId(@PathVariable int Bill_id) {
+		Map<String, Object> coordinates = new HashMap<>();
+
 		Bill theBill = BillsService.findByBillID(Bill_id);
 		
 		if (theBill == null) {
-			throw new RuntimeException("Employee id not found - " + Bill_id);
-		}
+			//throw new RuntimeException("bill id not found - " + Bill_id);
+			coordinates.put("status", 0);
+			coordinates.put("message","the bill id not found" );
+			return coordinates;
+		    }
+		else
+			{
+			coordinates.put("status", 1 );
+			coordinates.put("theBill", theBill);
+			return coordinates;
+			}
 		
-		return theBill;
 	}
 	
 	
-	@SuppressWarnings("null")
+	///////////////////////////////////// get the customer bills by the customer id ///////////////////////////
 	@GetMapping("/get_customer_Bills_bycid/{CustomerId}")
-	public List<Bill> getCustomerphone (@PathVariable int CustomerId)
+	public Map<String, Object> getCustomerbills (@PathVariable int CustomerId)
 	{
-
-		  List<Bill> theCustomer_Bills = BillsService.findCustomerBillsById (CustomerId);
+ 
+		Map<String, Object> coordinates = new HashMap<>();
+		
+		  List<Bill> theCustomer_BillsList = BillsService.findCustomerBillsById (CustomerId);
 		  
-		  if (theCustomer_Bills == null && theCustomer_Bills.isEmpty()) {
-				throw new RuntimeException("the customer not found " + CustomerId);
-			}
-
-		return theCustomer_Bills;
+		  
+		  if (theCustomer_BillsList == null || theCustomer_BillsList.isEmpty()) 
+		  {	
+			  //throw new RuntimeException("the customer not found " + CustomerId);
+			coordinates.put("status", 0);
+			coordinates.put("message","the Customer does not have any bills" );
+			return coordinates;
+		  }
+		  else {
+			  coordinates.put("status", 1);
+			  coordinates.put("the_customer_bills",theCustomer_BillsList);
+			  return coordinates;
+		  }
 	}
 	
 	
@@ -69,9 +88,10 @@ public class BillsRestController {
 	
 	@PostMapping("/add_new_Bills")
 	public Bill addBill(@RequestBody Bill theBill) {
+		//CustomersRestController thecustomerRest = new CustomersRestController();
 		
-				
-		//theBill.setBillId(0);
+		//Bill thecustomerbill = thecustomerRest.addbillTocustomer(theBill);		
+		
 		
 		BillsService.save(theBill);
 		

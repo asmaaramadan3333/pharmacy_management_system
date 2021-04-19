@@ -41,14 +41,15 @@ public class Bill implements Serializable {
 
 	@Column(name="phone_number")
 	private int phoneNumber;
+	
+	//private int customerId;
 
-	@CreationTimestamp()
+	//@CreationTimestamp()/////
 	//@JsonFormat(timezone = "GMT+02:00")
-
 	//@DateTimeFormat(pattern="hh:mm:ss" )
-	@Temporal(TemporalType.TIMESTAMP)
     //@Temporal(TemporalType.TIME)
-	@Column(name = "time", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	//@Column(name = "time")//, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date time;
 
 	@Column(name="total_price")
@@ -56,7 +57,8 @@ public class Bill implements Serializable {
 
 	//bi-directional many-to-one association to Customer
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="customer_id")
+	@JoinColumn(name="customer_id")//,columnDefinition = "customerId")
+	
 	@JsonIgnore
 	private Customer customer;
 
@@ -88,6 +90,7 @@ public class Bill implements Serializable {
 				+ employee2 + ", billsProducts=" + billsProducts + "]";
 	}
 
+	
 	public long getBillId() {
 		return this.billId;
 	}
@@ -118,6 +121,15 @@ public class Bill implements Serializable {
 
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
+	}
+/*	
+///////////////new added/////////
+	public int getCustomerId() {
+		return customer.getCustomerId();
+	}*/
+///////////////new added/////////
+	public void setCustomerId(int customerId) {
+		this.customer.setCustomerId(customerId);
 	}
 
 	public float getDeliveryFee() {
