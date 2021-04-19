@@ -12,89 +12,38 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="customers_addresses")
-@NamedQuery(name="CustomersAddress.findAll", query="SELECT c FROM CustomersAddress c")
+//@NamedQuery(name="CustomersAddress.findAll", query="SELECT c FROM CustomersAddress c")
 public class CustomersAddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="customer_id")
-	private int customerId;
+	@EmbeddedId
+	private CustomersAddressPK id;
 
-	private String appartment;
-
-	private String country;
-
-	private String floor;
-
-	private String governorate;
-
-	private String region;
-
-	private String street;
-
-	//bi-directional one-to-one association to Customer
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="customer_id")
+	//bi-directional many-to-one association to Customer
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="customer_id",insertable=false,updatable=false)
 	@JsonIgnore
 	private Customer customer;
+	public void setIdParam (int customerId,String address ) {
+		
+		this.id.setAddress(address);
+		this.id.setCustomerId(customerId);
+	}
+
+	@Override
+	public String toString() {
+		return "CustomersAddress [id=" + id + ", customer=" + customer + "]";
+	}
 
 	public CustomersAddress() {
 	}
 
-	public int getCustomerId() {
-		return this.customerId;
+	public CustomersAddressPK getId() {
+		return this.id;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
-	public String getAppartment() {
-		return this.appartment;
-	}
-
-	public void setAppartment(String appartment) {
-		this.appartment = appartment;
-	}
-
-	public String getCountry() {
-		return this.country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getFloor() {
-		return this.floor;
-	}
-
-	public void setFloor(String floor) {
-		this.floor = floor;
-	}
-
-	public String getGovernorate() {
-		return this.governorate;
-	}
-
-	public void setGovernorate(String governorate) {
-		this.governorate = governorate;
-	}
-
-	public String getRegion() {
-		return this.region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-
-	public String getStreet() {
-		return this.street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
+	public void setId(CustomersAddressPK id) {
+		this.id = id;
 	}
 
 	public Customer getCustomer() {

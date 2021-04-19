@@ -1,6 +1,7 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,62 +14,78 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import graduation.demo.pharmacymanagementsystem.dto.CustomerAddressDTO;
+import graduation.demo.pharmacymanagementsystem.dto.CustomersPhoneDTO;
 import graduation.demo.pharmacymanagementsystem.dto.CustomersProductsHistoryDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersAddress;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.service.CustomersAddressService;
-
 
 @RestController
 @RequestMapping("/customeraddress")
 public class CustomersAddressRestController {
-	
-	private CustomersAddressService customersAddressService;
 
+	private CustomersAddressService customersAddressService;
 
 	@Autowired
 	public CustomersAddressRestController(CustomersAddressService theCustomersAddressService) {
-		customersAddressService =theCustomersAddressService;
+		customersAddressService = theCustomersAddressService;
 	}
-	// add mapping for GET /get_address_by_id/{CustomerId}
 
-	@GetMapping("/get_address_by_id/{theCustomerId}")
-	public CustomersAddress getCustomer(@PathVariable int theCustomerId) {
+	/////////////////////////////// get all addresses for certain customer by the customerId /////////////////////////
+	@GetMapping("/get_address_by_customer_id/{theCustomerId}")
+	public List<CustomersAddress> getCustomer(@PathVariable int theCustomerId) {
 
-		CustomersAddress theCustomerAddress =customersAddressService.findCustomerAddressByCustomrId(theCustomerId) ;
+		List<CustomersAddress> theCustomerAddress = customersAddressService.findCustomerAddressByCustomrId(theCustomerId);
 
-		if (theCustomerAddress == null) {
-			throw new RuntimeException("Customer id not found - " + theCustomerId);
-		}
+		 if (theCustomerAddress == null && theCustomerAddress.isEmpty()) {
+				throw new RuntimeException("the customer dosen't have addresses " + theCustomerId);
+			}
 
 		return theCustomerAddress;
 	}
-	public Map <String,Object>deleteCustomer(@PathVariable int CustomerId) {
+
+	/////////////////////////// get Specific CustomerPhone by the customer id and the phone number ////////////////////////
+	@GetMapping("/get_rowof_customersphone/{CustomerId}/{address}")
+	public CustomersAddress getrowOfCustomerAddress(@PathVariable int CustomerId, @PathVariable String address)
+	{
+		CustomersAddress theCustomeraddress = customersAddressService.findSpecificCustomerPhone(CustomerId, address);
+
+			return theCustomeraddress;
+	}
+
+	/////////////////////////////// delete the customer phone//////////////////////////////////
+
+	@DeleteMapping("/delete_address_by_customer_id/{CustomerId}/{address}")
+	public Map<String,Object> deleteCustomerphone(@PathVariable int CustomerId, @PathVariable String address) 
+	{
+
 		Map<String, Object> coordinates = new HashMap<>();
-
-		CustomersAddress theCustomerAddress  = customersAddressService.findCustomerAddressByCustomrId(CustomerId);
-
-		// throw exception if null
-
-		if (theCustomerAddress == null) {
-			coordinates.put("Customer id not found - " ,CustomerId);
+		CustomersAddress theCustomersAddress = getrowOfCustomerAddress(CustomerId, address);
+		if (theCustomersAddress==null)
+		{
+			coordinates.put("states", 0);
+			coordinates.put( "the customer address not found ", address);
 		}
 		else {
-		
-		customersAddressService.deleteById(CustomerId);
-
-		coordinates.put("the customer address  deleted" ,CustomerId);
+		customersAddressService.deleteById(CustomerId, address);
+		coordinates.put("states", 1);
+		coordinates.put( "the customer address deleted ", address);
 		}
 		return coordinates;
-	
-	}
-	@PutMapping("/update")
-	public CustomersAddress updateCustomersAddress(@RequestBody CustomersAddress theCustomersAddress) {
-
-		customersAddressService.saveORupdate(theCustomersAddress);
-
-		return theCustomersAddress;
 	}
 
-	}
 
+	@PutMapping("/editAddress")
+  	public CustomersAddress updatecustomersPhone(@RequestBody CustomerAddressDTO thecustomeraddress) {
+    	 int theCustomerId=thecustomeraddress.getTheCustomerId();
+    	 String theCustomerAddressold=thecustomeraddress.getTheCustomerAddressOld();
+    	 String theCustomerAdressnew=thecustomeraddress.getTheCustomerAddressNew();
+    	 CustomersAddress tempCustomersAddress = getrowOfCustomerAddress(theCustomerId, theCustomerAddressold);
+    	 customersAddressService.update(tempCustomersAddress,theCustomerAdressnew);
+    	 CustomersAddress tempcustomerphone2=getrowOfCustomerAddress(theCustomerId, theCustomerAdressnew);
+  		return tempcustomerphone2;
+  	}
+
+}

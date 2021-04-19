@@ -27,7 +27,7 @@ public class CustomersPhone implements Serializable {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_id",insertable=false,updatable=false)
 
-  @JsonIgnore
+    @JsonIgnore
 	private Customer customer;
 	public void setIdParam (int customerId,int phoneNumber ) {
 		this.id.setPhoneNumber(phoneNumber);

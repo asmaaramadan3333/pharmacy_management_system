@@ -140,10 +140,11 @@ public class CustomersRestController {
 	@PostMapping("/add_new_address")
 	public CustomersAddress addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
 
-		int theId = theCustomersAddress.getCustomerId();
-		System.out.println(theId);
-		Customer thecustomer = customersService.findByCode(theId);
-		thecustomer.setCustomersAddress(theCustomersAddress);
+		Customer thecustomer = customersService.findByCode(theCustomersAddress.getId().getCustomerId());
+		if (thecustomer == null) {
+			throw new RuntimeException(" the Customer  not found ");
+		}
+		thecustomer.addCustomersAddress(theCustomersAddress);
 
 		customersService.saveORupdate(thecustomer);
 
