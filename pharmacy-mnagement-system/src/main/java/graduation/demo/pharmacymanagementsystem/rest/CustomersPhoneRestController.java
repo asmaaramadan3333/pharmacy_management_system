@@ -1,6 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +39,7 @@ public class CustomersPhoneRestController {
 		  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
 		  
 		  if (theCustomer_phones == null && theCustomer_phones.isEmpty()) {
-				throw new RuntimeException("the customer not found " + CustomerId);
+				throw new RuntimeException("the customer doesn't have phones  " + CustomerId);
 			}
 
 		return theCustomer_phones;
@@ -62,16 +64,24 @@ public class CustomersPhoneRestController {
 	/////////////////////////////// delete the customer phone //////////////////////////////////
 	
 	  @DeleteMapping("/delete_phone_by_id/{CustomerId}/{customerPhone}") 
-	  public String deleteCustomerphone(@PathVariable int CustomerId,@PathVariable int customerPhone) 
+	  public Map<String,Object> deleteCustomerphone(@PathVariable int CustomerId,@PathVariable int customerPhone) 
 	  {
-	  
+	  Map<String, Object> coordinates = new HashMap<>();
 	  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
 	  
-	  CustomersPhone theCustomer = getrowOfCustomerphone (CustomerId,customerPhone);
-		 
+	  CustomersPhone theCustomerPhone = getrowOfCustomerphone (CustomerId,customerPhone);
+	  if(theCustomerPhone==null)
+	  {
+			coordinates.put("states", 0);
+			coordinates.put( "the customer phone not found ",customerPhone);
+	  }
+	  else 
+	  {
 	  customersPhoneService.deleteById(CustomerId,customerPhone);
-	 
-	  return "success";
+	  coordinates.put("states", 1);
+	  coordinates.put( "the customer phone deleted ", customerPhone);
+	  }	 
+	  return coordinates;
 			   
 	  }
 

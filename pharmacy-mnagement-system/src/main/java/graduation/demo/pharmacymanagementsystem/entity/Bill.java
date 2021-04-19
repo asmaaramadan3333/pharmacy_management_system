@@ -41,8 +41,16 @@ public class Bill implements Serializable {
 
 	@Column(name="phone_number")
 	private int phoneNumber;
-	
-	//private int customerId;
+
+    @Column(name="customer_id",insertable =false, updatable=false)
+    private int customerId;
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
 
 	//@CreationTimestamp()/////
 	//@JsonFormat(timezone = "GMT+02:00")
@@ -121,15 +129,6 @@ public class Bill implements Serializable {
 
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
-	}
-/*	
-///////////////new added/////////
-	public int getCustomerId() {
-		return customer.getCustomerId();
-	}*/
-///////////////new added/////////
-	public void setCustomerId(int customerId) {
-		this.customer.setCustomerId(customerId);
 	}
 
 	public float getDeliveryFee() {
