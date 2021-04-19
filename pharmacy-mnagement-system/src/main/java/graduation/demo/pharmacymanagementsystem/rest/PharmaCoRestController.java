@@ -51,7 +51,7 @@ public class PharmaCoRestController {
 	 * theproducttype, theproductsize, thecompanyname, theemployeename); return
 	 * coordinates; }
 	 */
-	//////////////////////////////////// return object of pharmaci by take the company name//////////////////
+	//////////////////////////////////// return object of pharmaco by take the company name////////////////// will be edited search and return list 
   
 	@GetMapping("/return_the_pharmaco/{thecompanyname}")
 	public PharmaCo getPharmaCo(@PathVariable String thecompanyname)
@@ -65,7 +65,7 @@ public class PharmaCoRestController {
 		return thePharmaCo;
 	}
 
-	//////////////////////////////////return all the company name////////////////////////////////
+//////////////////////////////////return all the company name////////////////////////////////will be edited to retun all companies and return list
 
 	@GetMapping("/return_all_companyname/")
 	public List<PharmaCo> findallcomplanyName() 

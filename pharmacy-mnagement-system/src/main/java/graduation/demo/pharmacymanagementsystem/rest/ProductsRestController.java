@@ -84,6 +84,7 @@ public class ProductsRestController {
 		return theProducts;
 	}
 
+	///////////////// optional will be added////////////////
 	@GetMapping("/return_the_product_code/{theproductname}/{theproducttype}/{theproductsize}")
 	public Map returnThe_Id_by_name(@PathVariable String theproductname, @PathVariable String theproducttype,
 			@PathVariable int theproductsize) {
