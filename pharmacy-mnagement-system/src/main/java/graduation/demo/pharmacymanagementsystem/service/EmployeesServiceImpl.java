@@ -24,28 +24,29 @@ public class EmployeesServiceImpl implements EmployeesService {
 	@Override
 	@Transactional
 
-	public Map<String, Boolean> employeeSignIn(String theusername, String thepassword) {
+	public Map<String, Object> employeeSignIn(String theusername, String thepassword) {
 
-		Map<String, Boolean> coordinates = new HashMap<>();
+		Map<String,Object> coordinates = new HashMap<>();
 
 		Employee theemployee = EmployeesDAO.getEmployeeByUsername(theusername);
 
 		if (theemployee != null) {
 
-			coordinates.put("having_an_account", true);
+			coordinates.put("having_an_account", 1);
 
 			Employee theExistingEmployee = EmployeesDAO.signIn(theusername, thepassword);
 
 			if (theExistingEmployee != null) {
 
-				coordinates.put("success", true);
-				coordinates.put("correct_password", true);
+				coordinates.put("success", 1);
+				coordinates.put("correct_password", 1);
+				coordinates.put("the_employee", theemployee);
 			}
 
 			else {
-				coordinates.put("success", false);
-				coordinates.put("correct_password", false);
-
+				coordinates.put("success", 0);
+				coordinates.put("correct_password",0);
+				coordinates.put("the_employee", theemployee);
 			}
 
 			return coordinates;
@@ -56,9 +57,9 @@ public class EmployeesServiceImpl implements EmployeesService {
 
 		{
 
-			coordinates.put("success", false);
-			coordinates.put("having_an_account", false);
-			coordinates.put("correct_password", false);
+			coordinates.put("success",0);
+			coordinates.put("having_an_account", 0);
+			coordinates.put("correct_password", 0);
 
 			return coordinates;
 

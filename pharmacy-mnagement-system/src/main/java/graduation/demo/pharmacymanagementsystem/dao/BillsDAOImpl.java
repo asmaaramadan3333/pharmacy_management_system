@@ -63,14 +63,9 @@ public class BillsDAOImpl implements BillsDAO {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
 	
-		// save Bill
-		System.out.println("before");
-		long id = (Long)currentSession.save(theBill);
-		if(id==0) 
-		{System.out.println("sucess");}  
-			else {System.out.println("faild");}
+	
 		currentSession.save(theBill);
-		System.out.println("after");
+	    currentSession.flush();
 		currentSession.getTransaction().commit();
 		
 	}
@@ -102,9 +97,7 @@ public class BillsDAOImpl implements BillsDAO {
 	Query theQuery = currentSession.createQuery("FROM Bill WHERE customer.customerId =: theCustomer_Id " , Bill.class);
 	
 	theQuery.setParameter("theCustomer_Id", theCustomerId);
-	
-	System.out.println(theQuery);
-	
+		
 	List<Bill> customer_bills = theQuery.getResultList();
 	// return the Customer
 	return customer_bills;
