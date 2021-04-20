@@ -36,6 +36,16 @@ public class Bill implements Serializable {
 	@Column(name="customer_address")
 	private String customerAddress;
 
+
+
+	public int getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+
 	@Column(name="delivery_fee")
 	private float deliveryFee;
 
@@ -44,6 +54,8 @@ public class Bill implements Serializable {
 
     @Column(name="customer_id",insertable =false, updatable=false)
     private int customerId;
+    @Column(name="employee_id",insertable =false, updatable=false)
+    private int employeeId;
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -73,13 +85,13 @@ public class Bill implements Serializable {
 	//bi-directional many-to-one association to Employee
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="employee_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private Employee employee1;
 
 	//bi-directional many-to-one association to Employee
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="delivery_man_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private Employee employee2;
 
 	//bi-directional many-to-one association to BillsProduct

@@ -36,7 +36,7 @@ public class EmployeesRestController {
 	/////////////employee sign in /////////////////////////    edit return the employee
 		@GetMapping("/employee_signIn/{username}/{thepassword}")
 		public Map Employee_signIn(@PathVariable String username,@PathVariable String thepassword) {
-			Map <String,Boolean> coordinates = new HashMap<>();
+			Map<String, Object> coordinates = new HashMap<>();
 	
 			coordinates = employeesService.employeeSignIn(username, thepassword);
 			return coordinates ;
@@ -94,8 +94,8 @@ public class EmployeesRestController {
 			theEmployee.setId(0);
 	
 			employeesService.saveORupdate(theEmployee);
-	
-			return theEmployee;
+			//Employee theEmployeeAfterSave =employeesService.getEmployeeByUsername(theEmployee.getUsername());
+			return theEmployee ;
 		}
 
 }
