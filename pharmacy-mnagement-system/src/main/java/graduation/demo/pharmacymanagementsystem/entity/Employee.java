@@ -60,8 +60,9 @@ public class Employee implements Serializable {
 
 	//bi-directional many-to-one association to Bill
 	@OneToMany(mappedBy="employee1", fetch = FetchType.LAZY )
-	private List<Bill> bills1;
 
+	private List<Bill> bills1;
+	
 	//bi-directional many-to-one association to Bill
 	@OneToMany(mappedBy="employee2", fetch = FetchType.LAZY)
 	private List<Bill> bills2;
