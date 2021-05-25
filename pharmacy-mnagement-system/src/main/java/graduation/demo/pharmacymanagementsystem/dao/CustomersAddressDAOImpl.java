@@ -49,7 +49,7 @@ public class CustomersAddressDAOImpl implements CustomersAddressDAO {
 	}
 
 	@Override
-	public CustomersAddress findSpecificCustomerPhone(int customerId, String address) {
+	public CustomersAddress findSpecificCustomerAddress(int customerId, String address) {
          Session currentSession = entityManager.unwrap(Session.class);
 		
 		// get the Customer

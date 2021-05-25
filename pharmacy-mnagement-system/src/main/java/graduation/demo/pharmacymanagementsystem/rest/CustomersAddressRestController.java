@@ -35,26 +35,50 @@ public class CustomersAddressRestController {
 
 	/////////////////////////////// get all addresses for certain customer by the customerId /////////////////////////
 	@GetMapping("/get_address_by_customer_id/{theCustomerId}")
-	public List<CustomersAddress> getCustomer(@PathVariable int theCustomerId) {
-
+	public Map<String, Object> getCustomer(@PathVariable int theCustomerId) {
+		Map<String, Object> coordinates = new HashMap<>();
+		
 		List<CustomersAddress> theCustomerAddress = customersAddressService.findCustomerAddressByCustomrId(theCustomerId);
-
-		 if (theCustomerAddress == null && theCustomerAddress.isEmpty()) {
-				throw new RuntimeException("the customer dosen't have addresses " + theCustomerId);
-			}
-
-		return theCustomerAddress;
+       
+		if (theCustomerAddress == null || theCustomerAddress.isEmpty()) 
+		  {	
+			  //throw new RuntimeException("the customer not found " + CustomerId);
+			coordinates.put("status", 0);
+			coordinates.put("message","the Customer does not have any address" );
+			return coordinates;
+		  }
+		  else {
+			  coordinates.put("status", 1);
+			  coordinates.put("the_customer_bills",theCustomerAddress);
+			  return coordinates;
+		  }
 	}
 
 	/////////////////////////// get Specific CustomerPhone by the customer id and the phone number ////////////////////////
-	@GetMapping("/get_rowof_customersphone/{CustomerId}/{address}")
+	@GetMapping("/get_rowof_customersaddress/{CustomerId}/{address}")
 	public CustomersAddress getrowOfCustomerAddress(@PathVariable int CustomerId, @PathVariable String address)
 	{
-		CustomersAddress theCustomeraddress = customersAddressService.findSpecificCustomerPhone(CustomerId, address);
+		CustomersAddress theCustomeraddress = customersAddressService.findSpecificCustomerAddress(CustomerId, address);
 
 			return theCustomeraddress;
 	}
-
+	//////////////// check if the address already in database//////////////
+	@GetMapping("/checkAddress/{CustomerId}/{address}")
+	public Map<String,Object> getrowOfCustomerAddressCheck(@PathVariable int CustomerId, @PathVariable String address)
+	{  	Map<String, Object> coordinates = new HashMap<>();
+		CustomersAddress theCustomeraddress = customersAddressService.findSpecificCustomerAddress(CustomerId, address);
+		if (theCustomeraddress==null)
+		{
+			coordinates.put("states", 0);
+			coordinates.put( "the customer address not found ", address);
+		}
+		else {
+		
+		coordinates.put("states", 1);
+		coordinates.put( "the customer address found ", theCustomeraddress);
+		}
+		return coordinates;
+	}
 	/////////////////////////////// delete the customer phone//////////////////////////////////
 
 	@DeleteMapping("/delete_address_by_customer_id/{CustomerId}/{address}")
@@ -78,14 +102,26 @@ public class CustomersAddressRestController {
 
 
 	@PutMapping("/editAddress")
-  	public CustomersAddress updatecustomersPhone(@RequestBody CustomerAddressDTO thecustomeraddress) {
+  	public Map<String,Object> updatecustomersPhone(@RequestBody CustomerAddressDTO thecustomeraddress) {
+		System.out.println(thecustomeraddress);
+		Map<String, Object> coordinates = new HashMap<>();
     	 int theCustomerId=thecustomeraddress.getTheCustomerId();
+    	 
     	 String theCustomerAddressold=thecustomeraddress.getTheCustomerAddressOld();
     	 String theCustomerAdressnew=thecustomeraddress.getTheCustomerAddressNew();
     	 CustomersAddress tempCustomersAddress = getrowOfCustomerAddress(theCustomerId, theCustomerAddressold);
-    	 customersAddressService.update(tempCustomersAddress,theCustomerAdressnew);
+    	 if (tempCustomersAddress==null)
+ 		{
+ 			coordinates.put("states", 0);
+ 			coordinates.put( "the customer address not found ", tempCustomersAddress);
+ 		}
+ 		else {
+ 	     customersAddressService.update(tempCustomersAddress,theCustomerAdressnew);
     	 CustomersAddress tempcustomerphone2=getrowOfCustomerAddress(theCustomerId, theCustomerAdressnew);
-  		return tempcustomerphone2;
+ 		coordinates.put("states", 1);
+ 		coordinates.put( "the customer address edited",tempcustomerphone2);
+ 		}
+ 		return coordinates;
   	}
 
 }
