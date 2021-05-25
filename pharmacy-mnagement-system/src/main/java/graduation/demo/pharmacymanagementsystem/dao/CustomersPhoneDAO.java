@@ -11,11 +11,13 @@ public interface CustomersPhoneDAO {
 
 	public void save(CustomersPhone theCustomersphone);
  
-	public void deleteById(int thecustomerid, int thehpone);
+	public void deleteById(int thecustomerid, String thehpone);
   
-	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone);
+	public CustomersPhone findSpecificCustomerPhone(int customerId, String phone);
 	
 	public void update(CustomersPhone theCustomersPhone,int theCustomersPhone2);
+
+	public void update(CustomersPhone tempcustomerphone, String theCustomerPhonenew);
 
 
 }

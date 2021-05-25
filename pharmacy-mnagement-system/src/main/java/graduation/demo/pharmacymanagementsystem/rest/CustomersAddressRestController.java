@@ -82,7 +82,7 @@ public class CustomersAddressRestController {
 	/////////////////////////////// delete the customer phone//////////////////////////////////
 
 	@DeleteMapping("/delete_address_by_customer_id/{CustomerId}/{address}")
-	public Map<String,Object> deleteCustomerphone(@PathVariable int CustomerId, @PathVariable String address) 
+	public Map<String,Object> deleteCustomeraddress(@PathVariable int CustomerId, @PathVariable String address) 
 	{
 
 		Map<String, Object> coordinates = new HashMap<>();
@@ -102,7 +102,7 @@ public class CustomersAddressRestController {
 
 
 	@PutMapping("/editAddress")
-  	public Map<String,Object> updatecustomersPhone(@RequestBody CustomerAddressDTO thecustomeraddress) {
+  	public Map<String,Object> updatecustomersaddress(@RequestBody CustomerAddressDTO thecustomeraddress) {
 		System.out.println(thecustomeraddress);
 		Map<String, Object> coordinates = new HashMap<>();
     	 int theCustomerId=thecustomeraddress.getTheCustomerId();
@@ -117,9 +117,9 @@ public class CustomersAddressRestController {
  		}
  		else {
  	     customersAddressService.update(tempCustomersAddress,theCustomerAdressnew);
-    	 CustomersAddress tempcustomerphone2=getrowOfCustomerAddress(theCustomerId, theCustomerAdressnew);
+    	 CustomersAddress tempcustomeraddress=getrowOfCustomerAddress(theCustomerId, theCustomerAdressnew);
  		coordinates.put("states", 1);
- 		coordinates.put( "the customer address edited",tempcustomerphone2);
+ 		coordinates.put( "the customer address edited",tempcustomeraddress);
  		}
  		return coordinates;
   	}

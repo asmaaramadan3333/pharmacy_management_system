@@ -43,7 +43,7 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 
 
 	@Override
-	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone) {
+	public CustomersPhone findSpecificCustomerPhone(int customerId,String phone) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
 		
@@ -87,7 +87,7 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	
 	@Override
 	@org.springframework.transaction.annotation.Transactional
-	public void deleteById(int thecustomerid,int thephone) {
+	public void deleteById(int thecustomerid,String thephone) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
@@ -104,22 +104,46 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	}
 
 	
+	/*
+	 * @org.springframework.transaction.annotation.Transactional
+	 * 
+	 * @Override public void update(CustomersPhone theCustomersPhone,int
+	 * CustomersPhone) { // get the current hibernate session Session currentSession
+	 * = entityManager.unwrap(Session.class);
+	 * currentSession.update(theCustomersPhone);
+	 * 
+	 * Query<?> theQuery = currentSession.
+	 * createQuery(" update CustomersPhone c SET c.id.phoneNumber =: thePhoneNumber WHERE c.id.customerId =: theCustomer_Id and  "
+	 * + "c.id.phoneNumber =: thePhoneold"); theQuery.setParameter("theCustomer_Id",
+	 * theCustomersPhone.getId().getCustomerId());
+	 * theQuery.setParameter("thePhoneold",
+	 * theCustomersPhone.getId().getPhoneNumber());
+	 * theQuery.setParameter("thePhoneNumber", CustomersPhone);
+	 * theQuery.executeUpdate();
+	 * 
+	 * }
+	 */
 	@org.springframework.transaction.annotation.Transactional
 	@Override
-	public void update(CustomersPhone theCustomersPhone,int CustomersPhone)
-	{
+	public void update(CustomersPhone tempcustomerphone, String theCustomerPhonenew) {
+		// TODO Auto-generated method stub
 		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);
-		currentSession.update(theCustomersPhone);
+				Session currentSession = entityManager.unwrap(Session.class);
+				currentSession.update(tempcustomerphone);
+				
+				  Query<?> theQuery = currentSession.
+				  createQuery(" update CustomersPhone c SET c.id.phoneNumber =: thePhoneNumber WHERE c.id.customerId =: theCustomer_Id and  " + 
+				   "c.id.phoneNumber =: thePhoneold"); 
+				  theQuery.setParameter("theCustomer_Id", tempcustomerphone.getId().getCustomerId());
+				  theQuery.setParameter("thePhoneold", tempcustomerphone.getId().getPhoneNumber());
+				  theQuery.setParameter("thePhoneNumber", theCustomerPhonenew);
+				  theQuery.executeUpdate();
+	}
+
+	@Override
+	public void update(CustomersPhone theCustomersPhone, int theCustomersPhone2) {
+		// TODO Auto-generated method stub
 		
-		  Query<?> theQuery = currentSession.
-		  createQuery(" update CustomersPhone c SET c.id.phoneNumber =: thePhoneNumber WHERE c.id.customerId =: theCustomer_Id and  " + 
-		   "c.id.phoneNumber =: thePhoneold"); 
-		  theQuery.setParameter("theCustomer_Id", theCustomersPhone.getId().getCustomerId());
-		  theQuery.setParameter("thePhoneold", theCustomersPhone.getId().getPhoneNumber());
-		  theQuery.setParameter("thePhoneNumber", CustomersPhone);
-		  theQuery.executeUpdate();
-		 
 	}
 
 

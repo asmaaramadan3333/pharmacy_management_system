@@ -29,7 +29,7 @@ public class CustomersPhone implements Serializable {
 
     @JsonIgnore
 	private Customer customer;
-	public void setIdParam (int customerId,int phoneNumber ) {
+	public void setIdParam (int customerId,String phoneNumber ) {
 		this.id.setPhoneNumber(phoneNumber);
 		this.id.setCustomerId(customerId);
 		

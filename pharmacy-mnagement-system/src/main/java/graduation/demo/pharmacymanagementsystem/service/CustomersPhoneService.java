@@ -13,11 +13,12 @@ public interface CustomersPhoneService {
 	//public void deleteById(int theid);
 	public void save(CustomersPhone theCustomersPhone);
 	
-	public void deleteById(int thecustomerid, int thehpone);
+	public void deleteById(int thecustomerid, String customerPhone);
 	
-	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone);
+	public CustomersPhone findSpecificCustomerPhone(int customerId, String theCustomerPhoneold);
 	
- 	public void update(CustomersPhone tempcustomerphone, int phoneNumber);
+ 	//public void update(CustomersPhone tempcustomerphone, int phoneNumber);
+	public void update(CustomersPhone tempcustomerphone, String theCustomerPhonenew);
 
 
 }

@@ -2,11 +2,11 @@ package graduation.demo.pharmacymanagementsystem.dto;
 
 public class CustomersPhoneDTO {
 	private int theCustomerId;
-	private int theCustomerPhoneold;
-	private int theCustomerPhonenew;
+	private String theCustomerPhoneold;
+	private String theCustomerPhonenew;
 	public CustomersPhoneDTO() {
 	}
-	public CustomersPhoneDTO(int theCustomerId, int theCustomerPhoneold, int theCustomerPhonenew) {
+	public CustomersPhoneDTO(int theCustomerId, String theCustomerPhoneold, String theCustomerPhonenew) {
 		
 		this.theCustomerId = theCustomerId;
 		this.theCustomerPhoneold = theCustomerPhoneold;
@@ -18,16 +18,16 @@ public class CustomersPhoneDTO {
 	public void setTheCustomerId(int theCustomerId) {
 		this.theCustomerId = theCustomerId;
 	}
-	public int getTheCustomerPhoneold() {
+	public String getTheCustomerPhoneold() {
 		return theCustomerPhoneold;
 	}
-	public void setTheCustomerPhoneold(int theCustomerPhoneold) {
+	public void setTheCustomerPhoneold(String theCustomerPhoneold) {
 		this.theCustomerPhoneold = theCustomerPhoneold;
 	}
-	public int getTheCustomerPhonenew() {
+	public String getTheCustomerPhonenew() {
 		return theCustomerPhonenew;
 	}
-	public void setTheCustomerPhonenew(int theCustomerPhonenew) {
+	public void setTheCustomerPhonenew(String theCustomerPhonenew) {
 		this.theCustomerPhonenew = theCustomerPhonenew;
 	}
 	@Override

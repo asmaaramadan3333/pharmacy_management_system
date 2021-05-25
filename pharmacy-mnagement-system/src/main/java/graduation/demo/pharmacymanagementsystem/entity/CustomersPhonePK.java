@@ -16,7 +16,7 @@ public class CustomersPhonePK implements Serializable {
 	private int customerId;
 
 	@Column(name="phone_number")
-	private int phoneNumber;
+	private String phoneNumber;
 
 	public CustomersPhonePK() {
 	}
@@ -26,10 +26,10 @@ public class CustomersPhonePK implements Serializable {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -46,12 +46,10 @@ public class CustomersPhonePK implements Serializable {
 			&& (this.phoneNumber == castOther.phoneNumber);
 	}
 
-	public int hashCode() {
-		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.customerId;
-		hash = hash * prime + this.phoneNumber;
-		
-		return hash;
-	}
+	/*
+	 * public int hashCode() { final int prime = 31; String hash = 17; hash = hash *
+	 * prime + this.customerId; hash = hash * prime + this.phoneNumber;
+	 * 
+	 * return hash; }
+	 */
 }

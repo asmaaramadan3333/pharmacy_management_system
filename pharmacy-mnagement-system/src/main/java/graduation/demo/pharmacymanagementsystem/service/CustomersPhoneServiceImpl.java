@@ -31,22 +31,26 @@ public class CustomersPhoneServiceImpl implements CustomersPhoneService {
 	}
 	
 	@Override
-	public void deleteById(int thecustomerid,int thehpone) {
+	public void deleteById(int thecustomerid,String thehpone) {
 		 CustomersPhoneDAO.deleteById( thecustomerid,  thehpone);		
 	}
   
 	@Override
-	public CustomersPhone findSpecificCustomerPhone(int customerId, int phone) {
+	public CustomersPhone findSpecificCustomerPhone(int customerId, String phone) {
 
 		return  CustomersPhoneDAO.findSpecificCustomerPhone(customerId,phone);
 	}
 	
 
-
+	/*
+	 * @Override public void update(CustomersPhone theCustomersPhone, int
+	 * phoneNumber) { // TODO Auto-generated method stub CustomersPhoneDAO.update(
+	 * theCustomersPhone, phoneNumber); }
+	 */
 	@Override
-	public void update(CustomersPhone theCustomersPhone, int phoneNumber) {
+	public void update(CustomersPhone tempcustomerphone, String theCustomerPhonenew) {
 		// TODO Auto-generated method stub
-		CustomersPhoneDAO.update( theCustomersPhone, phoneNumber);
+		CustomersPhoneDAO.update( tempcustomerphone, theCustomerPhonenew);
 	}
 
 
