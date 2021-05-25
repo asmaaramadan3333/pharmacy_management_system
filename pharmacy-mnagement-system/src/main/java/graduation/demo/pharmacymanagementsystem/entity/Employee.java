@@ -59,9 +59,10 @@ public class Employee implements Serializable {
 	private List<Attendance> attendances;
 
 	//bi-directional many-to-one association to Bill
+
 	@OneToMany(mappedBy="employee1")
 	private List<Bill> bills1;
-
+	
 	//bi-directional many-to-one association to Bill
 	@OneToMany(mappedBy="employee2")
 	private List<Bill> bills2;

@@ -3,8 +3,11 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -175,7 +178,7 @@ public class Customer implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public List<Bill> getBills() {
 		return this.bills;
 	}
