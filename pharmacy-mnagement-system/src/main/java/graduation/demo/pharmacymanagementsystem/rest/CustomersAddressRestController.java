@@ -49,7 +49,7 @@ public class CustomersAddressRestController {
 		  }
 		  else {
 			  coordinates.put("status", 1);
-			  coordinates.put("the_customer_addresses",theCustomerAddress);
+			  coordinates.put("the_customer_addresses:",theCustomerAddress);
 			  return coordinates;
 		  }
 	}
