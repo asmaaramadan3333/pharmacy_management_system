@@ -158,17 +158,21 @@ public class CustomersRestController {
 
 	/////////////////////// add new address to customer //////////////
 	@PostMapping("/add_new_address")
-	public CustomersAddress addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
-
+	public Map<String,Object> addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
+		Map<String, Object> coordinates = new HashMap<>();
 		Customer thecustomer = customersService.findByCode(theCustomersAddress.getId().getCustomerId());
-		if (thecustomer == null) {
-			throw new RuntimeException(" the Customer  not found ");
+		if (thecustomer==null)
+		{
+			coordinates.put("states", 0);
+			coordinates.put( "the customer id not found ", theCustomersAddress.getId().getCustomerId());
 		}
+		else {
 		thecustomer.addCustomersAddress(theCustomersAddress);
-
 		customersService.saveORupdate(thecustomer);
-
-		return theCustomersAddress;
+		coordinates.put("states", 1);
+		coordinates.put( "the customer address posted ", theCustomersAddress);
+		}
+		return coordinates;
 	}
 
 	////////////////////////// add new bill to the customer not finished ////////////////

@@ -35,9 +35,9 @@ public class CustomersAddressServiceImpl implements CustomersAddressService {
 
 
 	@Override
-	public CustomersAddress findSpecificCustomerPhone(int customerId, String address) {
+	public CustomersAddress findSpecificCustomerAddress(int customerId, String address) {
 		// TODO Auto-generated method stub
-		return CustomersAddressDAO.findSpecificCustomerPhone(customerId,address);
+		return CustomersAddressDAO.findSpecificCustomerAddress(customerId,address);
 	}
 
 

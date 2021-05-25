@@ -10,7 +10,7 @@ public interface CustomersAddressDAO {
 	public void saveORupdate(CustomersAddress theCustomersAddress);
 
 
-	public CustomersAddress findSpecificCustomerPhone(int customerId, String address);
+	public CustomersAddress findSpecificCustomerAddress(int customerId, String address);
 
 	public void deleteById(int thecustomerid, String address);
 
