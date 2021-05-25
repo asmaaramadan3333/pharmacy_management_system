@@ -4,12 +4,22 @@
 name: Build and deploy JAR app to Azure Web App - pharmacy-management-system
 
 on:
+  schedule:
+   - cron: '0 1 * * *' # every night at 1 am UTC
   push:
     branches:
       - main
   workflow_dispatch:
 
 jobs:
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: $
+          expire-in: 7days # Set this to 0 to delete all artifacts
+          
   build:
     runs-on: windows-latest
     defaults:
