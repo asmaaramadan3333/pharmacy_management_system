@@ -8,17 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 import graduation.demo.pharmacymanagementsystem.dto.CustomersPhoneDTO;
-import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
-import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 import graduation.demo.pharmacymanagementsystem.service.CustomersPhoneService;
 
 @RestController
@@ -32,39 +28,54 @@ public class CustomersPhoneRestController {
 
 	/////////////////////////////////// get list of customer phones by customer id///////////////////////////
 	@GetMapping("/get_customerphones_bycid/{CustomerId}")
-	public List <CustomersPhone> getCustomerphone (@PathVariable int CustomerId)
+	public  Map<String, Object>  getCustomerphone (@PathVariable int CustomerId)
 	{
 
-
+		  Map<String, Object> coordinates = new HashMap<>();
 		  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
-		  
-		  if (theCustomer_phones == null && theCustomer_phones.isEmpty()) {
-				throw new RuntimeException("the customer doesn't have phones  " + CustomerId);
-			}
-
-		return theCustomer_phones;
+		  if (theCustomer_phones == null || theCustomer_phones.isEmpty()) 
+		  {	
+			coordinates.put("status", 0);
+			coordinates.put("message","the Customer does not have any phone" );
+			return coordinates;
+		  }
+		  else {
+			  coordinates.put("status", 1);
+			  coordinates.put("the_customer_phones:",theCustomer_phones);
+			  return coordinates;
+		  }
 	}
 	
 	/////////////////////////// get Specific CustomerPhone by the customer id and the phone number ////////////////////////
 	@GetMapping("/get_rowof_customersphone/{CustomerId}/{phone}")
-	public CustomersPhone getrowOfCustomerphone (@PathVariable int CustomerId ,@PathVariable int phone)
+	public CustomersPhone getrowOfCustomerphone (@PathVariable int CustomerId ,@PathVariable String theCustomerPhoneold)
 	{
-		  CustomersPhone theCustomer_phone = customersPhoneService.findSpecificCustomerPhone (CustomerId,phone);
-		  
-		  if (theCustomer_phone == null  )
-			{
-			  
-			  throw new RuntimeException("the customer phone not found " + phone);
-			}
-		  else
-			  
+		  CustomersPhone theCustomer_phone = customersPhoneService.findSpecificCustomerPhone(CustomerId,theCustomerPhoneold);
+		
 		return theCustomer_phone;
 	}
-	
+	//////////////////////check if the phone is found//////////////////////
+	@GetMapping("/checkphone/{CustomerId}/{phone}")
+	public Map<String,Object> getrowOfCustomerPhoneCheck(@PathVariable int CustomerId, @PathVariable String phone)
+	{  	Map<String, Object> coordinates = new HashMap<>();
+	    CustomersPhone theCustomer_phone = customersPhoneService.findSpecificCustomerPhone(CustomerId,phone);
+		if (theCustomer_phone==null)
+		{
+			coordinates.put("states", 0);
+			coordinates.put( "the theCustomer_phone not found ", theCustomer_phone);
+		}
+		else {
+		
+		coordinates.put("states", 1);
+		coordinates.put( "the theCustomer_phone found ", theCustomer_phone);
+		}
+		return coordinates;
+	}
+
 	/////////////////////////////// delete the customer phone //////////////////////////////////
 	
 	  @DeleteMapping("/delete_phone_by_id/{CustomerId}/{customerPhone}") 
-	  public Map<String,Object> deleteCustomerphone(@PathVariable int CustomerId,@PathVariable int customerPhone) 
+	  public Map<String,Object> deleteCustomerphone(@PathVariable int CustomerId,@PathVariable String customerPhone) 
 	  {
 	  Map<String, Object> coordinates = new HashMap<>();
 	  List <CustomersPhone> theCustomer_phones = customersPhoneService.findCustomerPhoneByCustomrId (CustomerId);
@@ -87,16 +98,26 @@ public class CustomersPhoneRestController {
 
 
 	
-    @PutMapping("/phone")
-  	public CustomersPhone updatecustomersPhone(@RequestBody CustomersPhoneDTO thecustomersphone) {
+    @PutMapping("/editphone")
+  	public Map<String,Object> updatecustomersPhone(@RequestBody CustomersPhoneDTO thecustomersphone) {
+    	 Map<String, Object> coordinates = new HashMap<>();
     	 int theCustomerId=thecustomersphone.getTheCustomerId();
-    	 int theCustomerPhoneold=thecustomersphone.getTheCustomerPhoneold();
-    	 int theCustomerPhonenew=thecustomersphone.getTheCustomerPhonenew();
-    	CustomersPhone tempcustomerphone =
-    			getrowOfCustomerphone(theCustomerId, theCustomerPhoneold);
-    	System.out.println(tempcustomerphone);
-    	customersPhoneService.update(tempcustomerphone,theCustomerPhonenew);
-    	CustomersPhone tempcustomerphone2=getrowOfCustomerphone(theCustomerId, theCustomerPhonenew);
-  		return tempcustomerphone2;
+    	 String theCustomerPhoneold=thecustomersphone.getTheCustomerPhoneold();
+    	 String theCustomerPhonenew=thecustomersphone.getTheCustomerPhonenew();
+    	CustomersPhone tempcustomerphone = getrowOfCustomerphone(theCustomerId, theCustomerPhoneold);
+    	System.out.println(tempcustomerphone );
+    	System.out.println(theCustomerPhoneold);
+  		 if (tempcustomerphone==null)
+  		{
+  			coordinates.put("states", 0);
+  			coordinates.put( "the customer phone not found ",tempcustomerphone);
+  		}
+  		else {
+  			customersPhoneService.update(tempcustomerphone,theCustomerPhonenew);
+  	    	CustomersPhone tempcustomerphone2=getrowOfCustomerphone(theCustomerId, theCustomerPhonenew);
+  		    coordinates.put("states", 1);
+  		    coordinates.put( "the customer phone edited",tempcustomerphone2);
+  		}
+  		return coordinates;
   	}
 }
