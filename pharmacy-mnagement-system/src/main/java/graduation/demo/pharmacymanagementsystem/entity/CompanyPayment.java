@@ -16,21 +16,17 @@ public class CompanyPayment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name="due_payment")
-	private float duePayment;
-
+	@Column(name="payment")
 	private float payment;
-
-	@Column(name="remaining_payment")
-	private float remainingPayment;
 
 	@Temporal(TemporalType.DATE)
 	private Date timing;
 
 	//bi-directional many-to-one association to PharmaCo
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="company_id")
 	private PharmaCo pharmaCo;
 
@@ -45,13 +41,6 @@ public class CompanyPayment implements Serializable {
 		this.id = id;
 	}
 
-	public float getDuePayment() {
-		return this.duePayment;
-	}
-
-	public void setDuePayment(float duePayment) {
-		this.duePayment = duePayment;
-	}
 
 	public float getPayment() {
 		return this.payment;
@@ -61,13 +50,7 @@ public class CompanyPayment implements Serializable {
 		this.payment = payment;
 	}
 
-	public float getRemainingPayment() {
-		return this.remainingPayment;
-	}
 
-	public void setRemainingPayment(float remainingPayment) {
-		this.remainingPayment = remainingPayment;
-	}
 
 	public Date getTiming() {
 		return this.timing;

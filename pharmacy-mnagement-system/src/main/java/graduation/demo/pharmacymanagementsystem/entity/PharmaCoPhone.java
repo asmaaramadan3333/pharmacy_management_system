@@ -3,6 +3,8 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the pharma_co_phones database table.
@@ -20,6 +22,7 @@ public class PharmaCoPhone implements Serializable {
 	//bi-directional many-to-one association to PharmaCo
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="company_id" ,insertable=false,updatable=false)
+	@JsonIgnore
 	private PharmaCo pharmaCo;
 
 	public PharmaCoPhone() {

@@ -14,7 +14,7 @@ public class CustomersAddressPK implements Serializable {
 
 	@Column(name="customer_id", insertable=false, updatable=false)
 	private int customerId;
-	@Column(name="address")
+	@Column(name="address" )
 	private String address;
 
 	public CustomersAddressPK() {

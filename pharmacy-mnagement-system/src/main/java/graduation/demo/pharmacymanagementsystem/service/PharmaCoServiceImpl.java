@@ -35,14 +35,15 @@ public class PharmaCoServiceImpl implements PharmaCoService {
 	  }
 	 
 
-
-	@Override
+//////////////////////////////////// commented until demanded 
+	/*@Override
 	public int returnCompanyId(String thecompanyname) {
 		// TODO Auto-generated method stub
 		System.out.println(thecompanyname);
 		PharmaCo thePharmaCo=PharmaCoDAO.getCompanyByCompanyName(thecompanyname);
 		return thePharmaCo.getId();
-	}
+	}*/
+///////////////////////////////////	
 	/*
 	 * public Map <String, Integer> get_id_employee_company_product(String
 	 * name_of_product,String type,int size,String name_of_company,String
@@ -56,11 +57,10 @@ public class PharmaCoServiceImpl implements PharmaCoService {
 	 * 
 	 * }
 	 */
-
+ 
 	@Override
-	public PharmaCo getPharmaCo(String thecompanyname) {
-		// TODO Auto-generated method stub
-		return PharmaCoDAO.getCompanyByCompanyName(thecompanyname);
+	public  List<PharmaCo> searchCompanyByCompanyName(String thecompanyname) {
+		return PharmaCoDAO.searchCompanyByCompanyName(thecompanyname);
 	}
 
 
@@ -68,6 +68,21 @@ public class PharmaCoServiceImpl implements PharmaCoService {
 	public List<PharmaCo> findallcomplanyName() {
 		// TODO Auto-generated method stub
 		return PharmaCoDAO.findallcomplanyName();
+	}
+
+
+
+	@Override
+	public List<PharmaCo> findAllPharmaCo() {
+
+		return PharmaCoDAO.findAllPharmaCo();
+	}
+
+     
+	@Override
+	@Transactional
+	public void save(PharmaCo new_PharmaCo) {
+		 PharmaCoDAO.save(new_PharmaCo);
 	}
 	
 }

@@ -3,6 +3,7 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -10,6 +11,7 @@ import org.hibernate.type.StringNVarcharType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.Employee;
 import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
@@ -24,33 +26,44 @@ public class PharmaCoDAOImpl implements PharmaCoDAO {
 	public PharmaCoDAOImpl(EntityManager theEntityManager) {
 			entityManager = theEntityManager;
 		}
+	
+	
 	@Override
-	public PharmaCo getCompanyByCompanyName(String thecompanyname) {
-           System.out.println(thecompanyname);
-
-		    PharmaCo thePharmaCo = null;
+	public List<PharmaCo> findAllPharmaCo() {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
+		// create a query
+		Query<PharmaCo> theQuery = currentSession.createQuery("from PharmaCo", PharmaCo.class);
+				
+		// execute query and get result list
+		List <PharmaCo> PharmaCoList = theQuery.getResultList();
+				
+		// return the results		
+		return PharmaCoList;
+	}
+	
+	
+	
+	@Override
+	public List<PharmaCo> searchCompanyByCompanyName(String thecompanyname) {
+        
 			
 			// get the current hibernate session
 			Session currentSession = entityManager.unwrap(Session.class);
-			try {
+			
 			// search object with name
 			Query  theQuery = 
 					currentSession.createQuery(
-							"FROM PharmaCo p  WHERE p.name =: thename", PharmaCo.class );
+							"FROM PharmaCo p  WHERE p.name like : thename", PharmaCo.class );
 			
-			theQuery.setParameter("thename", thecompanyname,StringNVarcharType.INSTANCE);
+			theQuery.setParameter("thename", thecompanyname + "%",StringNVarcharType.INSTANCE);
 			
-			if(!theQuery.getResultList().isEmpty())
-			{
-				thePharmaCo =(PharmaCo) theQuery.getResultList().get(0);
-			}
+			List<PharmaCo> thePharmaCoList = theQuery.getResultList();
 			
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-			}
-			return thePharmaCo ;
+			
+			return thePharmaCoList ;
 		}
 	@Override
 	public List<PharmaCo> findallcomplanyName() {
@@ -61,6 +74,17 @@ public class PharmaCoDAOImpl implements PharmaCoDAO {
 				currentSession.createQuery("SELECT name FROM PharmaCo");
 		List<PharmaCo>  pharmaco= theQuery.getResultList();
 		return pharmaco;
+	}
+
+
+	@Transactional
+	@Override
+	public void save(PharmaCo new_PharmaCo) {
+
+		Session currentSession = entityManager.unwrap(Session.class);
+		// save PharmaCo
+		currentSession.save(new_PharmaCo);
+		currentSession.flush();
 	}
 
 

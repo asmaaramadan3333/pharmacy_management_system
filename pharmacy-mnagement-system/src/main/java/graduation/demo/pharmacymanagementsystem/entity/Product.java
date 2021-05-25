@@ -8,65 +8,63 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the products database table.
  * 
  */
 @Entity
-@Table(name="products")
+@Table(name = "products")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int code;
 
-	@Column(name="main_category")
+	@Column(name = "generic_name")
+	private String genericName;
+
+	@Column(name = "main_category")
 	private String mainCategory;
 
-	@Column(name="minimum_quantity")
+	@Column(name = "minimum_quantity")
 	private int minimumQuantity;
-	
+
 	@Column(name = "name")
 	private String name;
 	@Column(name = "packages")
 	private int packages;
 	@Column(name = "position")
 	private String position;
-	
-	@Column(name="secondary_category")
+
+	@Column(name = "secondary_category")
 	private String secondaryCategory;
-	
+
 	@Column(name = "state")
 	private int state;
 
-	//bi-directional many-to-one association to BillsProduct
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to BillsProduct
+	@OneToMany(mappedBy = "product")
 	private List<BillsProduct> billsProducts;
-	//bi-directional many-to-many association to Customer
 
+	// bi-directional many-to-one association to PrescriptsProduct
+	@OneToMany(mappedBy = "product")
+	private List<PrescriptsProduct> prescriptsProducts;
 
-		@ManyToMany(fetch = FetchType.LAZY,
-				cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-				CascadeType.REFRESH })
+	// bi-directional many-to-many association to Customer
 
-		@JoinTable(
-			name="customers_products_history"
-			, joinColumns={
-				@JoinColumn(name="product_code")
-				}
-			, inverseJoinColumns={
-				@JoinColumn(name="customer_id")
-				}
-			)
-	    
-		@JsonIgnore
-		private List<Customer> customers;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH })
 
-	//bi-directional many-to-one association to Supply
-	@OneToMany(mappedBy="product")
-	private List<Supply> supplies;
+	@JoinTable(name = "customers_products_history", joinColumns = {
+			@JoinColumn(name = "product_code") }, inverseJoinColumns = { @JoinColumn(name = "customer_id") })
+
+	@JsonIgnore
+	private List<Customer> customers;
+
+	// bi-directional many-to-one association to SupplyProduct
+	@OneToMany(mappedBy = "product")
+	private List<SupplyProduct> supplyProducts;
 
 	public Product() {
 	}
@@ -77,6 +75,14 @@ public class Product implements Serializable {
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public String getGenericName() {
+		return this.genericName;
+	}
+
+	public void setGenericName(String genericName) {
+		this.genericName = genericName;
 	}
 
 	public String getMainCategory() {
@@ -119,7 +125,6 @@ public class Product implements Serializable {
 		this.position = position;
 	}
 
-
 	public String getSecondaryCategory() {
 		return this.secondaryCategory;
 	}
@@ -158,6 +163,28 @@ public class Product implements Serializable {
 		return billsProduct;
 	}
 
+	public List<PrescriptsProduct> getPrescriptsProducts() {
+		return this.prescriptsProducts;
+	}
+
+	public void setPrescriptsProducts(List<PrescriptsProduct> prescriptsProducts) {
+		this.prescriptsProducts = prescriptsProducts;
+	}
+
+	public PrescriptsProduct addPrescriptsProduct(PrescriptsProduct prescriptsProduct) {
+		getPrescriptsProducts().add(prescriptsProduct);
+		prescriptsProduct.setProduct(this);
+
+		return prescriptsProduct;
+	}
+
+	public PrescriptsProduct removePrescriptsProduct(PrescriptsProduct prescriptsProduct) {
+		getPrescriptsProducts().remove(prescriptsProduct);
+		prescriptsProduct.setProduct(null);
+
+		return prescriptsProduct;
+	}
+
 	public List<Customer> getCustomers() {
 		return this.customers;
 	}
@@ -166,26 +193,26 @@ public class Product implements Serializable {
 		this.customers = customers;
 	}
 
-	public List<Supply> getSupplies() {
-		return this.supplies;
+	public List<SupplyProduct> getSupplyProducts() {
+		return this.supplyProducts;
 	}
 
-	public void setSupplies(List<Supply> supplies) {
-		this.supplies = supplies;
+	public void setSupplyProducts(List<SupplyProduct> supplyProducts) {
+		this.supplyProducts = supplyProducts;
 	}
 
-	public Supply addSupply(Supply supply) {
-		getSupplies().add(supply);
-		supply.setProduct(this);
+	public SupplyProduct addSupplyProduct(SupplyProduct supplyProduct) {
+		getSupplyProducts().add(supplyProduct);
+		supplyProduct.setProduct(this);
 
-		return supply;
+		return supplyProduct;
 	}
 
-	public Supply removeSupply(Supply supply) {
-		getSupplies().remove(supply);
-		supply.setProduct(null);
+	public SupplyProduct removeSupplyProduct(SupplyProduct supplyProduct) {
+		getSupplyProducts().remove(supplyProduct);
+		supplyProduct.setProduct(null);
 
-		return supply;
+		return supplyProduct;
 	}
 
 }
