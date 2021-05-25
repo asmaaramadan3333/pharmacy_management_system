@@ -20,7 +20,7 @@ public class CustomersAddress implements Serializable {
 	private CustomersAddressPK id;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="customer_id",insertable=false,updatable=false)
 	@JsonIgnore
 	private Customer customer;

@@ -14,30 +14,63 @@ import java.util.Date;
 import java.util.List;
 import java.sql.Time;
 import java.util.TimeZone;
+
 /**
  * The persistent class for the bills database table.
  * 
  */
 @Entity
-@Table(name="bills")
+@Table(name = "bills")
 public class Bill implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="bill_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "bill_id")
 	private long billId;
 
-	@Column(name="bill_state")
+	@Column(name = "bill_state")
 	private String billState;
 
-	@Column(name="bill_type")
+	@Column(name = "bill_type")
 	private String billType;
 
-	@Column(name="customer_address")
+	@Column(name = "customer_address")
 	private String customerAddress;
 
+	@Column(name = "delivery_fee")
+	private float deliveryFee;
 
+	@Column(name = "phone_number")
+	private int phoneNumber;
 
+	@Column(name = "delivery_feedback")
+	private int deliveryFeedback;
+
+	@Column(name = "employee_feedback")
+	private int employeeFeedback;
+
+	@Column(name = "pharmacy_feedback")
+	private int pharmacyFeedback;
+
+	@Column(name="user_feedback")
+	private int userFeedback;
+	
+	@Column(name = "prescription_or_not")
+	private int prescriptionOrNot;
+
+	// @CreationTimestamp()/////
+	// @JsonFormat(timezone = "GMT+02:00")
+	// @DateTimeFormat(pattern="hh:mm:ss" )
+	// @Temporal(TemporalType.TIME)
+	// @Column(name = "time")//, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private java.util.Date time;
+
+	@Column(name = "total_price")
+	private float totalPrice;
+
+	
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -46,16 +79,11 @@ public class Bill implements Serializable {
 		this.employeeId = employeeId;
 	}
 
-	@Column(name="delivery_fee")
-	private float deliveryFee;
+	@Column(name = "customer_id", insertable = false, updatable = false)
+	private int customerId;
+	@Column(name = "employee_id", insertable = false, updatable = false)
+	private int employeeId;
 
-	@Column(name="phone_number")
-	private int phoneNumber;
-
-    @Column(name="customer_id",insertable =false, updatable=false)
-    private int customerId;
-    @Column(name="employee_id",insertable =false, updatable=false)
-    private int employeeId;
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -64,39 +92,28 @@ public class Bill implements Serializable {
 		this.customerId = customerId;
 	}
 
-	//@CreationTimestamp()/////
-	//@JsonFormat(timezone = "GMT+02:00")
-	//@DateTimeFormat(pattern="hh:mm:ss" )
-    //@Temporal(TemporalType.TIME)
-	//@Column(name = "time")//, columnDefinition = "TIMESTAMP WITH TIME ZONE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private java.util.Date time;
+	// bi-directional many-to-one association to Customer
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "customer_id") // ,columnDefinition = "customerId")
 
-	@Column(name="total_price")
-	private float totalPrice;
-
-	//bi-directional many-to-one association to Customer
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="customer_id")//,columnDefinition = "customerId")
-	
 	@JsonIgnore
 	private Customer customer;
 
-	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="employee_id")
-	//@JsonIgnore
+	// bi-directional many-to-one association to Employee
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employee_id")
+	// @JsonIgnore
 	private Employee employee1;
 
-	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="delivery_man_id")
-	//@JsonIgnore
+	// bi-directional many-to-one association to Employee
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "delivery_man_id")
+	// @JsonIgnore
 	private Employee employee2;
 
-	//bi-directional many-to-one association to BillsProduct
-	@OneToMany(mappedBy="bill")
-	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+	// bi-directional many-to-one association to BillsProduct
+	@OneToMany(mappedBy = "bill")
+	// @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<BillsProduct> billsProducts;
 
 	public Bill() {
@@ -105,12 +122,14 @@ public class Bill implements Serializable {
 	@Override
 	public String toString() {
 		return "Bill [billId=" + billId + ", billState=" + billState + ", billType=" + billType + ", customerAddress="
-				+ customerAddress + ", deliveryFee=" + deliveryFee + ", phoneNumber=" + phoneNumber + ", time=" + time
-				+ ", totalPrice=" + totalPrice + ", customer=" + customer + ", employee1=" + employee1 + ", employee2="
+				+ customerAddress + ", deliveryFee=" + deliveryFee + ", phoneNumber=" + phoneNumber
+				+ ", deliveryFeedback=" + deliveryFeedback + ", employeeFeedback=" + employeeFeedback
+				+ ", pharmacyFeedback=" + pharmacyFeedback + ", userFeedback=" + userFeedback + ", prescriptionOrNot="
+				+ prescriptionOrNot + ", time=" + time + ", totalPrice=" + totalPrice + ", customerId=" + customerId
+				+ ", employeeId=" + employeeId + ", customer=" + customer + ", employee1=" + employee1 + ", employee2="
 				+ employee2 + ", billsProducts=" + billsProducts + "]";
 	}
 
-	
 	public long getBillId() {
 		return this.billId;
 	}
@@ -197,6 +216,46 @@ public class Bill implements Serializable {
 
 	public void setEmployee2(Employee employee2) {
 		this.employee2 = employee2;
+	}
+
+	public int getDeliveryFeedback() {
+		return deliveryFeedback;
+	}
+
+	public void setDeliveryFeedback(int deliveryFeedback) {
+		this.deliveryFeedback = deliveryFeedback;
+	}
+
+	public int getEmployeeFeedback() {
+		return employeeFeedback;
+	}
+
+	public void setEmployeeFeedback(int employeeFeedback) {
+		this.employeeFeedback = employeeFeedback;
+	}
+
+	public int getPharmacyFeedback() {
+		return pharmacyFeedback;
+	}
+
+	public void setPharmacyFeedback(int pharmacyFeedback) {
+		this.pharmacyFeedback = pharmacyFeedback;
+	}
+
+	public int getUserFeedback() {
+		return userFeedback;
+	}
+
+	public void setUserFeedback(int userFeedback) {
+		this.userFeedback = userFeedback;
+	}
+
+	public int getPrescriptionOrNot() {
+		return prescriptionOrNot;
+	}
+
+	public void setPrescriptionOrNot(int prescriptionOrNot) {
+		this.prescriptionOrNot = prescriptionOrNot;
 	}
 
 	public List<BillsProduct> getBillsProducts() {

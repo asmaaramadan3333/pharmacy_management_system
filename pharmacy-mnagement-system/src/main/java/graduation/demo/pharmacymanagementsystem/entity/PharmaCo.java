@@ -29,13 +29,14 @@ public class PharmaCo implements Serializable {
 	@Column(name="email")
 	private String email;
 
+	@Column(name="balance")
+	private int balance;
+
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="payment_end_date")
-	private Date paymentEndDate;
+	@Column(name="payment_future_date")
+	private Date paymentFutureDate;
 
-	@Column(name="payment_grace_period")
-	private int paymentGracePeriod;
 
 	@Column(name="payment_interval")
 	private String paymentInterval;
@@ -59,6 +60,10 @@ public class PharmaCo implements Serializable {
 	@OneToMany(mappedBy="pharmaCo")
 	private List<Supply> supplies;
 
+	//bi-directional many-to-one association to SupplyProduct
+	@OneToMany(mappedBy="pharmaCo")
+	private List<SupplyProduct> supplyProducts;
+	
 	public PharmaCo() {
 	}
 
@@ -68,6 +73,30 @@ public class PharmaCo implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+    
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public Date getPaymentFutureDate() {
+		return paymentFutureDate;
+	}
+
+	public void setPaymentFutureDate(Date paymentFutureDate) {
+		this.paymentFutureDate = paymentFutureDate;
+	}
+
+	public List<SupplyProduct> getSupplyProducts() {
+		return supplyProducts;
+	}
+
+	public void setSupplyProducts(List<SupplyProduct> supplyProducts) {
+		this.supplyProducts = supplyProducts;
 	}
 
 	public String getAddress() {
@@ -94,21 +123,7 @@ public class PharmaCo implements Serializable {
 		this.name = name;
 	}
 
-	public Date getPaymentEndDate() {
-		return this.paymentEndDate;
-	}
-
-	public void setPaymentEndDate(Date paymentEndDate) {
-		this.paymentEndDate = paymentEndDate;
-	}
-
-	public int getPaymentGracePeriod() {
-		return this.paymentGracePeriod;
-	}
-
-	public void setPaymentGracePeriod(int paymentGracePeriod) {
-		this.paymentGracePeriod = paymentGracePeriod;
-	}
+	
 
 	public String getPaymentInterval() {
 		return this.paymentInterval;
@@ -200,4 +215,17 @@ public class PharmaCo implements Serializable {
 		return supply;
 	}*/
 
+	public SupplyProduct addSupplyProduct(SupplyProduct supplyProduct) {
+		getSupplyProducts().add(supplyProduct);
+		supplyProduct.setPharmaCo(this);
+
+		return supplyProduct;
+	}
+
+	public SupplyProduct removeSupplyProduct(SupplyProduct supplyProduct) {
+		getSupplyProducts().remove(supplyProduct);
+		supplyProduct.setPharmaCo(null);
+
+		return supplyProduct;
+	}
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,7 +60,7 @@ public class PharmaCoRestController {
 	///////////////////////////////// list of pharmaco ////////////////// finish
 
 	@GetMapping("/search_by_name/{thecompanyname}")
-	public Map<String, Object> getPharmaCo(@PathVariable String thecompanyname) {
+	public Map<String, Object> searchPharmaCobyname(@PathVariable String thecompanyname) {
 		Map<String, Object> coordinates = new HashMap<>();
 
 		List<PharmaCo> PharmaCoList = pharmacoService.searchCompanyByCompanyName(thecompanyname);
@@ -128,7 +127,7 @@ public class PharmaCoRestController {
 	}
 
 	//////////////////////////////////////// post///////////////////////////////
-	@RequestMapping(method = RequestMethod.POST, value = "/add_new_pharmaco")//, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(method = RequestMethod.POST, value = "/add_new_pharmaco")
 	public Map<String, Object> addPharmaco(@RequestBody PharmaCo new_PharmaCo) {
 
 		Map<String, Object> coordinates = new HashMap<>();
