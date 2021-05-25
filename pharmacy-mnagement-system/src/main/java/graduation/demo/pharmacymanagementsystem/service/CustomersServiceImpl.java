@@ -24,7 +24,7 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Customer> findAllCustomers() {
 
 		return CustomersDAO.findAllCustomers();

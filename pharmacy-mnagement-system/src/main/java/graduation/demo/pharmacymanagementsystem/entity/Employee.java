@@ -55,23 +55,23 @@ public class Employee implements Serializable {
 	private int workingHours;
 
 	//bi-directional many-to-one association to Attendance
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="employee", fetch = FetchType.LAZY)
 	private List<Attendance> attendances;
 
 	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="employee1")
+	@OneToMany(mappedBy="employee1", fetch = FetchType.LAZY )
 	private List<Bill> bills1;
 
 	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="employee2")
+	@OneToMany(mappedBy="employee2", fetch = FetchType.LAZY)
 	private List<Bill> bills2;
     
 	//bi-directional many-to-one association to CustomersPrescript
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="employee", fetch = FetchType.LAZY)
 	private List<CustomersPrescript> customersPrescripts;
 	
 	//bi-directional many-to-one association to EmployeesMonthly
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="employee", fetch = FetchType.LAZY)
 	private List<EmployeesMonthly> employeesMonthlies;
 
 	//bi-directional many-to-many association to Customer
