@@ -22,30 +22,37 @@ public class Customer implements Serializable {
 	//private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="customer_id")
 	private int customerId;
+	
     @Column(name="credit")
 	private float credit;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
+	
 	@Column(name="email")
 	private String email;
 
 	@Column(name="first_name")
 	private String firstName;
+	
 	@Column(name="gender")
 	private String gender;
 
 	@Column(name="last_name")
 	private String lastName;
+	
 	@Column(name="password")
 	private String password;
+	
+	@Column(name="rate")
+	private float rate;
 
 	//bi-directional many-to-one association to Bill
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL )
-	
 	private List<Bill> bills;
 
 	//bi-directional one-to-one association to CustomersAddress
@@ -57,6 +64,9 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPhone> customersPhones;
 
+	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private List<CustomersPrescript> customersPrescripts;
+	
 	//bi-directional many-to-many association to Product
 	//@ManyToMany(mappedBy="customers")
 	@ManyToMany(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -83,9 +93,9 @@ public class Customer implements Serializable {
 	}
 
 	public Customer(float credit, Date dateOfBirth, String email, String firstName, String gender, String lastName,
-			String password, List<Bill> bills, List<CustomersAddress> customersAddresses, List<CustomersPhone> customersPhones,
-			List<Product> products, List<Employee> employees) {
-		
+			String password, float rate, List<Bill> bills, List<CustomersAddress> customersAddresses,
+			List<CustomersPhone> customersPhones, List<CustomersPrescript> customersPrescripts, List<Product> products,
+			List<Employee> employees) {
 		this.credit = credit;
 		this.dateOfBirth = dateOfBirth;
 		this.email = email;
@@ -93,9 +103,11 @@ public class Customer implements Serializable {
 		this.gender = gender;
 		this.lastName = lastName;
 		this.password = password;
+		this.rate = rate;
 		this.bills = bills;
 		this.customersAddresses = customersAddresses;
 		this.customersPhones = customersPhones;
+		this.customersPrescripts = customersPrescripts;
 		this.products = products;
 		this.employees = employees;
 	}
@@ -185,6 +197,37 @@ public class Customer implements Serializable {
 
 		return bill;
 	}
+	
+	public float getRate() {
+		return rate;
+	}
+
+	public void setRate(float rate) {
+		this.rate = rate;
+	}
+
+	public List<CustomersPrescript> getCustomersPrescripts() {
+		return customersPrescripts;
+	}
+
+	public void setCustomersPrescripts(List<CustomersPrescript> customersPrescripts) {
+		this.customersPrescripts = customersPrescripts;
+	}
+
+	public CustomersPrescript addCustomersPrescript(CustomersPrescript customersPrescript) {
+		getCustomersPrescripts().add(customersPrescript);
+		customersPrescript.setCustomer(this);
+
+		return customersPrescript;
+	}
+
+	public CustomersPrescript removeCustomersPrescript(CustomersPrescript customersPrescript) {
+		getCustomersPrescripts().remove(customersPrescript);
+		customersPrescript.setCustomer(null);
+
+		return customersPrescript;
+	}
+	
 
 	public List<CustomersAddress> getCustomersAddresses() {
 		return this.customersAddresses;

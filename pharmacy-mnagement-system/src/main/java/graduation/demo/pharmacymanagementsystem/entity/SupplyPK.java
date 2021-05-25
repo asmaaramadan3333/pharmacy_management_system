@@ -15,9 +15,7 @@ public class SupplyPK implements Serializable {
 	@Column(name="company_id", insertable=false, updatable=false)
 	private int companyId;
 
-	@Column(name="product_code", insertable=false, updatable=false)
-	private int productCode;
-
+	
 	@Column(name="supply_bill_id",insertable=false, updatable=false)
 	private int supplyBillId;
 
@@ -29,12 +27,7 @@ public class SupplyPK implements Serializable {
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
-	public int getProductCode() {
-		return this.productCode;
-	}
-	public void setProductCode(int productCode) {
-		this.productCode = productCode;
-	}
+	
 	public int getSupplyBillId() {
 		return this.supplyBillId;
 	}
@@ -43,7 +36,7 @@ public class SupplyPK implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "SupplyPK [companyId=" + companyId + ", productCode=" + productCode + ", supplyBillId=" + supplyBillId
+		return "SupplyPK [companyId=" + companyId + ", supplyBillId=" + supplyBillId
 				+ "]";
 	}
 	public boolean equals(Object other) {
@@ -56,7 +49,6 @@ public class SupplyPK implements Serializable {
 		SupplyPK castOther = (SupplyPK)other;
 		return 
 			(this.companyId == castOther.companyId)
-			&& (this.productCode == castOther.productCode)
 			&& (this.supplyBillId == castOther.supplyBillId);
 	}
 
@@ -64,7 +56,6 @@ public class SupplyPK implements Serializable {
 		final int prime = 31;
 		int hash = 17;
 		hash = hash * prime + this.companyId;
-		hash = hash * prime + this.productCode;
 		hash = hash * prime + this.supplyBillId;
 		
 		return hash;

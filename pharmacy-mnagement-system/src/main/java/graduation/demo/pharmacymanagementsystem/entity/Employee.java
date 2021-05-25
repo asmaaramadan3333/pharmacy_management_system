@@ -65,7 +65,11 @@ public class Employee implements Serializable {
 	//bi-directional many-to-one association to Bill
 	@OneToMany(mappedBy="employee2")
 	private List<Bill> bills2;
-
+    
+	//bi-directional many-to-one association to CustomersPrescript
+	@OneToMany(mappedBy="employee")
+	private List<CustomersPrescript> customersPrescripts;
+	
 	//bi-directional many-to-one association to EmployeesMonthly
 	@OneToMany(mappedBy="employee")
 	private List<EmployeesMonthly> employeesMonthlies;
@@ -277,6 +281,28 @@ public class Employee implements Serializable {
 		return bills2;
 	}
 
+	public List<CustomersPrescript> getCustomersPrescripts() {
+		return this.customersPrescripts;
+	}
+
+	public void setCustomersPrescripts(List<CustomersPrescript> customersPrescripts) {
+		this.customersPrescripts = customersPrescripts;
+	}
+
+	public CustomersPrescript addCustomersPrescript(CustomersPrescript customersPrescript) {
+		getCustomersPrescripts().add(customersPrescript);
+		customersPrescript.setEmployee(this);
+
+		return customersPrescript;
+	}
+
+	public CustomersPrescript removeCustomersPrescript(CustomersPrescript customersPrescript) {
+		getCustomersPrescripts().remove(customersPrescript);
+		customersPrescript.setEmployee(null);
+
+		return customersPrescript;
+	}
+	
 	public List<EmployeesMonthly> getEmployeesMonthlies() {
 		return this.employeesMonthlies;
 	}

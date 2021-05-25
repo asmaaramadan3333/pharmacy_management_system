@@ -6,6 +6,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -21,31 +22,27 @@ public class Supply implements Serializable {
 	@EmbeddedId
 	private SupplyPK id;
 
-	@Column(name="bonus_quantity")
-	private int bonusQuantity;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
-
-	@Column(name="delivered_quantity")
-	private int deliveredQuantity;
+	@Column(name="availability_feedback")
+	private String availabilityFeedback;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="expire_date")
-	private Date expireDate;
+	@Column(name="delivered_date")
+	private Date deliveredDate;
 
-	@Column(name="pharmacist_price")
-	private float pharmacistPrice;
+	@Column(name="delivery_feedback")
+	private int deliveryFeedback;
 
-	@Column(name="product_price")
-	private float productPrice;
-	
-	@Column(name="remained_quantity")
-	private int remainedQuantity;
+	@Temporal(TemporalType.DATE)
+	@Column(name="requested_date")
+	private Date requestedDate;
+
+	@Column(name="status")
+	private String status;
 
 	@Column(name="total_price")
 	private float totalPrice;
 
+	
 	//bi-directional many-to-one association to PharmaCo
 		@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 		@JoinColumn(name="company_id",insertable=false,updatable=false)
@@ -58,11 +55,11 @@ public class Supply implements Serializable {
 		@JsonIgnore
 		private Employee employee;
 
-		//bi-directional many-to-one association to Product
-		@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-		@JoinColumn(name="product_code", insertable=false,updatable=false)
-		@JsonIgnore
-		private Product product;
+		//bi-directional many-to-one association to SupplyProduct
+		@OneToMany(mappedBy="supply")
+		private List<SupplyProduct> supplyProducts;
+
+		
 	public Supply() {
 	}
 
@@ -76,67 +73,50 @@ public class Supply implements Serializable {
 	
      /////// new added function
 	
-	public void setIdParam (int companyId,int productCode,int supplyBillId ) {
+	/*public void setIdParam (int companyId,int productCode,int supplyBillId ) {
 		this.id.setCompanyId(companyId);
 		this.id.setSupplyBillId(supplyBillId);
 		this.id.setProductCode(productCode);
-	}
+	}*/
 	
-	
-	public int getBonusQuantity() {
-		return this.bonusQuantity;
+	public String getAvailabilityFeedback() {
+		return this.availabilityFeedback;
 	}
 
-	public void setBonusQuantity(int bonusQuantity) {
-		this.bonusQuantity = bonusQuantity;
+	public void setAvailabilityFeedback(String availabilityFeedback) {
+		this.availabilityFeedback = availabilityFeedback;
 	}
 
-	public Date getDate() {
-		return this.date;
+	public Date getDeliveredDate() {
+		return this.deliveredDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDeliveredDate(Date deliveredDate) {
+		this.deliveredDate = deliveredDate;
 	}
 
-	public int getDeliveredQuantity() {
-		return this.deliveredQuantity;
+	public int getDeliveryFeedback() {
+		return this.deliveryFeedback;
 	}
 
-	public void setDeliveredQuantity(int deliveredQuantity) {
-		this.deliveredQuantity = deliveredQuantity;
+	public void setDeliveryFeedback(int deliveryFeedback) {
+		this.deliveryFeedback = deliveryFeedback;
 	}
 
-	public Date getExpireDate() {
-		return this.expireDate;
+	public Date getRequestedDate() {
+		return this.requestedDate;
 	}
 
-	public void setExpireDate(Date expireDate) {
-		this.expireDate = expireDate;
+	public void setRequestedDate(Date requestedDate) {
+		this.requestedDate = requestedDate;
 	}
 
-	public float getPharmacistPrice() {
-		return this.pharmacistPrice;
+	public String getStatus() {
+		return this.status;
 	}
 
-	public void setPharmacistPrice(float pharmacistPrice) {
-		this.pharmacistPrice = pharmacistPrice;
-	}
-
-	public float getProductPrice() {
-		return this.productPrice;
-	}
-
-	public void setProductPrice(float productPrice) {
-		this.productPrice = productPrice;
-	}
-	
-	public int getRemainedQuantity() {
-		return this.remainedQuantity;
-	}
-
-	public void setRemainedQuantity(int remainedQuantity) {
-		this.remainedQuantity = remainedQuantity;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public float getTotalPrice() {
@@ -147,14 +127,6 @@ public class Supply implements Serializable {
 		this.totalPrice = totalPrice;
 	}
 
-	public PharmaCo getPharmaCo() {
-		return this.pharmaCo;
-	}
-
-	public void setPharmaCo(PharmaCo pharmaCo) {
-		this.pharmaCo = pharmaCo;
-	}
-
 	public Employee getEmployee() {
 		return this.employee;
 	}
@@ -163,12 +135,35 @@ public class Supply implements Serializable {
 		this.employee = employee;
 	}
 
-	public Product getProduct() {
-		return this.product;
+	public PharmaCo getPharmaCo() {
+		return this.pharmaCo;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setPharmaCo(PharmaCo pharmaCo) {
+		this.pharmaCo = pharmaCo;
 	}
 
+	public List<SupplyProduct> getSupplyProducts() {
+		return this.supplyProducts;
+	}
+
+	public void setSupplyProducts(List<SupplyProduct> supplyProducts) {
+		this.supplyProducts = supplyProducts;
+	}
+
+	public SupplyProduct addSupplyProduct(SupplyProduct supplyProduct) {
+		getSupplyProducts().add(supplyProduct);
+		supplyProduct.setSupply(this);
+
+		return supplyProduct;
+	}
+
+	public SupplyProduct removeSupplyProduct(SupplyProduct supplyProduct) {
+		getSupplyProducts().remove(supplyProduct);
+		supplyProduct.setSupply(null);
+
+		return supplyProduct;
+	}
+
+	
 }
