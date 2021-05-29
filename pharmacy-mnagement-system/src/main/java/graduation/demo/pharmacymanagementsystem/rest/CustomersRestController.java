@@ -105,37 +105,39 @@ public class CustomersRestController {
 	 * coordinates.put("customerId", customer1.getCustomerId()); return coordinates;
 	 * }
 	 */
-
+/////////////////////////////add use bi direction//////////////////////////////////
 	//////////////////////// add_new_phone_to_customer/////////////
-	@PostMapping("/add_new_phone_to_customer")
-	public CustomersPhone addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone) {
-		Customer thecustomer = customersService.findByCode(theCustomersPhone.getId().getCustomerId());
-		if (thecustomer == null) {
-			throw new RuntimeException(" the Customer  not found ");
-		}
-
-		thecustomer.addCustomersPhone(theCustomersPhone);
-		
-		customersService.saveORupdate(thecustomer);
-		
-		return theCustomersPhone;
-	}
-
-	@PostMapping("/add_new_Bill_to_customer")
-	public Bill addBillForCustomer(@RequestBody Bill theBill) {
-		
-		Customer thecustomer = customersService.findByCode(theBill.getCustomerId());
-		if (thecustomer == null) {
-			throw new RuntimeException(" the Customer  not found ");
-		}
-
-		thecustomer.addBill(theBill);
-		
-		customersService.saveORupdate(thecustomer);
-		
-		return theBill;
-	}
-
+	/*
+	 * @PostMapping("/add_new_phone_to_customer") public CustomersPhone
+	 * addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone) { Customer
+	 * thecustomer =
+	 * customersService.findByCode(theCustomersPhone.getId().getCustomerId()); if
+	 * (thecustomer == null) { throw new
+	 * RuntimeException(" the Customer  not found "); }
+	 * 
+	 * thecustomer.addCustomersPhone(theCustomersPhone);
+	 * 
+	 * customersService.saveORupdate(thecustomer);
+	 * 
+	 * return theCustomersPhone; }
+	 */
+////////////////////////////###############################################################################
+////////////////////////////bi direction///////////////////////////////////////////
+	/*
+	 * @PostMapping("/add_new_Bill_to_customer") public Bill
+	 * addBillForCustomer(@RequestBody Bill theBill) {
+	 * 
+	 * Customer thecustomer = customersService.findByCode(theBill.getCustomerId());
+	 * if (thecustomer == null) { throw new
+	 * RuntimeException(" the Customer  not found "); }
+	 * 
+	 * thecustomer.addBill(theBill);
+	 * 
+	 * customersService.saveORupdate(thecustomer);
+	 * 
+	 * return theBill; }
+	 */
+///////////////////////////////#######################################################////////////////////////////
 	/////////////////// sign up customer for mobile //////////////////////
 	@SuppressWarnings("unchecked")
 	@PostMapping("/sign_up")
@@ -155,26 +157,21 @@ public class CustomersRestController {
 		return getCustomer(theCustomerId);
 
 	}
-
+////////////////////// add using bi direction ///////////////////////
 	/////////////////////// add new address to customer //////////////
-	@PostMapping("/add_new_address")
-	public Map<String,Object> addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
-		Map<String, Object> coordinates = new HashMap<>();
-		Customer thecustomer = customersService.findByCode(theCustomersAddress.getId().getCustomerId());
-		if (thecustomer==null)
-		{
-			coordinates.put("states", 0);
-			coordinates.put( "the customer id not found ", theCustomersAddress.getId().getCustomerId());
-		}
-		else {
-		thecustomer.addCustomersAddress(theCustomersAddress);
-		customersService.saveORupdate(thecustomer);
-		coordinates.put("states", 1);
-		coordinates.put( "the customer address posted ", theCustomersAddress);
-		}
-		return coordinates;
-	}
-
+	/*
+	 * @PostMapping("/add_new_address") public Map<String,Object>
+	 * addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
+	 * Map<String, Object> coordinates = new HashMap<>(); Customer thecustomer =
+	 * customersService.findByCode(theCustomersAddress.getId().getCustomerId()); if
+	 * (thecustomer==null) { coordinates.put("states", 0); coordinates.put(
+	 * "the customer id not found ", theCustomersAddress.getId().getCustomerId()); }
+	 * else { thecustomer.addCustomersAddress(theCustomersAddress);
+	 * customersService.saveORupdate(thecustomer); coordinates.put("states", 1);
+	 * coordinates.put( "the customer address posted ", theCustomersAddress); }
+	 * return coordinates; }
+	 */
+////////////############################///////////////////////////////////////////////////////////////////////////////
 	////////////////////////// add new bill to the customer not finished ////////////////
 	/*  @PostMapping("/add_new_bill_to_customer")
 	public Bill addphoneForCustomer(@RequestBody Bill theBill) {

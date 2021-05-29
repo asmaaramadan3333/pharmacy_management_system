@@ -20,10 +20,13 @@ public class PharmaCoPhone implements Serializable {
 	private PharmaCoPhonePK id;
 
 	//bi-directional many-to-one association to PharmaCo
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="company_id" ,insertable=false,updatable=false)
-	@JsonIgnore
-	private PharmaCo pharmaCo;
+	/*
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="company_id" ,insertable=false,updatable=false)
+	 * 
+	 * @JsonIgnore private PharmaCo pharmaCo;
+	 */
 
 	public PharmaCoPhone() {
 	}
@@ -36,12 +39,6 @@ public class PharmaCoPhone implements Serializable {
 		this.id = id;
 	}
 
-	public PharmaCo getPharmaCo() {
-		return this.pharmaCo;
-	}
 
-	public void setPharmaCo(PharmaCo pharmaCo) {
-		this.pharmaCo = pharmaCo;
-	}
 
 }

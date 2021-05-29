@@ -44,19 +44,30 @@ public class Supply implements Serializable {
 
 	
 	//bi-directional many-to-one association to PharmaCo
-		@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-		@JoinColumn(name="company_id",insertable=false,updatable=false)
-	    @JsonIgnore
-		private PharmaCo pharmaCo;
+	/*
+	 * @ManyToOne(fetch=FetchType.LAZY,cascade=
+	 * {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH
+	 * })
+	 * 
+	 * @JoinColumn(name="company_id",insertable=false,updatable=false)
+	 * 
+	 * @JsonIgnore private PharmaCo pharmaCo;
+	 */
+		/*
+		 * //bi-directional many-to-one association to Employee
+		 * 
+		 * @ManyToOne(fetch=FetchType.LAZY,cascade=
+		 * {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH
+		 * })
+		 * 
+		 * @JoinColumn(name="employee_id", insertable=false,updatable=false)
+		 * 
+		 * @JsonIgnore private Employee employee;
+		 */
 
-		//bi-directional many-to-one association to Employee
-		@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-		@JoinColumn(name="employee_id", insertable=false,updatable=false)
-		@JsonIgnore
-		private Employee employee;
-
-		//bi-directional many-to-one association to SupplyProduct
-		@OneToMany(mappedBy="supply")
+	@JoinColumns({
+		@JoinColumn(name = "company_id"),@JoinColumn(name = "supply_id") })
+		@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 		private List<SupplyProduct> supplyProducts;
 
 		
@@ -127,21 +138,8 @@ public class Supply implements Serializable {
 		this.totalPrice = totalPrice;
 	}
 
-	public Employee getEmployee() {
-		return this.employee;
-	}
+	
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public PharmaCo getPharmaCo() {
-		return this.pharmaCo;
-	}
-
-	public void setPharmaCo(PharmaCo pharmaCo) {
-		this.pharmaCo = pharmaCo;
-	}
 
 	public List<SupplyProduct> getSupplyProducts() {
 		return this.supplyProducts;
@@ -151,19 +149,7 @@ public class Supply implements Serializable {
 		this.supplyProducts = supplyProducts;
 	}
 
-	public SupplyProduct addSupplyProduct(SupplyProduct supplyProduct) {
-		getSupplyProducts().add(supplyProduct);
-		supplyProduct.setSupply(this);
 
-		return supplyProduct;
-	}
-
-	public SupplyProduct removeSupplyProduct(SupplyProduct supplyProduct) {
-		getSupplyProducts().remove(supplyProduct);
-		supplyProduct.setSupply(null);
-
-		return supplyProduct;
-	}
 
 	
 }

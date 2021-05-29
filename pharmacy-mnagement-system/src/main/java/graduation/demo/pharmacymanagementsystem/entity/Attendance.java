@@ -31,12 +31,15 @@ public class Attendance implements Serializable {
 	private int late;
 
 	private String permission;
-
-	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="employee_id", insertable=false,updatable=false)
-
-	private Employee employee;
+	/*
+	 * //bi-directional many-to-one association to Employee
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="employee_id", insertable=false,updatable=false)
+	 * 
+	 * private Employee employee;
+	 */
 
 	public Attendance() {
 	}
@@ -89,12 +92,5 @@ public class Attendance implements Serializable {
 		this.permission = permission;
 	}
 
-	public Employee getEmployee() {
-		return this.employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
 
 }

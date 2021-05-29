@@ -48,20 +48,21 @@ public class PharmaCo implements Serializable {
 	@Column(name="payment_start_date")
 	private Date paymentStartDate;
 
-	//bi-directional many-to-one association to CompanyPayment
-	@OneToMany(mappedBy="pharmaCo")
+	@JoinColumn(name="company_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CompanyPayment> companyPayments;
 
-	//bi-directional many-to-one association to PharmaCoPhone
-	@OneToMany(mappedBy="pharmaCo")
+	@JoinColumn(name="company_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<PharmaCoPhone> pharmaCoPhones;
 
-	//bi-directional many-to-one association to Supply
-	@OneToMany(mappedBy="pharmaCo")
+	@JoinColumn(name="company_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<Supply> supplies;
 
 	//bi-directional many-to-one association to SupplyProduct
-	@OneToMany(mappedBy="pharmaCo")
+	@JoinColumn(name="company_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<SupplyProduct> supplyProducts;
 	
 	public PharmaCo() {
@@ -157,19 +158,6 @@ public class PharmaCo implements Serializable {
 		this.companyPayments = companyPayments;
 	}
 
-	/*public CompanyPayment addCompanyPayment(CompanyPayment companyPayment) {
-		getCompanyPayments().add(companyPayment);
-		companyPayment.setPharmaCo(this);
-
-		return companyPayment;
-	}*/
-
-	/*public CompanyPayment removeCompanyPayment(CompanyPayment companyPayment) {
-		getCompanyPayments().remove(companyPayment);
-		companyPayment.setPharmaCo(null);
-
-		return companyPayment;
-	}*/
 
 	public List<PharmaCoPhone> getPharmaCoPhones() {
 		return this.pharmaCoPhones;
@@ -179,19 +167,7 @@ public class PharmaCo implements Serializable {
 		this.pharmaCoPhones = pharmaCoPhones;
 	}
 
-	/*public PharmaCoPhone addPharmaCoPhone(PharmaCoPhone pharmaCoPhone) {
-		getPharmaCoPhones().add(pharmaCoPhone);
-		pharmaCoPhone.setPharmaCo(this);
 
-		return pharmaCoPhone;
-	}
-
-	public PharmaCoPhone removePharmaCoPhone(PharmaCoPhone pharmaCoPhone) {
-		getPharmaCoPhones().remove(pharmaCoPhone);
-		pharmaCoPhone.setPharmaCo(null);
-
-		return pharmaCoPhone;
-	}*/
 
 	public List<Supply> getSupplies() {
 		return this.supplies;
@@ -201,31 +177,5 @@ public class PharmaCo implements Serializable {
 		this.supplies = supplies;
 	}
 
-	/*public Supply addSupply(Supply supply) {
-		getSupplies().add(supply);
-		supply.setPharmaCo(this);
 
-		return supply;
-	}
-
-	public Supply removeSupply(Supply supply) {
-		getSupplies().remove(supply);
-		supply.setPharmaCo(null);
-
-		return supply;
-	}*/
-
-	public SupplyProduct addSupplyProduct(SupplyProduct supplyProduct) {
-		getSupplyProducts().add(supplyProduct);
-		supplyProduct.setPharmaCo(this);
-
-		return supplyProduct;
-	}
-
-	public SupplyProduct removeSupplyProduct(SupplyProduct supplyProduct) {
-		getSupplyProducts().remove(supplyProduct);
-		supplyProduct.setPharmaCo(null);
-
-		return supplyProduct;
-	}
 }
