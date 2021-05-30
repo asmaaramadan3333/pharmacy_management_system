@@ -32,11 +32,28 @@ public class CustomersServiceImpl implements CustomersService {
 
 	@Override
 	@Transactional
+	public List<Customer> findpaidCustomers() {
+		// TODO Auto-generated method stub
+		return CustomersDAO.findpaidCustomers();
+	}
+	
+	@Override
+	@Transactional
+	public List<Customer> findcredit_addedCustomers() {
+		// TODO Auto-generated method stub
+		return CustomersDAO.findcredit_addedCustomers();
+	}
+	
+	
+	@Override
+	@Transactional
 	public Customer findByCode(int theCustomerId) {
 
 		return CustomersDAO.findByCode(theCustomerId);
 	}
 
+
+	
 	@Override
 	@Transactional
 	public void saveORupdate(Customer theCustomer) {
@@ -135,7 +152,6 @@ public class CustomersServiceImpl implements CustomersService {
 
 			coordinates.put("the_customer", thecustomer1);
 		
-
 		} 
 		else {
 			
@@ -180,7 +196,7 @@ public class CustomersServiceImpl implements CustomersService {
 		
 		//theCustomer.setCustomerId(0);
 		
-		saveORupdate(theCustomer);
+	  saveORupdate(theCustomer);
 	  Customer thecustomer2 = getCustomerByEmail(theCustomer.getEmail());
 	  Customer thecustomer3 = findByCode(theCustomer.getCustomerId());
 	   System.out.println(thecustomer2.getCustomerId());
@@ -206,6 +222,10 @@ public class CustomersServiceImpl implements CustomersService {
 		}
 		return coordinates;
 	}
+
+
+
+	
 
 
 

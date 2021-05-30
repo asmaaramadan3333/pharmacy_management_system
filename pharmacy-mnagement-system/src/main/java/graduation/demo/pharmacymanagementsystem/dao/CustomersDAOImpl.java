@@ -36,12 +36,42 @@ public class CustomersDAOImpl implements CustomersDAO {
 		Query<Customer> theQuery = currentSession.createQuery("from Customer", Customer.class);
 
 		// execute query and get result list
-		List<Customer> Customer = theQuery.getResultList();
+		List<Customer> Customer_list = theQuery.getResultList();
 
 		// return the results
-		return Customer;
+		return Customer_list;
+	}
+	
+	@Override
+	public List<Customer> findpaidCustomers() {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// create a query
+		Query<Customer> theQuery = currentSession.createQuery("from Customer o where o.credit = 0  or o.credit < 0 ", Customer.class);
+
+		// execute query and get result list
+		List<Customer> Customer_list = theQuery.getResultList();
+
+		// return the results
+		return Customer_list ;
 	}
 
+	@Override
+	public List<Customer> findcredit_addedCustomers() {
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// create a query
+		Query<Customer> theQuery = currentSession.createQuery("from Customer o where o.credit > 0 ", Customer.class);
+
+		// execute query and get result list
+		List<Customer> Customer_list = theQuery.getResultList();
+
+		// return the results
+		return Customer_list ;
+	}
+
+	
 	@Override
 	public Customer findByCode(int theCustomerId) {
 		// get the current hibernate session
@@ -237,6 +267,9 @@ public class CustomersDAOImpl implements CustomersDAO {
 		theQuery.executeUpdate();
 
 	}
+
+
+
 
 
 }
