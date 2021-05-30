@@ -133,6 +133,7 @@ public class CustomersRestController {
 
 	// *********** post requests///////////////
 
+
 	
 	  // add mapping for POST /add_new - add new Customers for desktop //
 	  
@@ -146,7 +147,7 @@ public class CustomersRestController {
 	 
 
 	//////////////////////// add_new_phone_to_customer/////////////
-	/*@PostMapping("/add_new_phone_to_customer")
+	@PostMapping("/add_new_phone_to_customer")
 	public CustomersPhone addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone) {
 		Customer thecustomer = customersService.findByCode(theCustomersPhone.getId().getCustomerId());
 		if (thecustomer == null) {
@@ -158,7 +159,7 @@ public class CustomersRestController {
 		customersService.saveORupdate(thecustomer);
 		
 		return theCustomersPhone;
-	}*/
+	}
 
 	/*@PostMapping("/add_new_Bill_to_customer")
 	public Bill addBillForCustomer(@RequestBody Bill theBill) {
@@ -174,6 +175,7 @@ public class CustomersRestController {
 		
 		return theBill;
 	}*/
+
 
 	/////////////////// sign up customer for mobile //////////////////////
 	@SuppressWarnings("unchecked")
@@ -195,24 +197,21 @@ public class CustomersRestController {
 
 	}
 
-	/*/////////////////////// add new address to customer //////////////
-	@PostMapping("/add_new_address")
-	public Map<String,Object> addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
-		Map<String, Object> coordinates = new HashMap<>();
-		Customer thecustomer = customersService.findByCode(theCustomersAddress.getId().getCustomerId());
-		if (thecustomer==null)
-		{
-			coordinates.put("states", 0);
-			coordinates.put( "the customer id not found ", theCustomersAddress.getId().getCustomerId());
-		}
-		else {
-		thecustomer.addCustomersAddress(theCustomersAddress);
-		customersService.saveORupdate(thecustomer);
-		coordinates.put("states", 1);
-		coordinates.put( "the customer address posted ", theCustomersAddress);
-		}
-		return coordinates;
-	}*/
+////////////////////// add using bi direction ///////////////////////
+	/////////////////////// add new address to customer //////////////
+	/*
+	 * @PostMapping("/add_new_address") public Map<String,Object>
+	 * addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
+	 * Map<String, Object> coordinates = new HashMap<>(); Customer thecustomer =
+	 * customersService.findByCode(theCustomersAddress.getId().getCustomerId()); if
+	 * (thecustomer==null) { coordinates.put("states", 0); coordinates.put(
+	 * "the customer id not found ", theCustomersAddress.getId().getCustomerId()); }
+	 * else { thecustomer.addCustomersAddress(theCustomersAddress);
+	 * customersService.saveORupdate(thecustomer); coordinates.put("states", 1);
+	 * coordinates.put( "the customer address posted ", theCustomersAddress); }
+	 * return coordinates; }
+	 */
+////////////############################///////////////////////////////////////////////////////////////////////////////
 
 	////////////////////////// add new bill to the customer not finished ////////////////
 	/*  @PostMapping("/add_new_bill_to_customer")

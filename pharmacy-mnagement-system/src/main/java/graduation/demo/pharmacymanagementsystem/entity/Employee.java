@@ -54,10 +54,12 @@ public class Employee implements Serializable {
 	@Column(name="working_hours")
 	private int workingHours;
 
+
 	
 	@JoinColumn(name="employee_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
 	private List<Attendance> attendances;
+
 
 
 	@JoinColumn(name="employee_id")
@@ -74,6 +76,7 @@ public class Employee implements Serializable {
 
 	@JoinColumn(name="employee_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
+
 	private List<EmployeesMonthly> employeesMonthlies;
 
 	//bi-directional many-to-many association to Customer
@@ -244,7 +247,6 @@ public class Employee implements Serializable {
 	public void setBills2(List<Bill> bills2) {
 		this.bills2 = bills2;
 	}
-
 
 
 
