@@ -3,55 +3,65 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the supply_products database table.
  * 
  */
 @Entity
-@Table(name="supply_products")
-@NamedQuery(name="SupplyProduct.findAll", query="SELECT s FROM SupplyProduct s")
+@Table(name = "supply_products")
+@NamedQuery(name = "SupplyProduct.findAll", query = "SELECT s FROM SupplyProduct s")
 public class SupplyProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private SupplyProductPK id;
 
-	@Column(name="bonus_quantity")
+	@Column(name = "bonus_quantity")
 	private float bonusQuantity;
 
-	@Column(name="delivered_quantity")
+	@Column(name = "delivered_quantity")
 	private int deliveredQuantity;
 
-	@Column(name="expired_date")
+	@Column(name = "expired_date")
 	private float expiredDate;
 
-	@Column(name="pharmacist_price")
+	@Column(name = "pharmacist_price")
 	private float pharmacistPrice;
 
-	@Column(name="product_price")
+	@Column(name = "product_price")
 	private float productPrice;
 
-	@Column(name="remained_quantity")
+	@Column(name = "remained_quantity")
 	private float remainedQuantity;
 
-	//bi-directional many-to-one association to PharmaCo
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="company_id" , insertable=false, updatable=false)
-	private PharmaCo pharmaCo;
-
-	//bi-directional many-to-one association to Product
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="product_code" , insertable=false,updatable=false)
-	private Product product;
-
-	//bi-directional many-to-one association to Supply
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name="company_id", referencedColumnName="company_id", insertable=false,updatable=false),
-		@JoinColumn(name="supply_id", referencedColumnName="supply_bill_id", insertable=false,updatable=false)
-		})
-	private Supply supply;
+	/*
+	 * //bi-directional many-to-one association to PharmaCo
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="company_id" , insertable=false, updatable=false) private
+	 * PharmaCo pharmaCo;
+	 * 
+	 * 
+	 * //bi-directional many-to-one association to Product
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="product_code" , insertable=false,updatable=false) private
+	 * Product product;
+	 */
+	// bi-directional many-to-one association to Supply
+	/*
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumns({
+	 * 
+	 * @JoinColumn(name = "company_id", referencedColumnName = "company_id",
+	 * insertable = false, updatable = false),
+	 * 
+	 * @JoinColumn(name = "supply_id", referencedColumnName = "supply_bill_id",
+	 * insertable = false, updatable = false) }) private Supply supply;
+	 */
 
 	public SupplyProduct() {
 	}
@@ -112,28 +122,7 @@ public class SupplyProduct implements Serializable {
 		this.remainedQuantity = remainedQuantity;
 	}
 
-	public PharmaCo getPharmaCo() {
-		return this.pharmaCo;
-	}
 
-	public void setPharmaCo(PharmaCo pharmaCo) {
-		this.pharmaCo = pharmaCo;
-	}
 
-	public Product getProduct() {
-		return this.product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Supply getSupply() {
-		return this.supply;
-	}
-
-	public void setSupply(Supply supply) {
-		this.supply = supply;
-	}
 
 }

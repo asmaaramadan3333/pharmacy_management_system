@@ -28,17 +28,26 @@ public class BillsProduct implements Serializable {
 
 	
 	
-	// bi-directional many-to-one association to Bill
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "bill_id", insertable = false, updatable = false)
-	@JsonIgnore // Properties({"hibernateLazyInitializer", "handler"})
-	private Bill bill;
+	/*
+	 * // bi-directional many-to-one association to Bill
+	 * 
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "bill_id", insertable = false, updatable = false)
+	 * 
+	 * @JsonIgnore // Properties({"hibernateLazyInitializer", "handler"}) private
+	 * Bill bill;
+	 */
 
-	// bi-directional many-to-one association to Product
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_code", insertable = false, updatable = false)
-	@JsonIgnore
-	private Product product;
+	/*
+	 * // bi-directional many-to-one association to Product
+	 * 
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "product_code", insertable = false, updatable = false)
+	 * 
+	 * @JsonIgnore private Product product;
+	 */
 
 	public BillsProduct() {
 	}
@@ -46,7 +55,7 @@ public class BillsProduct implements Serializable {
 	@Override
 	public String toString() {
 		return "BillsProduct [id=" + id + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", unitPrice="
-				+ unitPrice + ", bill=" + bill + ", product=" + product + "]";
+				+ unitPrice +  "]";
 	}
 
 	public BillsProductPK getId() {
@@ -81,20 +90,6 @@ public class BillsProduct implements Serializable {
 		this.unitPrice = unitPrice;
 	}
 
-	public Bill getBill() {
-		return this.bill;
-	}
 
-	public void setBill(Bill bill) {
-		this.bill = bill;
-	}
-
-	public Product getProduct() {
-		return this.product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
 
 }

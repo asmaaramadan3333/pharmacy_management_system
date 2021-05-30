@@ -60,12 +60,6 @@ public class Bill implements Serializable {
 	
 	@Column(name = "prescription_or_not")
 	private int prescriptionOrNot;
-
-	// @CreationTimestamp()/////
-	// @JsonFormat(timezone = "GMT+02:00")
-	// @DateTimeFormat(pattern="hh:mm:ss" )
-	// @Temporal(TemporalType.TIME)
-	// @Column(name = "time")//, columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date time;
 
@@ -73,51 +67,16 @@ public class Bill implements Serializable {
 	private float totalPrice;
 
 	
-	public int getEmployeeId() {
-		return employeeId;
-	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
-	}
+	
+	@JoinColumn(name="bill_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 
-	@Column(name = "customer_id", insertable = false, updatable = false)
-	private int customerId;
-	@Column(name = "employee_id", insertable = false, updatable = false)
-	private int employeeId;
-
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
-	// bi-directional many-to-one association to Customer
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customer_id") // ,columnDefinition = "customerId")
-
-	@JsonIgnore
-	private Customer customer;
-
-	// bi-directional many-to-one association to Employee
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee_id")
-	 @JsonIgnore
-	private Employee employee1;
-
-	// bi-directional many-to-one association to Employee
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "delivery_man_id")
-	 @JsonIgnore
-	private Employee employee2;
-
-	// bi-directional many-to-one association to BillsProduct
-	@OneToMany(mappedBy = "bill", fetch = FetchType.LAZY)
-	// @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<BillsProduct> billsProducts;
-
+	
+	@JoinColumn(name="bill_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private List<CustomersPrescript> customersPrescripts;
 	public Bill() {
 	}
 
@@ -127,9 +86,8 @@ public class Bill implements Serializable {
 				+ customerAddress + ", deliveryFee=" + deliveryFee + ", phoneNumber=" + phoneNumber
 				+ ", deliveryFeedback=" + deliveryFeedback + ", employeeFeedback=" + employeeFeedback
 				+ ", pharmacyFeedback=" + pharmacyFeedback + ", userFeedback=" + userFeedback + ", prescriptionOrNot="
-				+ prescriptionOrNot + ", time=" + time + ", totalPrice=" + totalPrice + ", customerId=" + customerId
-				+ ", employeeId=" + employeeId + ", customer=" + customer + ", employee1=" + employee1 + ", employee2="
-				+ employee2 + ", billsProducts=" + billsProducts + "]";
+				+ prescriptionOrNot + ", time=" + time + ", totalPrice=" + totalPrice + 
+				 ", billsProducts=" + billsProducts + "]";
 	}
 
 	public long getBillId() {
@@ -195,30 +153,6 @@ public class Bill implements Serializable {
 	public void setTotalPrice(float totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
-	public Customer getCustomer() {
-		return this.customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Employee getEmployee1() {
-		return this.employee1;
-	}
-
-	public void setEmployee1(Employee employee1) {
-		this.employee1 = employee1;
-	}
-
-	public Employee getEmployee2() {
-		return this.employee2;
-	}
-
-	public void setEmployee2(Employee employee2) {
-		this.employee2 = employee2;
-	}
 
 	public int getDeliveryFeedback() {
 		return deliveryFeedback;
@@ -267,19 +201,11 @@ public class Bill implements Serializable {
 	public void setBillsProducts(List<BillsProduct> billsProducts) {
 		this.billsProducts = billsProducts;
 	}
-
-	public BillsProduct addBillsProduct(BillsProduct billsProduct) {
-		getBillsProducts().add(billsProduct);
-		billsProduct.setBill(this);
-
-		return billsProduct;
+	public List<CustomersPrescript> getCustomersPrescripts() {
+		return this.customersPrescripts;
 	}
 
-	public BillsProduct removeBillsProduct(BillsProduct billsProduct) {
-		getBillsProducts().remove(billsProduct);
-		billsProduct.setBill(null);
-
-		return billsProduct;
+	public void setCustomersPrescripts(List<CustomersPrescript> customersPrescripts) {
+		this.customersPrescripts = customersPrescripts;
 	}
-
 }
