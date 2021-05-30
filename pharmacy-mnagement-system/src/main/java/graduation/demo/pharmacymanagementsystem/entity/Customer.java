@@ -1,6 +1,9 @@
 package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
+
+//import com.luv2code.hibernate.demo.entity.Review;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +50,8 @@ public class Customer implements Serializable {
 	@JoinColumn(name="customer_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPhone> customersPhones;
+	
+	
 	@JoinColumn(name="customer_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPrescript> customersPrescripts;
@@ -229,7 +234,31 @@ public class Customer implements Serializable {
 		
 	}
 
-	  
+	/*public CustomersPhone addCustomersPhone (CustomersPhone customersPhone) {
+		getCustomersPhones().add(customersPhone);
 
+		customersPhone.setCustomer(this);
+
+		return customersPhone;
+	}
+
+	public CustomersPhone removeCustomersPhone(CustomersPhone customersPhone) {
+		getCustomersPhones().remove(customersPhone);
+		customersPhone.setCustomer(null);
+
+		return customersPhone;
+	}*/
+
+    public CustomersPhone addCustomersPhone( CustomersPhone customersPhone) {
+		
+		if (customersPhones == null) {
+			
+			customersPhones = new ArrayList<>();
+		}
+		
+		customersPhones.add(customersPhone);
+		
+		return customersPhone;
+	}
 
 }
