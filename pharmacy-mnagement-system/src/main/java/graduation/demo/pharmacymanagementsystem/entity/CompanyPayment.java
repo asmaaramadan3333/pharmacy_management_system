@@ -24,11 +24,13 @@ public class CompanyPayment implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date timing;
-
-	//bi-directional many-to-one association to PharmaCo
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="company_id")
-	private PharmaCo pharmaCo;
+	/*
+	 * //bi-directional many-to-one association to PharmaCo
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="company_id") private PharmaCo pharmaCo;
+	 */
 
 	public CompanyPayment() {
 	}
@@ -60,12 +62,6 @@ public class CompanyPayment implements Serializable {
 		this.timing = timing;
 	}
 
-	public PharmaCo getPharmaCo() {
-		return this.pharmaCo;
-	}
 
-	public void setPharmaCo(PharmaCo pharmaCo) {
-		this.pharmaCo = pharmaCo;
-	}
 
 }

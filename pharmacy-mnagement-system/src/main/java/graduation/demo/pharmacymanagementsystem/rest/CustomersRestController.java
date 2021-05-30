@@ -44,6 +44,39 @@ public class CustomersRestController {
 		return customersService.findAllCustomers();
 	}
 
+	// return list of customers without id and password //
+	
+	/*@GetMapping("/get_all")
+	public List<Customer> custom_findAllCustomerscustom() {
+		List<Customer> list_customers = customersService.findAllCustomers();
+		for(int i=0 , i < list_customers.size() ,i++)
+		{
+			
+		}
+		
+		list_customers.get
+		
+		return customersService.custom_findAllCustomerscustom();
+	}*/
+	
+	//////////////get list of customers with balance =< 0///
+	
+	@GetMapping("/get_Paid")
+	public List<Customer> findpaidCustomers()
+	{
+		 return customersService.findpaidCustomers();
+	}
+	
+//////////////get list of customers with balance > 0 ///
+	@GetMapping("/get_added_credit_customers")
+	public List<Customer> findcredit_addedCustomers()
+	{
+		 return customersService.findcredit_addedCustomers();
+	}
+	
+	
+	
+	
 	// get customer by customer id//
 	@GetMapping("/get_by_id/{CustomerId}")
 	public Customer getCustomer(@PathVariable int CustomerId) {
@@ -83,6 +116,10 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 
+
+	
+	
+	
 	// sign in customer by email and password //
 	@GetMapping("/signIn/{theemail}/{thepassword}")
 	public Map<String, Object> Customer_signIn(@PathVariable String theemail, @PathVariable String thepassword) {
@@ -96,18 +133,20 @@ public class CustomersRestController {
 
 	// *********** post requests///////////////
 
-	/*
-	 * // add mapping for POST /add_new - add new Customers for desktop //
-	 * 
-	 * @PostMapping("/add_new") public Map<String, Integer> addCustomer(@RequestBody
-	 * Customer theCustomer) { Map<String, Integer> coordinates = new HashMap<>();
-	 * Customer customer1= customersService.saveandreturncustomer(theCustomer);
-	 * coordinates.put("customerId", customer1.getCustomerId()); return coordinates;
-	 * }
-	 */
+	
+	  // add mapping for POST /add_new - add new Customers for desktop //
+	  
+	  @PostMapping("/add_new") 
+	  public Map<String, Integer> addCustomer(@RequestBody Customer theCustomer) 
+	  { 
+         Map<String, Integer> coordinates = new HashMap<>();
+	     Customer customer1= customersService.saveandreturncustomer(theCustomer);
+	     coordinates.put("customerId", customer1.getCustomerId()); return coordinates;
+	  }
+	 
 
 	//////////////////////// add_new_phone_to_customer/////////////
-	@PostMapping("/add_new_phone_to_customer")
+	/*@PostMapping("/add_new_phone_to_customer")
 	public CustomersPhone addphoneForCustomer(@RequestBody CustomersPhone theCustomersPhone) {
 		Customer thecustomer = customersService.findByCode(theCustomersPhone.getId().getCustomerId());
 		if (thecustomer == null) {
@@ -119,9 +158,9 @@ public class CustomersRestController {
 		customersService.saveORupdate(thecustomer);
 		
 		return theCustomersPhone;
-	}
+	}*/
 
-	@PostMapping("/add_new_Bill_to_customer")
+	/*@PostMapping("/add_new_Bill_to_customer")
 	public Bill addBillForCustomer(@RequestBody Bill theBill) {
 		
 		Customer thecustomer = customersService.findByCode(theBill.getCustomerId());
@@ -134,7 +173,7 @@ public class CustomersRestController {
 		customersService.saveORupdate(thecustomer);
 		
 		return theBill;
-	}
+	}*/
 
 	/////////////////// sign up customer for mobile //////////////////////
 	@SuppressWarnings("unchecked")
@@ -156,7 +195,7 @@ public class CustomersRestController {
 
 	}
 
-	/////////////////////// add new address to customer //////////////
+	/*/////////////////////// add new address to customer //////////////
 	@PostMapping("/add_new_address")
 	public Map<String,Object> addAddressForCustomer(@RequestBody CustomersAddress theCustomersAddress) {
 		Map<String, Object> coordinates = new HashMap<>();
@@ -173,7 +212,7 @@ public class CustomersRestController {
 		coordinates.put( "the customer address posted ", theCustomersAddress);
 		}
 		return coordinates;
-	}
+	}*/
 
 	////////////////////////// add new bill to the customer not finished ////////////////
 	/*  @PostMapping("/add_new_bill_to_customer")

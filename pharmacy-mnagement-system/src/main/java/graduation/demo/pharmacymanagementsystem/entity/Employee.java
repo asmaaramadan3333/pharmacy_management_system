@@ -54,25 +54,26 @@ public class Employee implements Serializable {
 	@Column(name="working_hours")
 	private int workingHours;
 
-	//bi-directional many-to-one association to Attendance
-	@OneToMany(mappedBy="employee", fetch = FetchType.LAZY)
+	
+	@JoinColumn(name="employee_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
 	private List<Attendance> attendances;
 
-	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="employee1", fetch = FetchType.LAZY )
 
+	@JoinColumn(name="employee_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
 	private List<Bill> bills1;
 	
-	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="employee2", fetch = FetchType.LAZY)
+	@JoinColumn(name="delivery_man_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
 	private List<Bill> bills2;
     
-	//bi-directional many-to-one association to CustomersPrescript
-	@OneToMany(mappedBy="employee", fetch = FetchType.LAZY)
+	@JoinColumn(name="employee_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
 	private List<CustomersPrescript> customersPrescripts;
-	
-	//bi-directional many-to-one association to EmployeesMonthly
-	@OneToMany(mappedBy="employee", fetch = FetchType.LAZY)
+
+	@JoinColumn(name="employee_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
 	private List<EmployeesMonthly> employeesMonthlies;
 
 	//bi-directional many-to-many association to Customer
@@ -89,8 +90,8 @@ public class Employee implements Serializable {
 	@JsonIgnore
 	private List<Customer> customers;
 
-	//bi-directional many-to-one association to Supply
-	@OneToMany(mappedBy="employee")
+	@JoinColumn(name="employee_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
 	private List<Supply> supplies;
 
 	public Employee() {
@@ -224,19 +225,6 @@ public class Employee implements Serializable {
 		this.attendances = attendances;
 	}
 
-	public Attendance addAttendance(Attendance attendance) {
-		getAttendances().add(attendance);
-		attendance.setEmployee(this);
-
-		return attendance;
-	}
-
-	public Attendance removeAttendance(Attendance attendance) {
-		getAttendances().remove(attendance);
-		attendance.setEmployee(null);
-
-		return attendance;
-	}
 
 	public List<Bill> getBills1() {
 		return this.bills1;
@@ -246,19 +234,8 @@ public class Employee implements Serializable {
 		this.bills1 = bills1;
 	}
 
-	public Bill addBills1(Bill bills1) {
-		getBills1().add(bills1);
-		bills1.setEmployee1(this);
 
-		return bills1;
-	}
 
-	public Bill removeBills1(Bill bills1) {
-		getBills1().remove(bills1);
-		bills1.setEmployee1(null);
-
-		return bills1;
-	}
 
 	public List<Bill> getBills2() {
 		return this.bills2;
@@ -268,19 +245,8 @@ public class Employee implements Serializable {
 		this.bills2 = bills2;
 	}
 
-	public Bill addBills2(Bill bills2) {
-		getBills2().add(bills2);
-		bills2.setEmployee2(this);
 
-		return bills2;
-	}
 
-	public Bill removeBills2(Bill bills2) {
-		getBills2().remove(bills2);
-		bills2.setEmployee2(null);
-
-		return bills2;
-	}
 
 	public List<CustomersPrescript> getCustomersPrescripts() {
 		return this.customersPrescripts;
@@ -290,20 +256,6 @@ public class Employee implements Serializable {
 		this.customersPrescripts = customersPrescripts;
 	}
 
-	public CustomersPrescript addCustomersPrescript(CustomersPrescript customersPrescript) {
-		getCustomersPrescripts().add(customersPrescript);
-		customersPrescript.setEmployee(this);
-
-		return customersPrescript;
-	}
-
-	public CustomersPrescript removeCustomersPrescript(CustomersPrescript customersPrescript) {
-		getCustomersPrescripts().remove(customersPrescript);
-		customersPrescript.setEmployee(null);
-
-		return customersPrescript;
-	}
-	
 	public List<EmployeesMonthly> getEmployeesMonthlies() {
 		return this.employeesMonthlies;
 	}
@@ -312,19 +264,6 @@ public class Employee implements Serializable {
 		this.employeesMonthlies = employeesMonthlies;
 	}
 
-	public EmployeesMonthly addEmployeesMonthly(EmployeesMonthly employeesMonthly) {
-		getEmployeesMonthlies().add(employeesMonthly);
-		employeesMonthly.setEmployee(this);
-
-		return employeesMonthly;
-	}
-
-	public EmployeesMonthly removeEmployeesMonthly(EmployeesMonthly employeesMonthly) {
-		getEmployeesMonthlies().remove(employeesMonthly);
-		employeesMonthly.setEmployee(null);
-
-		return employeesMonthly;
-	}
 
 	public List<Customer> getCustomers() {
 		return this.customers;
@@ -342,18 +281,5 @@ public class Employee implements Serializable {
 		this.supplies = supplies;
 	}
 
-	public Supply addSupply(Supply supply) {
-		getSupplies().add(supply);
-		supply.setEmployee(this);
-
-		return supply;
-	}
-
-	public Supply removeSupply(Supply supply) {
-		getSupplies().remove(supply);
-		supply.setEmployee(null);
-
-		return supply;
-	}
 
 }

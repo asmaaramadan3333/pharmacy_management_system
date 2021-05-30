@@ -1,23 +1,11 @@
 package graduation.demo.pharmacymanagementsystem.entity;
-
 import java.io.Serializable;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 
-/**
- * The persistent class for the customers database table.
- * 
- */
 @Entity
 @Table(name="customers")
 public class Customer implements Serializable {
@@ -28,46 +16,39 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="customer_id")
 	private int customerId;
-	
     @Column(name="credit")
 	private float credit;
-
 	@Temporal(TemporalType.DATE)
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
-	
 	@Column(name="email")
 	private String email;
-
 	@Column(name="first_name")
 	private String firstName;
-	
 	@Column(name="gender")
 	private String gender;
-
 	@Column(name="last_name")
 	private String lastName;
-	
 	@Column(name="password")
 	private String password;
-	
 	@Column(name="rate")
 	private float rate;
 
-	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL )
+	@JoinColumn(name="customer_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL )
 	private List<Bill> bills;
 
-	//bi-directional one-to-one association to CustomersAddress
-	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	//uni-directional one-to-one association to CustomersAddress
+	@JoinColumn(name="customer_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersAddress> customersAddresses;
 
-	//bi-directional many-to-one association to CustomersPhone
-
-	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	//uni-directional many-to-one association to CustomersPhone
+	@JoinColumn(name="customer_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPhone> customersPhones;
-
-	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn(name="customer_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPrescript> customersPrescripts;
 	
 	//bi-directional many-to-many association to Product
@@ -186,21 +167,6 @@ public class Customer implements Serializable {
 	public void setBills(List<Bill> bills) {
 		this.bills = bills;
 	}
-
-	public Bill addBill(Bill bill) {
-		getBills().add(bill);
-		bill.setCustomer(this);
-
-		return bill;
-	}
-
-	public Bill removeBill(Bill bill) {
-		getBills().remove(bill);
-		bill.setCustomer(null);
-
-		return bill;
-	}
-	
 	public float getRate() {
 		return rate;
 	}
@@ -217,20 +183,6 @@ public class Customer implements Serializable {
 		this.customersPrescripts = customersPrescripts;
 	}
 
-	public CustomersPrescript addCustomersPrescript(CustomersPrescript customersPrescript) {
-		getCustomersPrescripts().add(customersPrescript);
-		customersPrescript.setCustomer(this);
-
-		return customersPrescript;
-	}
-
-	public CustomersPrescript removeCustomersPrescript(CustomersPrescript customersPrescript) {
-		getCustomersPrescripts().remove(customersPrescript);
-		customersPrescript.setCustomer(null);
-
-		return customersPrescript;
-	}
-	
 
 	public List<CustomersAddress> getCustomersAddresses() {
 		return this.customersAddresses;
@@ -238,20 +190,6 @@ public class Customer implements Serializable {
 
 	public void setCustomersAddresses(List<CustomersAddress> customersAddresses) {
 		this.customersAddresses = customersAddresses;
-	}
-
-	public CustomersAddress addCustomersAddress(CustomersAddress customersAddress) {
-		getCustomersAddresses().add(customersAddress);
-		customersAddress.setCustomer(this);
-
-		return customersAddress;
-	}
-
-	public CustomersAddress removeCustomersAddress(CustomersAddress customersAddress) {
-		getCustomersAddresses().remove(customersAddress);
-		customersAddress.setCustomer(null);
-
-		return customersAddress;
 	}
 	public List<CustomersPhone> getCustomersPhones() {
 		return this.customersPhones;
@@ -261,20 +199,7 @@ public class Customer implements Serializable {
 		this.customersPhones = customersPhones;
 	}
 
-	public CustomersPhone addCustomersPhone (CustomersPhone customersPhone) {
-		getCustomersPhones().add(customersPhone);
-		
-		customersPhone.setCustomer(this);
 
-		return customersPhone;
-	}
-
-	public CustomersPhone removeCustomersPhone(CustomersPhone customersPhone) {
-		getCustomersPhones().remove(customersPhone);
-		customersPhone.setCustomer(null);
-
-		return customersPhone;
-	}
 
 
 	public List<Product> getProducts() {
@@ -305,15 +230,6 @@ public class Customer implements Serializable {
 	}
 
 	  
-	public void add2 (CustomersPhone tempCustomersPhone)
-	{
-		if(customersPhones ==null)
-		{
-			customersPhones=new ArrayList<>();
-			
-		}
-		customersPhones.add(tempCustomersPhone);
-		tempCustomersPhone.setCustomer(this);
-	}
+
 
 }

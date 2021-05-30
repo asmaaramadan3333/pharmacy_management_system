@@ -34,22 +34,30 @@ public class CustomersPrescript implements Serializable {
 
 	private String url;
 
-	//bi-directional many-to-one association to Bill
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="bill_id")
-	private Bill bill;
+	/*
+	 * //bi-directional many-to-one association to Bill
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="bill_id") private Bill bill;
+	 */
 
-	//bi-directional many-to-one association to Customer
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="customer_id")
-	private Customer customer;
-
-	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Employee employee;
+	/*
+	 * //bi-directional many-to-one association to Customer
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="customer_id") private Customer customer;
+	 */
+	/*
+	 * //bi-directional many-to-one association to Employee
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY) private Employee employee;
+	 */
 
 	//bi-directional many-to-one association to PrescriptsProduct
-	@OneToMany(mappedBy="customersPrescript")
+	@JoinColumn(name="prescript_id")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<PrescriptsProduct> prescriptsProducts;
 
 	public CustomersPrescript() {
@@ -103,29 +111,6 @@ public class CustomersPrescript implements Serializable {
 		this.url = url;
 	}
 
-	public Bill getBill() {
-		return this.bill;
-	}
-
-	public void setBill(Bill bill) {
-		this.bill = bill;
-	}
-
-	public Customer getCustomer() {
-		return this.customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Employee getEmployee() {
-		return this.employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
 
 	public List<PrescriptsProduct> getPrescriptsProducts() {
 		return this.prescriptsProducts;
@@ -135,18 +120,6 @@ public class CustomersPrescript implements Serializable {
 		this.prescriptsProducts = prescriptsProducts;
 	}
 
-	public PrescriptsProduct addPrescriptsProduct(PrescriptsProduct prescriptsProduct) {
-		getPrescriptsProducts().add(prescriptsProduct);
-		prescriptsProduct.setCustomersPrescript(this);
 
-		return prescriptsProduct;
-	}
-
-	public PrescriptsProduct removePrescriptsProduct(PrescriptsProduct prescriptsProduct) {
-		getPrescriptsProducts().remove(prescriptsProduct);
-		prescriptsProduct.setCustomersPrescript(null);
-
-		return prescriptsProduct;
-	}
 
 }

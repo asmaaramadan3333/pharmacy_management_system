@@ -20,10 +20,13 @@ public class CustomersAddress implements Serializable {
 	private CustomersAddressPK id;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	@JoinColumn(name="customer_id",insertable=false,updatable=false)
-	@JsonIgnore
-	private Customer customer;
+	/*
+	 * @ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="customer_id",insertable=false,updatable=false)
+	 * 
+	 * @JsonIgnore private Customer customer;
+	 */
 	public void setIdParam (int customerId,String address ) {
 		
 		this.id.setAddress(address);
@@ -32,7 +35,7 @@ public class CustomersAddress implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CustomersAddress [id=" + id + ", customer=" + customer + "]";
+		return "CustomersAddress [id=" + id + "]";
 	}
 
 	public CustomersAddress() {
@@ -46,12 +49,6 @@ public class CustomersAddress implements Serializable {
 		this.id = id;
 	}
 
-	public Customer getCustomer() {
-		return this.customer;
-	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
 
 }

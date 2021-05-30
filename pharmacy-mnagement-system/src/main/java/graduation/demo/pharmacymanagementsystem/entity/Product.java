@@ -44,11 +44,13 @@ public class Product implements Serializable {
 	private int state;
 
 	// bi-directional many-to-one association to BillsProduct
-	@OneToMany(mappedBy = "product")
+	@JoinColumn(name="product_code")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<BillsProduct> billsProducts;
 
 	// bi-directional many-to-one association to PrescriptsProduct
-	@OneToMany(mappedBy = "product")
+	@JoinColumn(name="product_code")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<PrescriptsProduct> prescriptsProducts;
 
 	// bi-directional many-to-many association to Customer
@@ -63,7 +65,8 @@ public class Product implements Serializable {
 	private List<Customer> customers;
 
 	// bi-directional many-to-one association to SupplyProduct
-	@OneToMany(mappedBy = "product")
+	@JoinColumn(name="product_code")
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<SupplyProduct> supplyProducts;
 
 	public Product() {
@@ -149,19 +152,7 @@ public class Product implements Serializable {
 		this.billsProducts = billsProducts;
 	}
 
-	public BillsProduct addBillsProduct(BillsProduct billsProduct) {
-		getBillsProducts().add(billsProduct);
-		billsProduct.setProduct(this);
 
-		return billsProduct;
-	}
-
-	public BillsProduct removeBillsProduct(BillsProduct billsProduct) {
-		getBillsProducts().remove(billsProduct);
-		billsProduct.setProduct(null);
-
-		return billsProduct;
-	}
 
 	public List<PrescriptsProduct> getPrescriptsProducts() {
 		return this.prescriptsProducts;
@@ -169,20 +160,6 @@ public class Product implements Serializable {
 
 	public void setPrescriptsProducts(List<PrescriptsProduct> prescriptsProducts) {
 		this.prescriptsProducts = prescriptsProducts;
-	}
-
-	public PrescriptsProduct addPrescriptsProduct(PrescriptsProduct prescriptsProduct) {
-		getPrescriptsProducts().add(prescriptsProduct);
-		prescriptsProduct.setProduct(this);
-
-		return prescriptsProduct;
-	}
-
-	public PrescriptsProduct removePrescriptsProduct(PrescriptsProduct prescriptsProduct) {
-		getPrescriptsProducts().remove(prescriptsProduct);
-		prescriptsProduct.setProduct(null);
-
-		return prescriptsProduct;
 	}
 
 	public List<Customer> getCustomers() {
@@ -201,18 +178,5 @@ public class Product implements Serializable {
 		this.supplyProducts = supplyProducts;
 	}
 
-	public SupplyProduct addSupplyProduct(SupplyProduct supplyProduct) {
-		getSupplyProducts().add(supplyProduct);
-		supplyProduct.setProduct(this);
-
-		return supplyProduct;
-	}
-
-	public SupplyProduct removeSupplyProduct(SupplyProduct supplyProduct) {
-		getSupplyProducts().remove(supplyProduct);
-		supplyProduct.setProduct(null);
-
-		return supplyProduct;
-	}
 
 }

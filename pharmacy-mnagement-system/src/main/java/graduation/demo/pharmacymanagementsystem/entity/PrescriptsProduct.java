@@ -21,15 +21,22 @@ public class PrescriptsProduct implements Serializable {
 
 	private String type;
 
-	//bi-directional many-to-one association to CustomersPrescript
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="prescript_id" , insertable=false,updatable=false)
-	private CustomersPrescript customersPrescript;
-
-	//bi-directional many-to-one association to Product
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="product_code" , insertable=false,updatable=false)
-	private Product product;
+	/*
+	 * //bi-directional many-to-one association to CustomersPrescript
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="prescript_id" , insertable=false,updatable=false) private
+	 * CustomersPrescript customersPrescript;
+	 */
+	/*
+	 * //bi-directional many-to-one association to Product
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="product_code" , insertable=false,updatable=false) private
+	 * Product product;
+	 */
 
 	public PrescriptsProduct() {
 	}
@@ -58,20 +65,8 @@ public class PrescriptsProduct implements Serializable {
 		this.type = type;
 	}
 
-	public CustomersPrescript getCustomersPrescript() {
-		return this.customersPrescript;
-	}
 
-	public void setCustomersPrescript(CustomersPrescript customersPrescript) {
-		this.customersPrescript = customersPrescript;
-	}
 
-	public Product getProduct() {
-		return this.product;
-	}
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
 
 }

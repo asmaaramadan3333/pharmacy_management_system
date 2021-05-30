@@ -32,11 +32,14 @@ public class EmployeesMonthly implements Serializable {
 	@Column(name="receivable_salary")
 	private String receivableSalary;
 
-	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="employee_id", insertable=false,updatable=false)
-	private Employee employee;
-
+	/*
+	 * //bi-directional many-to-one association to Employee
+	 * 
+	 * @ManyToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name="employee_id", insertable=false,updatable=false) private
+	 * Employee employee;
+	 */
 	public EmployeesMonthly() {
 	}
 
@@ -88,12 +91,6 @@ public class EmployeesMonthly implements Serializable {
 		this.receivableSalary = receivableSalary;
 	}
 
-	public Employee getEmployee() {
-		return this.employee;
-	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
 
 }

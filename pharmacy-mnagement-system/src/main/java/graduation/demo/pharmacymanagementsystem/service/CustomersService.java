@@ -35,6 +35,10 @@ public interface CustomersService {
 
 	public Map<String, Object> updatePassword(int customerId, String password);
 
+	public List<Customer> findpaidCustomers();
+
+	public List<Customer> findcredit_addedCustomers();
+
 
 	
 }
