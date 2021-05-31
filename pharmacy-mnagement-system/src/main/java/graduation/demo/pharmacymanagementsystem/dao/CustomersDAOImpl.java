@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -95,7 +96,20 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	}
 
+	@Override
+	@Transactional
+	public Customer save_desktop(Customer theCustomer) {
 
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		currentSession.save(theCustomer);
+	    
+		currentSession.flush();
+		
+		//currentSession.getTransaction().commit();
+        
+		return theCustomer;
+		}
 	
 
 	@Override
@@ -113,6 +127,10 @@ public class CustomersDAOImpl implements CustomersDAO {
 		return theCustomer1;
 
 	}
+	
+	
+
+
 
 	@Override
 	public List<Customer> searchByName(String theCustomerName) {
@@ -268,6 +286,14 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	}
 
+	@Override
+	public void update_customer(Customer theCustomer) {
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// save Customer
+		currentSession.update(theCustomer);
+		
+	}
 
 
 

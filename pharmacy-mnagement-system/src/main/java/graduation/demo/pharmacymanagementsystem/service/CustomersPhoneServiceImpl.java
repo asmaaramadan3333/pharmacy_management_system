@@ -1,6 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,17 @@ public class CustomersPhoneServiceImpl implements CustomersPhoneService {
 	public void update(CustomersPhone tempcustomerphone, String theCustomerPhonenew) {
 		// TODO Auto-generated method stub
 		CustomersPhoneDAO.update( tempcustomerphone, theCustomerPhonenew);
+	}
+
+	///////////////////commented uintell needed///////////////
+	
+	@Override
+	public CustomersPhone get_customer_by_phone(String phone) {
+		
+	    CustomersPhone theCustomer_phone = CustomersPhoneDAO.get_customer_by_phone(phone);
+		
+	    
+	    return theCustomer_phone; 
 	}
 
 

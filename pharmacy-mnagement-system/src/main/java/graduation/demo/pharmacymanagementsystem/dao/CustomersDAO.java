@@ -36,4 +36,10 @@ public interface CustomersDAO {
 
 	public List<Customer> findcredit_addedCustomers();
 
+	public Customer save_desktop(Customer theCustomer);
+
+	public void update_customer(Customer theCustomer);
+
+	
+
 }
