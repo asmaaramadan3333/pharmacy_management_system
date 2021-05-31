@@ -3,6 +3,7 @@ package graduation.demo.pharmacymanagementsystem.service;
 import java.util.List;
 import java.util.Map;
 
+import graduation.demo.pharmacymanagementsystem.dto.CustomerDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
@@ -38,6 +39,13 @@ public interface CustomersService {
 	public List<Customer> findpaidCustomers();
 
 	public List<Customer> findcredit_addedCustomers();
+
+	public Customer save_desktop(CustomerDTO theCustomer);
+
+	public Customer updateCustomer_by_phone(CustomerDTO theCustomerdto);
+
+
+
 
 
 	

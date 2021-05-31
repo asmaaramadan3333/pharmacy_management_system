@@ -54,24 +54,38 @@ public class CustomersPhoneRestController {
 		
 		return theCustomer_phone;
 	}
-	//////////////////////check if the phone is found//////////////////////
+	//////////////////////check if the phone is found with phone and customerId//////////////////////
 	@GetMapping("/checkphone/{CustomerId}/{phone}")
 	public Map<String,Object> getrowOfCustomerPhoneCheck(@PathVariable int CustomerId, @PathVariable String phone)
 	{  	Map<String, Object> coordinates = new HashMap<>();
 	    CustomersPhone theCustomer_phone = customersPhoneService.findSpecificCustomerPhone(CustomerId,phone);
 		if (theCustomer_phone==null)
 		{
-			coordinates.put("states", 0);
+			coordinates.put("status", 0);
 			coordinates.put( "the theCustomer_phone not found ", theCustomer_phone);
 		}
 		else {
 		
-		coordinates.put("states", 1);
+		coordinates.put("status", 1);
 		coordinates.put( "the theCustomer_phone found ", theCustomer_phone);
 		}
 		return coordinates;
 	}
 
+	///////////////////////check if the phone is found for desktop////////////////
+	@GetMapping("/checkphone_by_phone/{phone}")
+	public CustomersPhone get_customer_by_phone( @PathVariable String phone)
+	{  
+		//Map<String, Object> coordinates = new HashMap<>();
+		
+		//coordinates = customersPhoneService.get_customer_by_phone(phone);
+		
+		CustomersPhone theCustomer_phone = customersPhoneService.get_customer_by_phone(phone);
+		
+		return theCustomer_phone;
+	}
+	
+	
 	/////////////////////////////// delete the customer phone //////////////////////////////////
 	
 	  @DeleteMapping("/delete_phone_by_id/{CustomerId}/{customerPhone}") 
@@ -83,13 +97,13 @@ public class CustomersPhoneRestController {
 	  CustomersPhone theCustomerPhone = getrowOfCustomerphone (CustomerId,customerPhone);
 	  if(theCustomerPhone==null)
 	  {
-			coordinates.put("states", 0);
+			coordinates.put("status", 0);
 			coordinates.put( "the customer phone not found ",customerPhone);
 	  }
 	  else 
 	  {
 	  customersPhoneService.deleteById(CustomerId,customerPhone);
-	  coordinates.put("states", 1);
+	  coordinates.put("status", 1);
 	  coordinates.put( "the customer phone deleted ", customerPhone);
 	  }	 
 	  return coordinates;
@@ -109,13 +123,13 @@ public class CustomersPhoneRestController {
     	System.out.println(theCustomerPhoneold);
   		 if (tempcustomerphone==null)
   		{
-  			coordinates.put("states", 0);
+  			coordinates.put("status", 0);
   			coordinates.put( "the customer phone not found ",tempcustomerphone);
   		}
   		else {
   			customersPhoneService.update(tempcustomerphone,theCustomerPhonenew);
   	    	CustomersPhone tempcustomerphone2=getrowOfCustomerphone(theCustomerId, theCustomerPhonenew);
-  		    coordinates.put("states", 1);
+  		    coordinates.put("status", 1);
   		    coordinates.put( "the customer phone edited",tempcustomerphone2);
   		}
   		return coordinates;

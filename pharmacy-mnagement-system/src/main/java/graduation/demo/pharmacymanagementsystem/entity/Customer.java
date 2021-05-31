@@ -260,5 +260,17 @@ public class Customer implements Serializable {
 		
 		return customersPhone;
 	}
+    
+public CustomersAddress addCustomersAddress( CustomersAddress customersAddress) {
+		
+		if (customersAddresses == null) {
+			
+			customersAddresses = new ArrayList<>();
+		}
+		
+		customersAddresses.add(customersAddress);
+		
+		return customersAddress;
+	}
 
 }
