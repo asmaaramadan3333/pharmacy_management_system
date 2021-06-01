@@ -69,7 +69,7 @@ public class CustomersRestController {
 	}
 
 //////////////get list of customers with balance > 0 ///
-	@GetMapping("/get_added_credit_customers")
+	@GetMapping("/get_credit_added_customers")
 	public List<Customer> findcredit_addedCustomers() {
 		return customersService.findcredit_addedCustomers();
 	}
