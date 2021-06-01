@@ -85,6 +85,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 		return theCustomer;
 	}
 
+	@Transactional
 	@Override
 	public void saveORupdate(Customer theCustomer) {
 
@@ -285,13 +286,15 @@ public class CustomersDAOImpl implements CustomersDAO {
 		theQuery.executeUpdate();
 
 	}
-
+	
+	@org.springframework.transaction.annotation.Transactional
 	@Override
 	public void update_customer(Customer theCustomer) {
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// save Customer
 		currentSession.update(theCustomer);
+		currentSession.flush();
 		
 	}
 

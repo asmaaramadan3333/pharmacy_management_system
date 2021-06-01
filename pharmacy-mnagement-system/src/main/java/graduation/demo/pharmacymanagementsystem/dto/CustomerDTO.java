@@ -20,6 +20,9 @@ public class CustomerDTO {
 
 	private String address;
 
+	private String edited_phone;
+	
+	private String edited_address;
 	
 	public CustomerDTO() {
 
@@ -100,6 +103,23 @@ public class CustomerDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getEdited_phone() {
+		return edited_phone;
+	}
+
+	public void setEdited_phone(String edited_phone) {
+		this.edited_phone = edited_phone;
+	}
+
+	
+	public String getEdited_address() {
+		return edited_address;
+	}
+
+	public void setEdited_address(String edited_address) {
+		this.edited_address = edited_address;
 	}
 
 	@Override

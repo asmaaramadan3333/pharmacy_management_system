@@ -311,7 +311,7 @@ public class CustomersRestController {
 		
 		Customer the_customer = customersService.updateCustomer_by_phone( theCustomerdto);
 		
-		return null;
+		return the_customer;
 	}
 	
 	

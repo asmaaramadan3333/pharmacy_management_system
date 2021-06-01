@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import graduation.demo.pharmacymanagementsystem.dao.CustomersDAO;
 import graduation.demo.pharmacymanagementsystem.dto.CustomerDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
+import graduation.demo.pharmacymanagementsystem.entity.CustomersAddress;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
 import graduation.demo.pharmacymanagementsystem.rest.CustomersPhoneRestController;
@@ -24,6 +25,9 @@ public class CustomersServiceImpl implements CustomersService {
 	@Autowired
 	private CustomersPhoneService customersPhoneService;
 
+	@Autowired
+	private CustomersAddressService customersAddressService;
+	
 	//@Autowired
 	/*public CustomersServiceImpl(CustomersDAO theCustomersDAO,CustomersPhoneService theCustomersPhoneService) {
 		CustomersDAO = theCustomersDAO;
@@ -290,7 +294,7 @@ public class CustomersServiceImpl implements CustomersService {
 	//////////////////////////// update customer by customer phone ////////////////////
 	
 	
-
+    @Transactional
 	@Override
 	public Customer updateCustomer_by_phone(CustomerDTO theCustomerdto) {
 		
@@ -298,8 +302,12 @@ public class CustomersServiceImpl implements CustomersService {
 		
         if(theCustomer_phone!=null)
 	       {
-			  Customer theCustomer = new Customer();
-
+			  //Customer theCustomer = new Customer();
+        	  Customer theCustomer = findByCode(theCustomer_phone.getId().getCustomerId());
+              CustomersPhonePK customerph_id=theCustomer_phone.getId();
+              System.out.println(customerph_id);
+//			  theCustomer.setCustomerId(customerph_id.getCustomerId());
+			  
 			if (theCustomerdto.getFirstName() != null) {
 				theCustomer.setFirstName(theCustomerdto.getFirstName());
 			}
@@ -328,13 +336,26 @@ public class CustomersServiceImpl implements CustomersService {
 
 				theCustomer.setCredit(theCustomerdto.getCredit());
 			}
-
-			
+            
+            System.out.println(theCustomer);
+            
 			  CustomersDAO.update_customer(theCustomer);
 			  
-			  Customer the_Customer = findByCode(theCustomer_phone.getId().getCustomerId());
-			  
-			  return the_Customer;
+			  //Customer the_Customer = findByCode(theCustomer_phone.getId().getCustomerId());
+			  			  
+			 if(theCustomerdto.getEdited_phone() != null) { 
+			  customersPhoneService.update(theCustomer_phone, theCustomerdto.getEdited_phone());
+			   }
+			 
+			 if(theCustomerdto.getEdited_address() != null) {
+
+				 CustomersAddress the_customersAddress = customersAddressService.findSpecificCustomerAddress(theCustomer.getCustomerId(),theCustomerdto.getAddress());
+				  customersAddressService.update(the_customersAddress, theCustomerdto.getEdited_address()); 
+				 
+			 }
+			 
+			 
+			  return null;
 			  
 	       }
 	       
