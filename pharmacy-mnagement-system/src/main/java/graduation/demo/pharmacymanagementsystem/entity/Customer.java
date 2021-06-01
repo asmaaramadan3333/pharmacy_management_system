@@ -101,6 +101,15 @@ public class Customer implements Serializable {
 		this.employees = employees;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", credit=" + credit + ", dateOfBirth=" + dateOfBirth + ", email="
+				+ email + ", firstName=" + firstName + ", gender=" + gender + ", lastName=" + lastName + ", password="
+				+ password + ", rate=" + rate + ", bills=" + bills + ", customersAddresses=" + customersAddresses
+				+ ", customersPhones=" + customersPhones + ", customersPrescripts=" + customersPrescripts
+				+ ", products=" + products + ", employees=" + employees + "]";
+	}
+
 	public int getCustomerId() {
 		return this.customerId;
 	}

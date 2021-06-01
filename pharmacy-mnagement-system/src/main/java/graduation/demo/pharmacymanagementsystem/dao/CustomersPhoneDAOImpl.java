@@ -3,6 +3,7 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -147,7 +148,7 @@ public class CustomersPhoneDAOImpl implements CustomersPhoneDAO {
 	}
 
 	///////////////// commented untill needed //////////////////////
-	
+	@Transactional
 	@Override
 	public CustomersPhone get_customer_by_phone(String phone) {
 		Session currentSession = entityManager.unwrap(Session.class);
