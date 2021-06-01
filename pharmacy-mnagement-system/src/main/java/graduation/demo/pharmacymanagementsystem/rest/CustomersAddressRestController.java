@@ -69,12 +69,12 @@ public class CustomersAddressRestController {
 		CustomersAddress theCustomeraddress = customersAddressService.findSpecificCustomerAddress(CustomerId, address);
 		if (theCustomeraddress==null)
 		{
-			coordinates.put("states", 0);
+			coordinates.put("status", 0);
 			coordinates.put( "the customer address not found ", address);
 		}
 		else {
 		
-		coordinates.put("states", 1);
+		coordinates.put("status", 1);
 		coordinates.put( "the customer address found ", theCustomeraddress);
 		}
 		return coordinates;
@@ -89,12 +89,12 @@ public class CustomersAddressRestController {
 		CustomersAddress theCustomersAddress = getrowOfCustomerAddress(CustomerId, address);
 		if (theCustomersAddress==null)
 		{
-			coordinates.put("states", 0);
+			coordinates.put("status", 0);
 			coordinates.put( "the customer address not found ", address);
 		}
 		else {
 		customersAddressService.deleteById(CustomerId, address);
-		coordinates.put("states", 1);
+		coordinates.put("status", 1);
 		coordinates.put( "the customer address deleted ", address);
 		}
 		return coordinates;
@@ -112,13 +112,13 @@ public class CustomersAddressRestController {
     	 CustomersAddress tempCustomersAddress = getrowOfCustomerAddress(theCustomerId, theCustomerAddressold);
     	 if (tempCustomersAddress==null)
  		{
- 			coordinates.put("states", 0);
+ 			coordinates.put("status", 0);
  			coordinates.put( "the customer address not found ", tempCustomersAddress);
  		}
  		else {
  	     customersAddressService.update(tempCustomersAddress,theCustomerAdressnew);
     	 CustomersAddress tempcustomeraddress=getrowOfCustomerAddress(theCustomerId, theCustomerAdressnew);
- 		coordinates.put("states", 1);
+ 		coordinates.put("status", 1);
  		coordinates.put( "the customer address edited",tempcustomeraddress);
  		}
  		return coordinates;
