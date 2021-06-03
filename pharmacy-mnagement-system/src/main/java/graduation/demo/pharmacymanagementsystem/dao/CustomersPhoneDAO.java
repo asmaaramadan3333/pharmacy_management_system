@@ -19,5 +19,7 @@ public interface CustomersPhoneDAO {
 
 	public void update(CustomersPhone tempcustomerphone, String theCustomerPhonenew);
 
+	public CustomersPhone get_customer_by_phone(String phone);
+
 
 }

@@ -32,4 +32,14 @@ public interface CustomersDAO {
 
 	public void updatePassword(int customerId, String newPassword);
 
+	public List<Customer> findpaidCustomers();
+
+	public List<Customer> findcredit_addedCustomers();
+
+	public Customer save_desktop(Customer theCustomer);
+
+	public void update_customer(Customer theCustomer);
+
+	
+
 }

@@ -46,10 +46,11 @@ public class CustomersPhonePK implements Serializable {
 			&& (this.phoneNumber == castOther.phoneNumber);
 	}
 
-	/*
-	 * public int hashCode() { final int prime = 31; String hash = 17; hash = hash *
-	 * prime + this.customerId; hash = hash * prime + this.phoneNumber;
-	 * 
-	 * return hash; }
+	
+	/*  public int hashCode() { final int prime = 31; String hash = 17; 
+	  hash = hash * prime + this.customerId; 
+	  hash = hash * prime + this.phoneNumber;
+	  
+	  return hash; }
 	 */
 }

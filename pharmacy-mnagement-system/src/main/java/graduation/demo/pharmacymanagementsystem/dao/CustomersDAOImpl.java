@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -36,12 +37,42 @@ public class CustomersDAOImpl implements CustomersDAO {
 		Query<Customer> theQuery = currentSession.createQuery("from Customer", Customer.class);
 
 		// execute query and get result list
-		List<Customer> Customer = theQuery.getResultList();
+		List<Customer> Customer_list = theQuery.getResultList();
 
 		// return the results
-		return Customer;
+		return Customer_list;
+	}
+	
+	@Override
+	public List<Customer> findpaidCustomers() {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// create a query
+		Query<Customer> theQuery = currentSession.createQuery("from Customer o where o.credit = 0  or o.credit < 0 ", Customer.class);
+
+		// execute query and get result list
+		List<Customer> Customer_list = theQuery.getResultList();
+
+		// return the results
+		return Customer_list ;
 	}
 
+	@Override
+	public List<Customer> findcredit_addedCustomers() {
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// create a query
+		Query<Customer> theQuery = currentSession.createQuery("from Customer o where o.credit > 0 ", Customer.class);
+
+		// execute query and get result list
+		List<Customer> Customer_list = theQuery.getResultList();
+
+		// return the results
+		return Customer_list ;
+	}
+
+	
 	@Override
 	public Customer findByCode(int theCustomerId) {
 		// get the current hibernate session
@@ -54,6 +85,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 		return theCustomer;
 	}
 
+	@Transactional
 	@Override
 	public void saveORupdate(Customer theCustomer) {
 
@@ -65,7 +97,20 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	}
 
+	@Override
+	@Transactional
+	public Customer save_desktop(Customer theCustomer) {
 
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		currentSession.save(theCustomer);
+	    
+		currentSession.flush();
+		
+		//currentSession.getTransaction().commit();
+        
+		return theCustomer;
+		}
 	
 
 	@Override
@@ -83,6 +128,10 @@ public class CustomersDAOImpl implements CustomersDAO {
 		return theCustomer1;
 
 	}
+	
+	
+
+
 
 	@Override
 	public List<Customer> searchByName(String theCustomerName) {
@@ -237,6 +286,19 @@ public class CustomersDAOImpl implements CustomersDAO {
 		theQuery.executeUpdate();
 
 	}
+	
+	@org.springframework.transaction.annotation.Transactional
+	@Override
+	public void update_customer(Customer theCustomer) {
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		// save Customer
+		currentSession.update(theCustomer);
+		currentSession.flush();
+		
+	}
+
+
 
 
 }

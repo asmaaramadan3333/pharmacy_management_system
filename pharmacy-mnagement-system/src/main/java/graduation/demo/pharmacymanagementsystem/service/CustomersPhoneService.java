@@ -2,7 +2,7 @@ package graduation.demo.pharmacymanagementsystem.service;
 
 
 import java.util.List;
-
+import java.util.Map;
 
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhonePK;
@@ -19,6 +19,7 @@ public interface CustomersPhoneService {
 	
  	//public void update(CustomersPhone tempcustomerphone, int phoneNumber);
 	public void update(CustomersPhone tempcustomerphone, String theCustomerPhonenew);
+	public CustomersPhone get_customer_by_phone(String phone);
 
 
 }
