@@ -41,6 +41,10 @@ public class ProductsRestController {
 		return productsService.findAllProducts();
 	}
 
+	@GetMapping("/get_all_state_0")
+	public List<Product> findAllProductswithstate0() {
+		return productsService.findProductsWithState0();
+	}
 	// add mapping for GET /products/{productCode} - to get product by code
 
 	@GetMapping("/products_by_code/{productCode}")
@@ -96,7 +100,7 @@ public class ProductsRestController {
 
 	// add mapping for POST /products - add new products
 
-	@PostMapping("/products")
+	@PostMapping("/addProduct")
 	public Product addProduct(@RequestBody Product theProduct) {
 
 		// also just in case they pass an id in JSON ... set id to 0
@@ -112,7 +116,7 @@ public class ProductsRestController {
 
 	// add mapping for PUT /products - update existing product
 
-	@PutMapping("/products")
+	@PutMapping("/editproducts")
 	public Product updateProduct(@RequestBody Product theProduct) {
 
 		productsService.saveORupdate(theProduct);
@@ -122,20 +126,24 @@ public class ProductsRestController {
 
 	// add mapping for DELETE /products/{productCode} - delete product
 
-	@DeleteMapping("/products/{productCode}")
-	public String deleteProduct(@PathVariable int productCode) {
-
+	@DeleteMapping("/deleteProduct/{productCode}")
+	public Map<String,Object> deleteProduct(@PathVariable int productCode) {
+		
+	
+		Map<String, Object> coordinates = new HashMap<>();
 		Product tempProduct = productsService.findByCode(productCode);
 
 		// throw exception if null
 
 		if (tempProduct == null) {
-			throw new RuntimeException("Product code not found - " + productCode);
+    		coordinates.put("status","0");
+    		coordinates.put("product code not found ",productCode);
 		}
-
+		else {
 		productsService.deleteByCode(productCode);
-
-		return "Deleted product id - " + productCode;
+		coordinates.put("status","1");
+		coordinates.put("product code deleted ",productCode);}
+		return coordinates;
 	}
 
 	/*

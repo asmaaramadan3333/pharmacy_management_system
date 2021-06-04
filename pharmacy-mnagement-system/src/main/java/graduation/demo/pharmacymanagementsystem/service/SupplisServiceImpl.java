@@ -63,6 +63,18 @@ public class SupplisServiceImpl implements SuppliesService {
 		
 	}
 
+	@Override
+	public void saveORupdate(Supply theSupply) {
+		// TODO Auto-generated method stub
+		SuppliesDAO.saveORupdate(theSupply);
+	}
+
+	@Override
+	public Supply findSpecificSupply(int companyId, int supplyBillId) {
+		// TODO Auto-generated method stub
+		return SuppliesDAO.findSpecificSupply(companyId, supplyBillId);
+	}
+
 	/*@Override
 	public List<Supply> searchByName(String theName) {
 		

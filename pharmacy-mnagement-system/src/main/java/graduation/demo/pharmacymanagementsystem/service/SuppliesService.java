@@ -16,6 +16,9 @@ public interface SuppliesService {
 	
 	//public List<Supply> searchByName(String theName);
 
-	public double findBillTotalPrice (int supply_bill_id, int companyId);	
+	public double findBillTotalPrice (int supply_bill_id, int companyId);
+
+	public void saveORupdate(Supply theSupply);	
+	 public Supply findSpecificSupply(int companyId, int supplyBillId);
 }
 

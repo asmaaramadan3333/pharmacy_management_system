@@ -3,11 +3,14 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.entity.Supply;
 import graduation.demo.pharmacymanagementsystem.entity.SupplyPK;
 
@@ -102,7 +105,7 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 		// return the results
 		return Supplies;
 	}*/
-
+	
 	@Override
 	public void deleteById(int theID) {
 		// get the current hibernate session
@@ -116,5 +119,36 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 		theQuery.executeUpdate();
 
 	}
+	@Transactional
+	@Override
+	public void saveORupdate(Supply theSupply) {
+		// TODO Auto-generated method stub
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.saveOrUpdate(theSupply);
+		currentSession.flush();
+	}
+
+
+@Override
+   public Supply findSpecificSupply(int companyId,int supplyBillId) {
+	
+	Session currentSession = entityManager.unwrap(Session.class);
+
+	Query theQuery = currentSession.createQuery("FROM Supply  WHERE id.companyId =: thecompanyId and " + 
+	 "id.supplyBillId =: thesupplyBillId", Supply.class);
+
+	theQuery.setParameter("thecompanyId", companyId);
+	theQuery.setParameter("thesupplyBillId", supplyBillId);
+	
+	if (theQuery.getResultList() != null && !theQuery.getResultList().isEmpty()) {
+
+		Supply the_Supply = (Supply) theQuery.getResultList().get(0);
+	
+	// return the Customer
+	return the_Supply;
+	}
+	else
+		return null;
+}
 
 }

@@ -42,7 +42,8 @@ public class Supply implements Serializable {
 	@Column(name="total_price")
 	private float totalPrice;
 
-	
+	@Column(name="employee_id")
+	private int employeeId;
 	//bi-directional many-to-one association to PharmaCo
 	/*
 	 * @ManyToOne(fetch=FetchType.LAZY,cascade=
@@ -64,6 +65,14 @@ public class Supply implements Serializable {
 		 * 
 		 * @JsonIgnore private Employee employee;
 		 */
+
+	public int getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
 
 	@JoinColumns({
 		@JoinColumn(name = "company_id"),@JoinColumn(name = "supply_id") })
