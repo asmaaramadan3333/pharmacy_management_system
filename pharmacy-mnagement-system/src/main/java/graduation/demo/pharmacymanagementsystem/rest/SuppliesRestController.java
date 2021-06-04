@@ -42,20 +42,40 @@ public class SuppliesRestController {
 		return coordinates;
 	}
 	
-	// add mapping for POST /Supplies - add new Supplies
+    @GetMapping("/get_certain_supply/{supply_bill_id}/{companyId}")
+    public Map<String,Object> findSpecificSupply(@PathVariable int companyId,@PathVariable int supply_bill_id)
+    {
+    	Map<String, Object> coordinates = new HashMap<>();
+    	 Supply the_supply = SuppliesService.findSpecificSupply(companyId, supply_bill_id);
+    	if (the_supply ==null) {
+    		coordinates.put("status","0");
+    		coordinates.put("message","the supply not found");
+    		}
+    	else {
+    	coordinates.put("status ","1")  ;
+    	coordinates.put("theSupply",SuppliesService.findSpecificSupply(companyId, supply_bill_id));}
+		return coordinates;
+    	
+    }
 	
-		@PostMapping("/add_new")
-		public Supply addSupply(@RequestBody Supply theSupply) {
+	// add mapping for POST /Supplies - add new Supplies
+	@PostMapping("/add_new")
+	public Supply addSupply(@RequestBody Supply theSupply) {
 
-			// also just in case they pass an id in JSON ... set id to 0
-
-			// this is to force a save of new item ... instead of update
-
-			SuppliesService.save(theSupply);
-			return theSupply;
+		SuppliesService.save(theSupply);
+		
+		return theSupply;
 		}
 	
 	
+	// add mapping for PUT /Supplies - update existing Supply
+	@PutMapping("/Supplies")
+	public Supply updateSupply(@RequestBody Supply theSupply) {
+
+		SuppliesService.saveORupdate(theSupply);
+
+		return theSupply;
+	}
 	
 /*
 	// add mapping for GET /Supplies/{supply_bill_id}
@@ -86,15 +106,7 @@ public class SuppliesRestController {
 
 	
 
-	// add mapping for PUT /Supplies - update existing Supply
 
-	@PutMapping("/Supplies")
-	public Supply updateSupply(@RequestBody Supply theSupply) {
-
-		SuppliesService.saveORupdate(theSupply);
-
-		return theSupply;
-	}
 
 	// add mapping for DELETE /Supplies/{supply_bill_id} - delete Supply
 

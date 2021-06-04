@@ -66,4 +66,10 @@ public class ProductsServiceImpl implements ProductsService {
 		Product theproduct=productsDAO.get_code(theproductname, type, size);
 		return theproduct.getCode();
 	}
+
+	@Override
+	public List<Product> findProductsWithState0() {
+		// TODO Auto-generated method stub
+		return productsDAO.findProductsWithState0();
+	}
 }

@@ -17,6 +17,10 @@ public interface SuppliesDAO {
 	//public List<Supply> searchByName(String theName);
 
 	public List <Supply> findBillTotalPrice(int supply_bill_id ,int CompanyID);
+
+	public void saveORupdate(Supply theSupply);
+
+	 public Supply findSpecificSupply(int companyId, int supplyBillId);
 	
 	
 }
