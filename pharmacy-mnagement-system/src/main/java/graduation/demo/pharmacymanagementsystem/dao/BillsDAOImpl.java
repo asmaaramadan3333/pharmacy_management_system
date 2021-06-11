@@ -3,6 +3,7 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -57,6 +58,7 @@ public class BillsDAOImpl implements BillsDAO {
 	
 
 	@Override
+	@Transactional
 	public void save(Bill theBill) {
 		//Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		// get the current hibernate session
@@ -66,13 +68,14 @@ public class BillsDAOImpl implements BillsDAO {
 	
 		currentSession.save(theBill);
 	    currentSession.flush();
-		currentSession.getTransaction().commit();
+		//currentSession.getTransaction().commit();
 		
 	}
 	
 	
 	
 	@Override
+	@Transactional
 	public void saveORupdate(Bill theBill) {
 		
 		// get the current hibernate session
