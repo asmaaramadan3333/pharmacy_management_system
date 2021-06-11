@@ -86,7 +86,7 @@ public class BillsRestController {
 	
 	// add mapping for POST /Bills - add new Bills
 	
-	@PostMapping("/add_new_Bills")
+	@PostMapping("/add_new_Bill")
 	public Bill addBill(@RequestBody Bill theBill) {
 		//CustomersRestController thecustomerRest = new CustomersRestController();
 		
