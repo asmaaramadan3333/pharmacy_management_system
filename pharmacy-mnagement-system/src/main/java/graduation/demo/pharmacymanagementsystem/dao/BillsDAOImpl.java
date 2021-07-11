@@ -1,5 +1,7 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Repository;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
+import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 
 @Repository
@@ -56,6 +59,31 @@ public class BillsDAOImpl implements BillsDAO {
 		return theBill;
 	}
 	
+	
+	@Override
+	public List<Bill> find_product_while_aperiod(Date replyTime1,Date replyTime2){
+		
+		List<Bill> Bill_list = new ArrayList<Bill>();
+		Session currentSession = entityManager.unwrap(Session.class);
+		try {
+			
+		// create a query
+		Query<Bill> theQuery = currentSession.createQuery("from Bill b where b.billState = 'done' and  b.replyTime between :reply1  and  :reply2 ", Bill.class);
+ 
+		theQuery.setParameter("reply1", replyTime1);
+		theQuery.setParameter("reply2", replyTime2);
+
+		if (!theQuery.getResultList().isEmpty()) {
+			 Bill_list = theQuery.getResultList();
+		}
+
+	    } 
+		catch (Exception ex) {
+		ex.printStackTrace();
+	     }
+	     return Bill_list;
+		
+	    }
 
 	@Override
 	@Transactional
