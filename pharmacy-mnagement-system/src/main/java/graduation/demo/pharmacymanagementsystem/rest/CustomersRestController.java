@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import graduation.demo.pharmacymanagementsystem.dto.CustomerDTO;
@@ -87,6 +88,15 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 
+	/*//try
+	@GetMapping("/get_by_id_ex")
+	@ResponseBody
+	public String getFoos(@RequestParam(name = "id") int id) {
+	    return "ID: " + id;
+	}
+	*/
+	
+	
 	// search for certain customers by customer name//
 	@GetMapping("/search_by_name/{CustomerName}")
 	public List<Customer> getCustomer(@PathVariable String CustomerName) {

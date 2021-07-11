@@ -60,9 +60,15 @@ public class Bill implements Serializable {
 	
 	@Column(name = "prescription_or_not")
 	private int prescriptionOrNot;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date time;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	private java.util.Date replyTime;
+
+	
+	
 	@Column(name = "total_price")
 	private float totalPrice;
 
@@ -95,13 +101,15 @@ public class Bill implements Serializable {
 				+ customerAddress + ", deliveryFee=" + deliveryFee + ", phoneNumber=" + phoneNumber
 				+ ", deliveryFeedback=" + deliveryFeedback + ", employeeFeedback=" + employeeFeedback
 				+ ", pharmacyFeedback=" + pharmacyFeedback + ", userFeedback=" + userFeedback + ", prescriptionOrNot="
-				+ prescriptionOrNot + ", time=" + time + ", totalPrice=" + totalPrice + 
-				 ", billsProducts=" + billsProducts + "]";
+				+ prescriptionOrNot + ", time=" + time + ", replyTime=" + replyTime + ", totalPrice=" + totalPrice
+				+ ", customerId=" + customerId + ", billsProducts=" + billsProducts + ", customersPrescripts="
+				+ customersPrescripts + "]";
 	}
-
+	
 	public long getBillId() {
 		return this.billId;
 	}
+
 
 	public void setBillId(long billId) {
 		this.billId = billId;
@@ -155,6 +163,14 @@ public class Bill implements Serializable {
 		this.time = time;
 	}
 
+	public java.util.Date getReplyTime() {
+		return replyTime;
+	}
+
+	public void setReplyTime(java.util.Date replyTime) {
+		this.replyTime = replyTime;
+	}
+	
 	public float getTotalPrice() {
 		return this.totalPrice;
 	}

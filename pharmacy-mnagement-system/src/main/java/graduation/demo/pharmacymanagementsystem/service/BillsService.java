@@ -1,7 +1,10 @@
 package graduation.demo.pharmacymanagementsystem.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import graduation.demo.pharmacymanagementsystem.dto.SoldProductsQuantityDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
 
 public interface BillsService {
@@ -19,6 +22,8 @@ public interface BillsService {
 	//public List<Bill> searchByName(String theName);
 	
 	public List<Bill> findCustomerBillsById(int theCustomerId);
+
+	public List<SoldProductsQuantityDTO> find_product_while_aperiod(String replyTime1, String replyTime2);
 
 	
 }

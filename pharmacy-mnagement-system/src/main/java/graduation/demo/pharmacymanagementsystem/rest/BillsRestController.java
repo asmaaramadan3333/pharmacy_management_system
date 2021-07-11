@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import graduation.demo.pharmacymanagementsystem.dto.SoldProductsQuantityDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
 import graduation.demo.pharmacymanagementsystem.service.BillsService;
@@ -82,7 +84,16 @@ public class BillsRestController {
 		  }
 	}
 	
+	//////////get product sold in certain period /////////////////////////for pi
 	
+	@GetMapping("/get_list_sold_product/{replyTime1}/{replyTime2}")
+	
+	public List<SoldProductsQuantityDTO> getSold_products_quantity (@PathVariable (required= true) String replyTime1 , @PathVariable (required= true) String replyTime2)
+	{
+
+		return BillsService.find_product_while_aperiod(replyTime1,replyTime2);
+		
+	}
 	
 	// add mapping for POST /Bills - add new Bills
 	
