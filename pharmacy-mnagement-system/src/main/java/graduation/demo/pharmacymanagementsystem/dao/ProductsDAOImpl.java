@@ -43,7 +43,23 @@ public class ProductsDAOImpl implements ProductsDAO {
 		// return the results		
 		return Product;
 	}
-
+	
+	@Override
+	public List<Product> findProductsWithState0() {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		Query <Product> theQuery = 
+				currentSession.createQuery(
+						" FROM Product p  WHERE p.state =: thestate " , Product.class );
+		theQuery.setParameter("thestate", 0);
+				
+		// execute query and get result list
+		List <Product> Product = theQuery.getResultList();
+				
+		// return the results		
+		return Product;
+	}
 	@Override
 	public Product findByCode(int theCode) {
 		// get the current hibernate session
