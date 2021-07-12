@@ -115,7 +115,7 @@ public class BillsRestController {
 	
 	// add mapping for PUT /Bills - update existing Bill
 	
-	@PutMapping("/Bills")
+	@PutMapping("/update")
 	public Bill updateBill(@RequestBody Bill theBill) {
 		
 		BillsService.saveORupdate(theBill);
@@ -126,7 +126,7 @@ public class BillsRestController {
 	
 	// add mapping for DELETE /Bills/{Bill_id} - delete Bill
 	
-	@DeleteMapping("/Bills/{Bill_id}")
+	@DeleteMapping("/delete/{Bill_id}")
 	public String deleteBill(@PathVariable int Bill_id) {
 		
 		Bill tempBill = BillsService.findByBillID(Bill_id);

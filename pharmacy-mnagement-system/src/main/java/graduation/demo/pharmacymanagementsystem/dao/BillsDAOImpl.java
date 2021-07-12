@@ -102,16 +102,17 @@ public class BillsDAOImpl implements BillsDAO {
 	
 	
 	
+	@org.springframework.transaction.annotation.Transactional
 	@Override
-	@Transactional
 	public void saveORupdate(Bill theBill) {
 		
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 				
 		// save Bill
-		currentSession.saveOrUpdate(theBill);
-		
+		//currentSession.saveOrUpdate(theBill);
+		currentSession.update(theBill);
+		currentSession.flush();
 	}
 
 	
