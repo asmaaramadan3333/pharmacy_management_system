@@ -1,6 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
+
 import javax.persistence.*;
 
 /**
@@ -21,9 +23,9 @@ public class SupplyProduct implements Serializable {
 
 	@Column(name = "delivered_quantity")
 	private int deliveredQuantity;
-
+	
 	@Column(name = "expired_date")
-	private float expiredDate;
+	private Date expiredDate;
 
 	@Column(name = "pharmacist_price")
 	private float pharmacistPrice;
@@ -90,11 +92,11 @@ public class SupplyProduct implements Serializable {
 		this.deliveredQuantity = deliveredQuantity;
 	}
 
-	public float getExpiredDate() {
+	public Date getExpiredDate() {
 		return this.expiredDate;
 	}
 
-	public void setExpiredDate(float expiredDate) {
+	public void setExpiredDate(Date expiredDate) {
 		this.expiredDate = expiredDate;
 	}
 

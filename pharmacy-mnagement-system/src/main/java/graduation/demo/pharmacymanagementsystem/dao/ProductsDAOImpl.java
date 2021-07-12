@@ -53,7 +53,7 @@ public class ProductsDAOImpl implements ProductsDAO {
 				currentSession.createQuery(
 						" FROM Product p  WHERE p.state =: thestate " , Product.class );
 		theQuery.setParameter("thestate", 0);
-				
+		theQuery.setMaxResults(50);
 		// execute query and get result list
 		List <Product> Product = theQuery.getResultList();
 				

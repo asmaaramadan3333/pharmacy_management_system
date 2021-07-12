@@ -46,7 +46,7 @@ public class ProductsRestController {
 		return productsService.findProductsWithState0();
 	}
 	// add mapping for GET /products/{productCode} - to get product by code
-
+    // get  product by product code 
 	@GetMapping("/products_by_code/{productCode}")
 	public Product getProduct(@PathVariable int productCode) {
 
@@ -61,7 +61,7 @@ public class ProductsRestController {
 
 	
 	// add mapping for GET /products/{productName} - to get product by name
-
+       
 	@GetMapping("/products_name_search/{productName}")
 	
 	public List<Product> getProduct(@PathVariable String productName) {
