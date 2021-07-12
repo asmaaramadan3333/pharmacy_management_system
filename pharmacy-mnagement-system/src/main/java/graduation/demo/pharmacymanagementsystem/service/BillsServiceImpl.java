@@ -17,6 +17,7 @@ import graduation.demo.pharmacymanagementsystem.dao.BillsDAO;
 import graduation.demo.pharmacymanagementsystem.dto.SoldProductsQuantityDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
+import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 @Service
@@ -32,6 +33,10 @@ public class BillsServiceImpl implements BillsService {
 	@Autowired
 	private ProductsService productsService;
 
+	@Autowired
+	private CustomersService customersService;
+	
+	
 	@Override
 	@Transactional
 	public List<Bill> findAllBills() {
@@ -48,10 +53,29 @@ public class BillsServiceImpl implements BillsService {
 	}
 
 	@Override
-	@Transactional
-	public void saveORupdate(Bill theBill) {
-
-		BillsDAO.saveORupdate(theBill);
+	//@Transactional
+	public Map<String, Object> update(Bill theBill) {
+	     //long billId = theBill.getBillId();
+	     
+	 		Map<String, Object> coordinates = new HashMap<>();
+			//Bill oldBill = findByBillID(billId);
+			//int customer_id =oldBill.getCustomerId();
+			/*if (oldBill==null)
+			{
+				coordinates.put("status", 0);
+				coordinates.put("message", "the bill not found");
+			}
+			else 
+			{*/
+				//oldBill = theBill;
+				BillsDAO.saveORupdate(theBill);
+				//customersService.saveORupdate(customersService.findByCode(customer_id));
+			   //	customersService.findByCode(theBill.getCustomerId()).setBills((List<Bill>) theBill);
+				coordinates.put("status", 1);
+				coordinates.put("updated_bill",theBill); //findByBillID(billId));
+			//}
+			
+		return coordinates;
 	}
 
 	@Override
@@ -168,6 +192,18 @@ public class BillsServiceImpl implements BillsService {
     	 
     	 
     	
-     } 
+     }
+
+	@Override
+	public List<Bill> find_filteredBills(Long billId, String billType, String billState, String replyTime) {
+		// TODO Auto-generated method stub
+		
+		return BillsDAO.find_filteredBills( billId,  billType,  billState,  replyTime);
+
+		
+		
+		
+		
+	}
 	
 }

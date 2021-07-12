@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import graduation.demo.pharmacymanagementsystem.dto.SoldProductsQuantityDTO;
@@ -61,7 +64,7 @@ public class BillsRestController {
 	
 	
 	///////////////////////////////////// get the customer bills by the customer id ///////////////////////////
-	@GetMapping("/get_customer_Bills_bycid/{CustomerId}")
+/*	@GetMapping("/get_customer_Bills_bycid/{CustomerId}")
 	public Map<String, Object> getCustomerbills (@PathVariable int CustomerId)
 	{
  
@@ -82,13 +85,31 @@ public class BillsRestController {
 			  coordinates.put("the_customer_bills",theCustomer_BillsList);
 			  return coordinates;
 		  }
+	}*/
+	
+	//////////////////////////////////////get all bills with filtration phases/////////////
+	
+	@GetMapping("/filtered_bills")
+	@ResponseBody
+	public List<Bill> getFilteredBills(@RequestParam(required = false) String billState
+			,@RequestParam(required = false) String billType
+			,@RequestParam(required = false , name = "billId")Long billId,@RequestParam(required = false) String replyTime)
+	    { 
+	
+		List<Bill> billsList = BillsService.find_filteredBills(billId,billType,billState,replyTime);
+		
+		return billsList;  
+	    
 	}
 	
-	//////////get product sold in certain period /////////////////////////for pi
+	
+	
+	//////////get product sold in certain period /////////////////////////for Bi/////////////
 	
 	@GetMapping("/get_list_sold_product/{replyTime1}/{replyTime2}")
 	
-	public List<SoldProductsQuantityDTO> getSold_products_quantity (@PathVariable (required= true) String replyTime1 , @PathVariable (required= true) String replyTime2)
+	public List<SoldProductsQuantityDTO> getSold_products_quantity (@PathVariable (required= true) String replyTime1 
+			, @PathVariable (required= true) String replyTime2)
 	{
 
 		return BillsService.find_product_while_aperiod(replyTime1,replyTime2);
@@ -116,11 +137,14 @@ public class BillsRestController {
 	// add mapping for PUT /Bills - update existing Bill
 	
 	@PutMapping("/update")
-	public Bill updateBill(@RequestBody Bill theBill) {
+	public Map<String, Object> updateBill(@RequestBody Bill theBill) {
+
 		
-		BillsService.saveORupdate(theBill);
+		Map<String, Object> coordinates = new HashMap<>();
 		
-		return theBill;
+		coordinates = BillsService.update(theBill);
+		
+		return coordinates;
 	}
 	
 	

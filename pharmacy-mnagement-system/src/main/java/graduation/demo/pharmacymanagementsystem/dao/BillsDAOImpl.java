@@ -1,10 +1,12 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TemporalType;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -101,8 +103,8 @@ public class BillsDAOImpl implements BillsDAO {
 	}
 	
 	
-	
-	@org.springframework.transaction.annotation.Transactional
+	//@org.springframework.transaction.annotation.Transactional
+	@Transactional
 	@Override
 	public void saveORupdate(Bill theBill) {
 		
@@ -111,7 +113,7 @@ public class BillsDAOImpl implements BillsDAO {
 				
 		// save Bill
 		//currentSession.saveOrUpdate(theBill);
-		currentSession.update(theBill);
+		currentSession.saveOrUpdate(theBill);
 		currentSession.flush();
 	}
 
@@ -173,9 +175,75 @@ public class BillsDAOImpl implements BillsDAO {
 		
 	}
 
-	
-	
-	
-	
+
+	@Override
+	public List<Bill> find_filteredBills(Long billId1, String billType1, String billState1, String replyTime1) {
+		List<Bill> bills_list = new ArrayList<Bill>();
+		Session currentSession = entityManager.unwrap(Session.class);	
+		if (replyTime1 !=null) {				
+		replyTime1 = replyTime1.replaceAll("\\s","");
+		String replyTime2 = replyTime1.concat(" 00:00:00");
+		String replyTime3 = replyTime1.concat(" 23:59:59");
+		
+		Timestamp replyTime4 = Timestamp.valueOf(replyTime2);
+		Timestamp replyTime5 = Timestamp.valueOf(replyTime3);								
+		System.out.println(replyTime4);System.out.println(replyTime5);	
+		try {
+			
+			
+		Query<Bill> theQuery = currentSession.createQuery("FROM Bill b WHERE b.billId = COALESCE(:bill_id, billId)"
+				+ "and b.billType = COALESCE (:bill_type,billType) and b.billState = COALESCE (:bill_state , billState)"
+				+ "and b.replyTime  between :reply_time1 and :reply_time2  ", Bill.class);
+		
+		theQuery.setParameter("bill_id", billId1);
+		theQuery.setParameter("bill_type",billType1);
+		theQuery.setParameter("bill_state",billState1);
+		theQuery.setParameter("reply_time1",replyTime4 );
+		theQuery.setParameter("reply_time2",replyTime5 );
+			
+		
+		if (!theQuery.getResultList().isEmpty()) {
+			bills_list = theQuery.getResultList();
+		}
+
+	   } 
+		catch (Exception ex) {
+		ex.printStackTrace();
+	    }
+		}
+		else {
+			
+			try {
+								
+				Query<Bill> theQuery = currentSession.createQuery("FROM Bill b WHERE b.billId = COALESCE(:bill_id, billId)"
+						+ "and b.billType = COALESCE (:bill_type,billType) and b.billState = COALESCE (:bill_state , billState)"
+						, Bill.class);
+				
+				theQuery.setParameter("bill_id", billId1);
+				theQuery.setParameter("bill_type",billType1);
+				theQuery.setParameter("bill_state",billState1);
+			
+				
+				if (!theQuery.getResultList().isEmpty()) {
+					bills_list = theQuery.getResultList();
+				}
+
+			   } 
+				catch (Exception ex) {
+				ex.printStackTrace();
+			    }
+				}
+
+			
+		
+		return bills_list;
+	}		
 	
 }
+
+	
+	
+	
+	
+	
+
