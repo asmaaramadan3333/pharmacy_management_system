@@ -88,13 +88,15 @@ public class CustomersRestController {
 		return theCustomer;
 	}
 
-	/*//try
-	@GetMapping("/get_by_id_ex")
+	
+	/*@GetMapping("/get_by_id_ex")
 	@ResponseBody
-	public String getFoos(@RequestParam(name = "id") int id) {
-	    return "ID: " + id;
-	}
-	*/
+	public String getFoos(@RequestParam(required = false,name = "id") int id,@RequestParam(required = false,name = "x") Integer x) {
+	   System.out.println(id);
+		
+		return "ID: " + id + x;
+	}*/
+	
 	
 	
 	// search for certain customers by customer name//
@@ -345,4 +347,23 @@ public class CustomersRestController {
 		return "Deleted Customer id - " + CustomerId;
 	}
 
+	
+	////////////////////////// get customer bills////////////////////////
+	@GetMapping("/get_bills/{CustomerId}")
+	public List<Bill> getCustomerBills(@PathVariable int CustomerId) {
+
+		Customer theCustomer = customersService.findByCode(CustomerId);
+
+		if (theCustomer == null) {
+			throw new RuntimeException("Customer id not found - " + CustomerId);
+		}
+
+		return theCustomer.getBills();
+	}
+	
+	
+	
+	
+	
+	
 }

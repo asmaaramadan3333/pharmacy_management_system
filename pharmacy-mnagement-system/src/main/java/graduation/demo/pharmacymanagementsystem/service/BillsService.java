@@ -13,7 +13,7 @@ public interface BillsService {
 	
 	public Bill findByBillID (long thebill_id);
 	
-	public void saveORupdate (Bill theBill);
+	public Map<String, Object> update (Bill theBill);
 	
 	public void deleteByBillID (int thebill_id);
 
@@ -24,6 +24,8 @@ public interface BillsService {
 	public List<Bill> findCustomerBillsById(int theCustomerId);
 
 	public List<SoldProductsQuantityDTO> find_product_while_aperiod(String replyTime1, String replyTime2);
+
+	public List<Bill> find_filteredBills(Long billId, String billType, String billState, String replyTime);
 
 	
 }
