@@ -186,7 +186,7 @@ public class CustomersRestController {
 		}
 		else
 		{
-			coordinates.put("states", 0);
+			coordinates.put("status", 0);
 			coordinates.put( "the theCustomer_phone already exists ", "failed");
 		}
 			
@@ -252,14 +252,14 @@ public class CustomersRestController {
 		Customer thecustomer = customersService.findByCode(theCustomersAddress.getId().getCustomerId());
 		if (thecustomer == null) {
 
-			coordinates.put("states", 0);
+			coordinates.put("status", 0);
 
 			coordinates.put("the customer id not found ", theCustomersAddress.getId().getCustomerId());
 
 		} else {
 			thecustomer.addCustomersAddress(theCustomersAddress);
 			customersService.saveORupdate(thecustomer);
-			coordinates.put("states", 1);
+			coordinates.put("status", 1);
 			coordinates.put("the customer address posted ", theCustomersAddress);
 		}
 		return coordinates;
