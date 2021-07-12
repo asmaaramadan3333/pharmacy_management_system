@@ -41,19 +41,21 @@ public class EmployeeMonthlyServiceImpl implements EmployeeMonthlyService {
 		
 		for (int i=0 ;i<Employee.size();i++)
 		{
-		
-		list.add(new HashMap());
+
 		coordinates = new HashMap<>();
-		System.out.println(Employee.get(i).getId());
 		coordinates.put("EmployeeName", Employee.get(i).getName());
 		int actualHolidayes=Integer.parseInt(Employee.get(i).getHolidays());
-		System.out.println(actualHolidayes);
-		
 		int monthlyHolidayes=  EmployeeMonthlyDAO.getMonthlyHolidayes(Employee.get(i).getId(), month);
 		System.out.println(monthlyHolidayes);
+		if (monthlyHolidayes==00)
+		{
+			coordinates.put("themonthlyHolidayes","is null");
+		}
+		else
+		{
 		coordinates.put("substractedHolidayes",monthlyHolidayes- actualHolidayes);
+		}
 		list.add(coordinates);
-		
 		}
 		return list;
 	}
