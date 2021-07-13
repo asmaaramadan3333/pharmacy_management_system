@@ -305,7 +305,9 @@ public class CustomersServiceImpl implements CustomersService {
 				customer_coordinates.put("customerId",cId );
            		customer_coordinates.put("firstName",thecustomer.getFirstName());
         		customer_coordinates.put("lastName",thecustomer.getLastName());
-			    customer_coordinates.put("customersAddresses",thecustomer.getCustomersAddresses() );
+        		customer_coordinates.put("credit",thecustomer.getCredit());
+        		customer_coordinates.put("customersAddresses",thecustomer.getCustomersAddresses() );
+			  
 			    coordinates.put("theCustomer",customer_coordinates );
 			    coordinates.put("status", 1);
 			}
