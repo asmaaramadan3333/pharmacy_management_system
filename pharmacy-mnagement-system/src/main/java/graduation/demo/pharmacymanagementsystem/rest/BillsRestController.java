@@ -156,9 +156,10 @@ public class BillsRestController {
 
 	// add mapping for PUT /Bills - update existing Bill
 
-	@PutMapping("/Bills")
+	@PutMapping("/update")
 	public Bill updateBill(@RequestBody Bill theBill) {
 
+		
 		BillsService.saveORupdate(theBill);
 
 		return theBill;

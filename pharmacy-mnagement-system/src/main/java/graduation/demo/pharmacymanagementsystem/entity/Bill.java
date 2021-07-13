@@ -93,10 +93,21 @@ public class Bill implements Serializable {
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
+	@Column(name="delivery_man_id")
+	private int deliveryManId;
+	
+	public int getDeliveryManId() {
+		return deliveryManId;
+	}
+
+	public void setDeliveryManId(int deliveryManId) {
+		this.deliveryManId = deliveryManId;
+	}
+	
+	
 	
 	@JoinColumn(name="bill_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-
 	private List<BillsProduct> billsProducts;
 	
 	@JoinColumn(name="bill_id")
