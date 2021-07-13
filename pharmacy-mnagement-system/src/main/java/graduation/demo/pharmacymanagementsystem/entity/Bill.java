@@ -83,6 +83,16 @@ public class Bill implements Serializable {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
+	@Column(name = "employee_id")
+	private int employeeId;
+	
+	public int getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
 	
 	@JoinColumn(name="bill_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)

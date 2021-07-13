@@ -220,68 +220,47 @@ public class Employee implements Serializable {
 		this.workingHours = workingHours;
 	}
 
-	public List<Attendance> getAttendances() {
-		return this.attendances;
-	}
-
-	public void setAttendances(List<Attendance> attendances) {
-		this.attendances = attendances;
-	}
-
-
-	public List<Bill> getBills1() {
-		return this.bills1;
-	}
-
-	public void setBills1(List<Bill> bills1) {
-		this.bills1 = bills1;
-	}
-
-
-
-
-	public List<Bill> getBills2() {
-		return this.bills2;
-	}
-
-	public void setBills2(List<Bill> bills2) {
-		this.bills2 = bills2;
-	}
-
-
-
-	public List<CustomersPrescript> getCustomersPrescripts() {
-		return this.customersPrescripts;
-	}
-
-	public void setCustomersPrescripts(List<CustomersPrescript> customersPrescripts) {
-		this.customersPrescripts = customersPrescripts;
-	}
-
-	public List<EmployeesMonthly> getEmployeesMonthlies() {
-		return this.employeesMonthlies;
-	}
-
-	public void setEmployeesMonthlies(List<EmployeesMonthly> employeesMonthlies) {
-		this.employeesMonthlies = employeesMonthlies;
-	}
-
-
-	public List<Customer> getCustomers() {
-		return this.customers;
-	}
-
-	public void setCustomers(List<Customer> customers) {
-		this.customers = customers;
-	}
-
-	public List<Supply> getSupplies() {
-		return this.supplies;
-	}
-
-	public void setSupplies(List<Supply> supplies) {
-		this.supplies = supplies;
-	}
-
+	/*
+	 * public List<Attendance> getAttendances() { return this.attendances; }
+	 * 
+	 * public void setAttendances(List<Attendance> attendances) { this.attendances =
+	 * attendances; }
+	 * 
+	 * 
+	 * public List<Bill> getBills1() { return this.bills1; }
+	 * 
+	 * public void setBills1(List<Bill> bills1) { this.bills1 = bills1; }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * public List<Bill> getBills2() { return this.bills2; }
+	 * 
+	 * public void setBills2(List<Bill> bills2) { this.bills2 = bills2; }
+	 * 
+	 * 
+	 * 
+	 * public List<CustomersPrescript> getCustomersPrescripts() { return
+	 * this.customersPrescripts; }
+	 * 
+	 * public void setCustomersPrescripts(List<CustomersPrescript>
+	 * customersPrescripts) { this.customersPrescripts = customersPrescripts; }
+	 * 
+	 * public List<EmployeesMonthly> getEmployeesMonthlies() { return
+	 * this.employeesMonthlies; }
+	 * 
+	 * public void setEmployeesMonthlies(List<EmployeesMonthly> employeesMonthlies)
+	 * { this.employeesMonthlies = employeesMonthlies; }
+	 * 
+	 * 
+	 * public List<Customer> getCustomers() { return this.customers; }
+	 * 
+	 * public void setCustomers(List<Customer> customers) { this.customers =
+	 * customers; }
+	 * 
+	 * public List<Supply> getSupplies() { return this.supplies; }
+	 * 
+	 * public void setSupplies(List<Supply> supplies) { this.supplies = supplies; }
+	 */
 
 }
