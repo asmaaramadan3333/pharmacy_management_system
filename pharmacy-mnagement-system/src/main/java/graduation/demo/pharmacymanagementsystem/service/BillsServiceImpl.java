@@ -80,14 +80,16 @@ public class BillsServiceImpl implements BillsService {
 
 	@Override
 	@Transactional
-	public void save(Bill theBill) {
+	public void saveORupdate(Bill theBill) {
 
-		BillsDAO.save(theBill);
+		BillsDAO.saveORupdate(theBill);
 
 		// Bill thebill=theBill.getBillId();
 
 	}
 
+	
+	
 	@Override
 	@Transactional
 	public void deleteByBillID(int thebill_id) {
@@ -203,6 +205,12 @@ public class BillsServiceImpl implements BillsService {
 		
 		
 		
+		
+	}
+
+	@Override
+	public void save(Bill theBill) {
+		// TODO Auto-generated method stub
 		
 	}
 	

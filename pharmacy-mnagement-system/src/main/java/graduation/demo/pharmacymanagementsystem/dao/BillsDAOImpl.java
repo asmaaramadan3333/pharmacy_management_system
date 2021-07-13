@@ -114,7 +114,7 @@ public class BillsDAOImpl implements BillsDAO {
 		// save Bill
 		//currentSession.saveOrUpdate(theBill);
 		currentSession.saveOrUpdate(theBill);
-		currentSession.flush();
+		//currentSession.flush();
 	}
 
 	
