@@ -111,7 +111,7 @@ public class BillsServiceImpl implements BillsService {
 		replyTime1=replyTime1.replaceAll("\\s","");
 		replyTime2=replyTime2.replaceAll("\\s","");
 		replyTime1 = replyTime1.concat(" 00:00:00");
-		replyTime2 = replyTime2.concat(" 00:00:00");
+		replyTime2 = replyTime2.concat(" 23:59:59");
 		
 		Timestamp timestamp1 = Timestamp.valueOf(replyTime1);
 		Timestamp timestamp2 = Timestamp.valueOf(replyTime2);

@@ -1,6 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,16 +48,16 @@ public class BillsProductsRestController {
 
 		return theBillsProducts;
 	}
-	
-	
+		
 	
 	@PostMapping("/BillsProductsList")
-	public long  getListOfProduts(@RequestBody List<BillsProduct> theBillsProducts) {
+	public   Map<String, Object>  getListOfProduts(@RequestBody List<BillsProduct> theBillsProductsList) {
 
-		  BillsProductsService.saveORupdate(theBillsProducts);
-		  System.out.println(theBillsProducts.get(0));
+		  Map<String, Object> coordinates = new HashMap<>();		  
 
-	  return theBillsProducts.get(0).getId().getBillId();
+		  coordinates= BillsProductsService.saveORupdate(theBillsProductsList);
+
+	  return coordinates;
 	}
 	
 	/*@GetMapping("/BillsProducts_search/{BillsProductName}")
@@ -72,22 +74,6 @@ public class BillsProductsRestController {
 	
 	
 	
-	
-	// add mapping for POST /BillsProducts - add new BillsProducts
-	/***************
-	@PostMapping("/BillsProducts")
-	public BillsProduct addBillsProduct(@RequestBody BillsProduct theBillsProduct) {
-		
-		// also just in case they pass an id in JSON ... set id to 0
-		
-		// this is to force a save of new item ... instead of update
-		
-		//theBillsProduct.setBillsProductId(0);
-		
-		BillsProductsService.saveORupdate(theBillsProduct);
-		
-		return theBillsProduct;
-	}*/
 	
 	
 	// add mapping for PUT /BillsProducts - update existing BillsProduct

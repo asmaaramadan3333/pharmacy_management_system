@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import graduation.demo.pharmacymanagementsystem.dao.BillsProductsDAO;
 import graduation.demo.pharmacymanagementsystem.dto.BillsProductDTO;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
+import graduation.demo.pharmacymanagementsystem.entity.BillsProductPK;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 @Service
@@ -71,10 +74,38 @@ public class BillsProductsServiceImpl implements BillsProductsService {
 		
 		return theBillsProductsdtoList;
 	}
-        @Override
-	public void saveORupdate(List<BillsProduct>  theBillsProduct) {
-
+       
+	@Override
+	
+	public BillsProduct getbill_by_pkid(BillsProductPK id) {
+		
+		return BillsProductsDAO.getbill_by_pkid(id);
+		
+	}
+	
+	
+	
+	
+	@Override
+	//@Transactional
+	public Map<String, Object> saveORupdate(List<BillsProduct>  theBillsProduct) {
+		  Map<String, Object> coordinates = new HashMap<>();		  
+		for(int i=0;i< theBillsProduct.size();i++)
+		  {
+			  BillsProduct theBillsProduct2= getbill_by_pkid(theBillsProduct.get(i).getId());
+			  if (theBillsProduct2 != null) {
+			  coordinates.put("msg", "the Billproduct id already exist");
+			  coordinates.put("status", 0);
+			  coordinates.put("id",theBillsProduct.get(i).getId());
+			  return coordinates;
+			  }			  
+		  }
+		
 		BillsProductsDAO.saveORupdate(theBillsProduct);
+		  coordinates.put("msg","success");
+		  coordinates.put("status",1);
+		  return coordinates;
+
 	}
 
 
