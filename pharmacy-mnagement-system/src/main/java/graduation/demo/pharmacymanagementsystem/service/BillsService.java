@@ -18,7 +18,7 @@ public interface BillsService {
 	public void deleteByBillID (int thebill_id);
 
 	void save(Bill theBill);
-	
+	public void saveORupdate(Bill theBill);
 	//public List<Bill> searchByName(String theName);
 	
 	public List<Bill> findCustomerBillsById(int theCustomerId);

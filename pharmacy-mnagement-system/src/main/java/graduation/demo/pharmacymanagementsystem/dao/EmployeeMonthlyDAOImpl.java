@@ -42,8 +42,16 @@ public class EmployeeMonthlyDAOImpl implements EmployeeMonthlyDAO {
 						+  "id.month =: themonth", EmployeesMonthly.class );
 		theQuery.setParameter("theEmployee_Id", employeeId);
 		theQuery.setParameter("themonth", month);
+		System.out.println("before");
+		if(!theQuery.getResultList().isEmpty()) {
 		EmployeesMonthly  EmployeesMonthly =theQuery.getResultList().get(0);
+		System.out.println(EmployeesMonthly);
 		return EmployeesMonthly.getMonthlyHolidays();
+		}
+		else {
+			
+		return 00;
+		}
 	}
 
 }
