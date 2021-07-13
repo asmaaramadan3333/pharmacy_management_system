@@ -89,14 +89,6 @@ public class CustomersRestController {
 	}
 
 	
-	/*@GetMapping("/get_by_id_ex")
-	@ResponseBody
-	public String getFoos(@RequestParam(required = false,name = "id") int id,@RequestParam(required = false,name = "x") Integer x) {
-	   System.out.println(id);
-		
-		return "ID: " + id + x;
-	}*/
-	
 	
 	
 	// search for certain customers by customer name//
@@ -136,6 +128,28 @@ public class CustomersRestController {
 		return coordinates;
 	}
 
+	//////////////////////get customer by customer phone //////////////////////
+	
+	@GetMapping("/get_customr_by_phone/{phone}")
+	public Map<String, Object> get_customer_by_phone (@PathVariable String phone) {
+
+	    return	customersService.get_customer_by_phone(phone);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// *********** post requests///////////////
 
 	// add mapping for POST /add_new - add new Customers for desktop //
