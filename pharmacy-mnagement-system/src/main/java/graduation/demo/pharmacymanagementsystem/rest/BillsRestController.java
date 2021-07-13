@@ -139,17 +139,21 @@ public class BillsRestController {
 	// add mapping for POST /Bills - add new Bills
 
 	@PostMapping("/add_new_Bills")
-	public Bill addBill(@RequestBody Bill theBill) {
-		//CustomersRestController thecustomerRest = new CustomersRestController();
-
-		//Bill thecustomerbill = thecustomerRest.addbillTocustomer(theBill);
-
-
+	public Map<String, Object> addBill(@RequestBody Bill theBill) {
+		Map<String, Object> coordinates = new HashMap<>();
+	
 		BillsService.saveORupdate(theBill);
+        Long billId2= theBill.getBillId();
+        if ( billId2 != null)
+        {
+        	coordinates.put("status", 1);
+            coordinates.put("billId",billId2);
+            coordinates.put("msg","the bill is successfully added");
+        }
 
-		//return BillsService.findByBillID(theBill.getBillId());
-
-		return theBill;
+        	
+        	//return BillsService.findByBillID(theBill.getBillId());
+		return coordinates;
 
 	}
 
