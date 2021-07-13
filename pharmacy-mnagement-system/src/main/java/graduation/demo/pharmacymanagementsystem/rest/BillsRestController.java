@@ -93,7 +93,7 @@ public class BillsRestController {
 		//Bill thecustomerbill = thecustomerRest.addbillTocustomer(theBill);		
 		
 		
-		BillsService.save(theBill);
+		BillsService.saveORupdate(theBill);
 		
 		//return BillsService.findByBillID(theBill.getBillId());
 		
