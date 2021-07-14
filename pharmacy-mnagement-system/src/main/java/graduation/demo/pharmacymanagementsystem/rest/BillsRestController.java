@@ -106,7 +106,7 @@ public class BillsRestController {
 	}
 
 /////////////////////////// api for bi  get total price and bill//////////////////
-	@PostMapping("/totalpriceAndmonth_bills")
+	@PostMapping("/totalpriceandmonth_bills")
 	//public Map<String, Object> findEveryBillBymonth(@PathVariable (required= true) List<BillMonthsDTO>BillMonthsDTOList )
 	public List<Map<String,Object>> findEveryBillBymonth(@RequestBody (required= true) List<BillMonthsDTO> BillMonthsDTOList )
 	
