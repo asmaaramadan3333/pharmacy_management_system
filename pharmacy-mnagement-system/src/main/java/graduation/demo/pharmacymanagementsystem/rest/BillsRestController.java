@@ -136,7 +136,7 @@ public class BillsRestController {
 
 
 
-	// add mapping for POST /Bills - add new Bills
+	// add mapping for POST /Bills - add new Bills 
 
 	@PostMapping("/add_new_Bills")
 	public Map<String, Object> addBill(@RequestBody Bill theBill) {
@@ -157,7 +157,27 @@ public class BillsRestController {
 
 	}
 
+    @PostMapping("/add_new_mob_bill")
+    public Map<String, Object> addMobBill(@RequestBody Bill theBill) {
+	Map<String, Object> coordinates = new HashMap<>();
+    theBill.setEmployeeId(1);
+    theBill.setDeliveryManId(1);
+	BillsService.saveORupdate(theBill);
+    Long billId2= theBill.getBillId();
+    if ( billId2 != null)
+    {
+    	coordinates.put("status", 1);
+        coordinates.put("billId",billId2);
+        coordinates.put("msg","the bill is successfully added");
+    }
+    	
+	return coordinates;
 
+}
+	
+	
+	
+	
 	// add mapping for PUT /Bills - update existing Bill
 
 	@PutMapping("/update")
