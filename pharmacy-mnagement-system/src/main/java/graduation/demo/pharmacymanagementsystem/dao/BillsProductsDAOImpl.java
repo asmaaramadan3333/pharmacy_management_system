@@ -3,13 +3,17 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
+import graduation.demo.pharmacymanagementsystem.entity.BillsProductPK;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 import graduation.demo.pharmacymanagementsystem.entity.Supply;
 
@@ -25,7 +29,22 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 			entityManager = theEntityManager;
 		}
 		
+	@Override
+	public BillsProduct getbill_by_pkid(BillsProductPK id) {
+		
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		// get the Bill
+		BillsProduct theBillsProduct =
+				currentSession.get(BillsProduct.class, id);
+				
+		// return the Bill
+		return theBillsProduct;
+		
+	}
 	
+		
+		
 	@Override
 	public List<BillsProduct> findAllBillsProducts() {
 		
@@ -64,8 +83,8 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 
 	
 	@Override
+	//@Transactional
 	public void saveORupdate(List<BillsProduct>  theBillsProduct) {
-		
 		Session currentSession = entityManager.unwrap(Session.class);
 		Transaction tx = currentSession.beginTransaction();
 		for(int i=0 ;i<theBillsProduct.size();i++)
@@ -75,7 +94,11 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 		}
 		tx.commit();
 		currentSession.close();
-		
+        /*for (int i =0; i<theBillsProduct.size();i++)
+        {
+		//currentSession.saveOrUpdate(theBillsProduct.get(i));
+		currentSession.merge(theBillsProduct.get(i));
+        }*/
 	}
 	
 	
@@ -128,5 +151,7 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 		// return the product
 		return theProduct;
 	}
+
+
 	
 }
