@@ -2,6 +2,7 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public interface BillsDAO {
 	public List<Bill> find_filteredBills(Long billId, String billType, String billState, String replyTime);
 
 	//public List<Bill> searchByName(String theName);
+	public List<Bill> findEveryBillBymonth(Date replyTime4,Date replyTime5);
+
+	List<Bill> findEveryBillBymonthAndTotalPrice(int year, int month);
 	
 	
 }

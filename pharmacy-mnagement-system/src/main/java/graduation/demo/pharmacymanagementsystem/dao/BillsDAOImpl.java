@@ -1,9 +1,14 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TemporalType;
@@ -237,12 +242,62 @@ public class BillsDAOImpl implements BillsDAO {
 			
 		
 		return bills_list;
-	}		
+	}
+
+
+	@Override
+	public List<Bill> findEveryBillBymonth(Date replyTime4,Date replyTime5) {
+		// get the current hibernate session
+			Session currentSession = entityManager.unwrap(Session.class);
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.set(GregorianCalendar.YEAR, 2004);
+			cal.set(GregorianCalendar.MONTH, 2);
+			cal.set(GregorianCalendar.DATE, 12);
+			         
+			Timestamp ts = new Timestamp(cal.getTime().getTime());
+			System.out.println(ts);
+			System.out.println("done");
+			/*
+			 * String theactualmonth ="0"+Integer.toString(month);
+			 * System.out.println(theactualmonth); LocalDate date =
+			 * LocalDate.parse(theactualmonth); System.out.println(date);
+			 */	/*
+					 * currentSession.createQuery(
+					 * "select sum(totalPrice) and month(replayTime) from  Bill b where year(b.replayTime) =: theyear and Bill.status='done' "
+					 * );
+					 */
+			Query theQuery = 
+				
+			currentSession.createQuery(
+			"select sum(totalPrice) from  Bill b where b.billState='done' " + " and b.replyTime between :reply1 and :reply2 " , Bill.class);
+			
+				theQuery.setParameter("reply1", replyTime4);
 	
+				theQuery.setParameter("reply2",replyTime5);
+				List <Bill> Bill= theQuery.getResultList();
+		return Bill;
+	}		
+
+	@Override
+	public List<Bill> findEveryBillBymonthAndTotalPrice(int year,int month) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.set(GregorianCalendar.YEAR, year);
+		cal.set(GregorianCalendar.MONTH, month);
+		System.out.println(cal);
+		
+        java.sql.Date   beginDate=java.sql.Date.valueOf("2021-5-1");
+        java.sql.Date   endDate=java.sql.Date.valueOf("2021-5-30");
+		Query theQuery =currentSession.createQuery("select sum(totalPrice) from  Bill b where b.billState='done' " 
+		+ " and b.replyTime between :reply1 and :reply2 " , Bill.class);
+		theQuery.setParameter("reply1", beginDate);
+		theQuery.setParameter("reply1", endDate);
+		return null;
+	}
 }
 
 	
-	
+
 	
 	
 	

@@ -1,5 +1,6 @@
 package graduation.demo.pharmacymanagementsystem.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,6 @@ public interface BillsService {
 	public List<SoldProductsQuantityDTO> find_product_while_aperiod(String replyTime1, String replyTime2);
 
 	public List<Bill> find_filteredBills(Long billId, String billType, String billState, String replyTime);
-
+	public Map<String, Object> findEveryBillBymonth(int year);
 	
 }
