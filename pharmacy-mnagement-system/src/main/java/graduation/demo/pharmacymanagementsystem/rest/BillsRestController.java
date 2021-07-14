@@ -1,9 +1,12 @@
 
 package graduation.demo.pharmacymanagementsystem.rest;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,8 +104,12 @@ public class BillsRestController {
 
 	}
 
-
-
+/////////////////////////// api fo bi  get total price and bill//////////////////
+	@GetMapping("/totalpriceAndmonth_bills/{year}")
+	public Map<String, Object> findEveryBillBymonth(@PathVariable int year)
+	{
+		return BillsService.findEveryBillBymonth(year);
+	}
 	//////////get product sold in certain period /////////////////////////for Bi/////////////
 
 	@GetMapping("/get_list_sold_product/{replyTime1}/{replyTime2}")

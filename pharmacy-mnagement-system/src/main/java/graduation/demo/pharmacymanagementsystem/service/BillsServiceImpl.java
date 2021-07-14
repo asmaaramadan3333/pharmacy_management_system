@@ -3,6 +3,7 @@ package graduation.demo.pharmacymanagementsystem.service;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -212,6 +213,29 @@ public class BillsServiceImpl implements BillsService {
 	public void save(Bill theBill) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Map<String, Object> findEveryBillBymonth(int year) {
+		Map<String, Object> coordinatesMap = new HashMap<>();
+		
+		for (int i=1 ;i<13;i++)
+		{
+			if (i<10)
+			{
+		
+		
+			
+			 coordinatesMap.put("month",i);
+			 coordinatesMap.put("totalPrice",BillsDAO.findEveryBillBymonthAndTotalPrice(year,i));
+	           	}
+		   else {
+
+				 coordinatesMap.put("month",i);
+				 coordinatesMap.put("totalPrice",BillsDAO.findEveryBillBymonthAndTotalPrice(year,i));
+			}
+		 }
+		return coordinatesMap;
 	}
 	
 }
