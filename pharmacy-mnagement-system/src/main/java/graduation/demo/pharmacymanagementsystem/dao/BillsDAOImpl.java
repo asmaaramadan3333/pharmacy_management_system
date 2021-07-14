@@ -7,8 +7,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TemporalType;
@@ -245,18 +247,12 @@ public class BillsDAOImpl implements BillsDAO {
 	}
 
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	public List<Bill> findEveryBillBymonth(Date replyTime4,Date replyTime5) {
+	public Map<String, Object> findEveryBillBymonthAndTotalPrice(Date replyTime4,Date replyTime5) {
 		// get the current hibernate session
-			Session currentSession = entityManager.unwrap(Session.class);
-			GregorianCalendar cal = new GregorianCalendar();
-			cal.set(GregorianCalendar.YEAR, 2004);
-			cal.set(GregorianCalendar.MONTH, 2);
-			cal.set(GregorianCalendar.DATE, 12);
-			         
-			Timestamp ts = new Timestamp(cal.getTime().getTime());
-			System.out.println(ts);
-			System.out.println("done");
+		Map<String, Object> totalprice = new HashMap<>();;	
+		Session currentSession = entityManager.unwrap(Session.class);
 			/*
 			 * String theactualmonth ="0"+Integer.toString(month);
 			 * System.out.println(theactualmonth); LocalDate date =
@@ -266,19 +262,35 @@ public class BillsDAOImpl implements BillsDAO {
 					 * "select sum(totalPrice) and month(replayTime) from  Bill b where year(b.replayTime) =: theyear and Bill.status='done' "
 					 * );
 					 */
+		//List<Object[]>
+			try {
 			Query theQuery = 
 				
 			currentSession.createQuery(
-			"select sum(totalPrice) from  Bill b where b.billState='done' " + " and b.replyTime between :reply1 and :reply2 " , Bill.class);
+			"select new map(month(b.replyTime) as month , sum(b.totalPrice) as totalPrice  ) from  Bill b where b.billState='done' " 
+			+ " and b.replyTime between :reply1 and :reply2 " 
+			+ "Group by month(b.replyTime)");
 			
 				theQuery.setParameter("reply1", replyTime4);
-	
 				theQuery.setParameter("reply2",replyTime5);
-				List <Bill> Bill= theQuery.getResultList();
-		return Bill;
+				
+				if (!theQuery.getResultList().isEmpty()) {
+			        totalprice  = ( Map<String, Object>) theQuery.getResultList().get(0);
+					//System.out.println(totalprice);
+				}
+				else {
+					totalprice.put("totalPrice", 0);
+					totalprice.put("month", replyTime4.getMonth()+1 );
+				}
+				
+			   } 
+				catch (Exception ex) {
+				ex.printStackTrace();
+			    }
+			return totalprice;		
 	}		
 
-	@Override
+	/*@Override
 	public List<Bill> findEveryBillBymonthAndTotalPrice(int year,int month) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		GregorianCalendar cal = new GregorianCalendar();
@@ -293,7 +305,7 @@ public class BillsDAOImpl implements BillsDAO {
 		theQuery.setParameter("reply1", beginDate);
 		theQuery.setParameter("reply1", endDate);
 		return null;
-	}
+	}*/
 }
 
 	
