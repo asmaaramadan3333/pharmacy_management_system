@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import graduation.demo.pharmacymanagementsystem.dao.BillsDAO;
+import graduation.demo.pharmacymanagementsystem.dto.BillMonthsDTO;
 import graduation.demo.pharmacymanagementsystem.dto.SoldProductsQuantityDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
@@ -216,16 +217,14 @@ public class BillsServiceImpl implements BillsService {
 	}
 
 	@Override
-	public Map<String, Object> findEveryBillBymonth(int year) {
+	public List<Map<String,Object>> findEveryBillBymonth(List<BillMonthsDTO> billMonthsDTOList) {
 		Map<String, Object> coordinatesMap = new HashMap<>();
-		
-		for (int i=1 ;i<13;i++)
+		List<Bill> Bill_list = new ArrayList<Bill>();	
+		List<Map<String,Object>> totalpriceMap = new ArrayList<Map<String,Object>>();
+		/*for (int i=1 ;i<13;i++)
 		{
 			if (i<10)
 			{
-		
-		
-			
 			 coordinatesMap.put("month",i);
 			 coordinatesMap.put("totalPrice",BillsDAO.findEveryBillBymonthAndTotalPrice(year,i));
 	           	}
@@ -234,8 +233,32 @@ public class BillsServiceImpl implements BillsService {
 				 coordinatesMap.put("month",i);
 				 coordinatesMap.put("totalPrice",BillsDAO.findEveryBillBymonthAndTotalPrice(year,i));
 			}
-		 }
-		return coordinatesMap;
+		 }*/
+		
+		for(int i=0;i<billMonthsDTOList.size();i++)
+		{
+			Bill thebilltotal= new Bill();
+			
+			String replyTime1=billMonthsDTOList.get(i).getReplyTime1();
+			String replyTime2=billMonthsDTOList.get(i).getReplyTime2();
+
+			replyTime1=replyTime1.replaceAll("\\s","");
+			replyTime2=replyTime2.replaceAll("\\s","");
+			replyTime1 = replyTime1.concat(" 00:00:00");
+			replyTime2 = replyTime2.concat(" 23:59:59");
+			
+			Timestamp timestamp1 = Timestamp.valueOf(replyTime1);
+			Timestamp timestamp2 = Timestamp.valueOf(replyTime2);
+
+			 totalpriceMap.add ( (Map<String, Object>) BillsDAO.findEveryBillBymonthAndTotalPrice(timestamp1,timestamp2));
+			
+		//	coordinatesMap.put("totalPrice", thebilltotal. getTotalPrice());
+			//coordinatesMap.put("Month", i);
+			
+		}
+		
+		
+		return totalpriceMap;
 	}
 	
 }

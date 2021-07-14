@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import graduation.demo.pharmacymanagementsystem.dto.BillMonthsDTO;
 import graduation.demo.pharmacymanagementsystem.dto.SoldProductsQuantityDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
@@ -104,12 +105,19 @@ public class BillsRestController {
 
 	}
 
-/////////////////////////// api fo bi  get total price and bill//////////////////
-	@GetMapping("/totalpriceAndmonth_bills/{year}")
-	public Map<String, Object> findEveryBillBymonth(@PathVariable int year)
+/////////////////////////// api for bi  get total price and bill//////////////////
+	@PostMapping("/totalpriceAndmonth_bills")
+	//public Map<String, Object> findEveryBillBymonth(@PathVariable (required= true) List<BillMonthsDTO>BillMonthsDTOList )
+	public List<Map<String,Object>> findEveryBillBymonth(@RequestBody (required= true) List<BillMonthsDTO> BillMonthsDTOList )
+	
 	{
-		return BillsService.findEveryBillBymonth(year);
+	
+		return BillsService.findEveryBillBymonth(BillMonthsDTOList);
+	
 	}
+	
+	
+	
 	//////////get product sold in certain period /////////////////////////for Bi/////////////
 
 	@GetMapping("/get_list_sold_product/{replyTime1}/{replyTime2}")
