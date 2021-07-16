@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "bills_products")
+
 public class BillsProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 

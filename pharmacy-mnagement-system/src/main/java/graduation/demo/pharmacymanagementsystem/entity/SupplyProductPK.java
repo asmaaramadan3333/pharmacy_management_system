@@ -12,13 +12,13 @@ public class SupplyProductPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="company_id", insertable=false, updatable=false)
+	@Column(name="company_id")
 	private int companyId;
 
-	@Column(name="supply_id", insertable=false, updatable=false)
+	@Column(name="supply_id")
 	private int supplyId;
 
-	@Column(name="product_code", insertable=false, updatable=false)
+	@Column(name="product_code")
 	private int productCode;
 
 	public SupplyProductPK() {
@@ -42,6 +42,7 @@ public class SupplyProductPK implements Serializable {
 		this.productCode = productCode;
 	}
 
+	
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

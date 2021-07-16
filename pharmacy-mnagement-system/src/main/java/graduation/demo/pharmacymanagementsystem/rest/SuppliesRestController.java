@@ -70,11 +70,11 @@ public class SuppliesRestController {
 	
 	// add mapping for PUT /Supplies - update existing Supply
 	@PutMapping("/Supplies")
-	public Supply updateSupply(@RequestBody Supply theSupply) {
+	public Supply updateSupply(@RequestBody Supply theSupply2) {
+	
+		SuppliesService.saveORupdate(theSupply2);
 
-		SuppliesService.saveORupdate(theSupply);
-
-		return theSupply;
+		return theSupply2;
 	}
 	
 /*

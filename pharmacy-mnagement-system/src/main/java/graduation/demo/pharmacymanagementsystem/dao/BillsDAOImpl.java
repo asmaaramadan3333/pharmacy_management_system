@@ -111,6 +111,7 @@ public class BillsDAOImpl implements BillsDAO {
 	//@org.springframework.transaction.annotation.Transactional
 	@Transactional
 	@Override
+	
 	public void saveORupdate(Bill theBill) {
 		
 		// get the current hibernate session
@@ -118,8 +119,10 @@ public class BillsDAOImpl implements BillsDAO {
 				
 		// save Bill
 		//currentSession.saveOrUpdate(theBill);
+		theBill.setBillId(theBill.getBillId());
 		currentSession.saveOrUpdate(theBill);
-		//currentSession.flush();
+		currentSession.flush();
+		currentSession.getTransaction().commit();
 	}
 
 	
@@ -293,6 +296,16 @@ public class BillsDAOImpl implements BillsDAO {
 		theQuery.setParameter("reply1", beginDate);
 		theQuery.setParameter("reply1", endDate);
 		return null;
+	}
+
+	@Transactional
+	@Override
+	public void update(Bill theBill) {
+		// TODO Auto-generated method stub
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.update(theBill);
+		currentSession.flush();
+		//currentSession.getTransaction().commit();
 	}
 }
 
