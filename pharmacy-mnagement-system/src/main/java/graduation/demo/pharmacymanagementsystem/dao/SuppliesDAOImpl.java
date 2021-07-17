@@ -119,14 +119,17 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 		theQuery.executeUpdate();
 
 	}
-	@Transactional
+	
 	@Override
+	@Transactional
 	public void saveORupdate(Supply theSupply) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
-		currentSession.update(theSupply);
+		currentSession.saveOrUpdate(theSupply);
 		
 		currentSession.flush();
+		
+		
 	}
 
 

@@ -78,6 +78,7 @@ public class Bill implements Serializable {
 
 	
 	@OneToMany(mappedBy = "bill")
+
 	
 	private List<BillsProduct> billsProducts;
 
