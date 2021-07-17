@@ -28,7 +28,9 @@ public class BillsProduct implements Serializable {
 	private float unitPrice;
 
 	
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "bill_id", insertable = false, updatable = false)
+	private Bill bill;
 	/*
 	 * // bi-directional many-to-one association to Bill
 	 * 

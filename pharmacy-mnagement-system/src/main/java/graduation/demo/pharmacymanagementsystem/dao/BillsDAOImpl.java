@@ -109,9 +109,9 @@ public class BillsDAOImpl implements BillsDAO {
 	
 	
 	//@org.springframework.transaction.annotation.Transactional
-	@Transactional
+
 	@Override
-	
+	@Transactional
 	public void saveORupdate(Bill theBill) {
 		
 		// get the current hibernate session
@@ -122,7 +122,7 @@ public class BillsDAOImpl implements BillsDAO {
 		theBill.setBillId(theBill.getBillId());
 		currentSession.saveOrUpdate(theBill);
 		currentSession.flush();
-		currentSession.getTransaction().commit();
+
 	}
 
 	
