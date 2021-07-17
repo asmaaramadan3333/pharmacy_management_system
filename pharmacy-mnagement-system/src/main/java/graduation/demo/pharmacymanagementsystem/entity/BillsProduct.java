@@ -94,6 +94,5 @@ public class BillsProduct implements Serializable {
 		this.unitPrice = unitPrice;
 	}
 
-
-
 }
+
