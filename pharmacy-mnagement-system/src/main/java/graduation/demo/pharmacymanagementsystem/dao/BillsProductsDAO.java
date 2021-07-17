@@ -3,6 +3,7 @@ package graduation.demo.pharmacymanagementsystem.dao;
 import java.util.List;
 
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
+import graduation.demo.pharmacymanagementsystem.entity.BillsProductPK;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
 public interface BillsProductsDAO {
@@ -18,6 +19,9 @@ public interface BillsProductsDAO {
 
 
 	public Product findProductByCode(int theCode);
+
+
+	public BillsProduct getbill_by_pkid(BillsProductPK id);
 
 	//public List<BillsProduct> searchByName(String theName);
 	

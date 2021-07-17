@@ -5,17 +5,18 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
 
 public interface BillsDAO {
 
 	public List <Bill> findAllBills();
-	
+
 	public Bill findByBillID (long thebill_id);
-	
+
 	public void saveORupdate (Bill theBill);
-	
+
 	public void deleteByBillID (int theCode);
 
 	public void save(Bill theBill);
@@ -26,12 +27,9 @@ public interface BillsDAO {
 
 	public List<Bill> find_filteredBills(Long billId, String billType, String billState, String replyTime);
 
-	//public List<Bill> searchByName(String theName);
-	public List<Bill> findEveryBillBymonth(Date replyTime4,Date replyTime5);
+	public Map<String, Object> findEveryBillBymonthAndTotalPrice(Date timestamp1, Date timestamp2);
 
-	List<Bill> findEveryBillBymonthAndTotalPrice(int year, int month);
+	
 
-	public void update(Bill theBill);
-	
-	
+
 }

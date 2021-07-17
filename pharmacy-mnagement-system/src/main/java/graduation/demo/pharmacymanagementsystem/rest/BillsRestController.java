@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import graduation.demo.pharmacymanagementsystem.dto.BillMonthsDTO;
 import graduation.demo.pharmacymanagementsystem.dto.SoldProductsQuantityDTO;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
@@ -104,12 +105,19 @@ public class BillsRestController {
 
 	}
 
-/////////////////////////// api fo bi  get total price and bill//////////////////
-	@GetMapping("/totalpriceAndmonth_bills/{year}")
-	public Map<String, Object> findEveryBillBymonth(@PathVariable int year)
+/////////////////////////// api for bi  get total price and bill//////////////////
+	@PostMapping("/totalpriceandmonth_bills")
+	//public Map<String, Object> findEveryBillBymonth(@PathVariable (required= true) List<BillMonthsDTO>BillMonthsDTOList )
+	public List<Map<String,Object>> findEveryBillBymonth(@RequestBody (required= true) List<BillMonthsDTO> BillMonthsDTOList )
+
 	{
-		return BillsService.findEveryBillBymonth(year);
+
+		return BillsService.findEveryBillBymonth(BillMonthsDTOList);
+
 	}
+
+
+
 	//////////get product sold in certain period /////////////////////////for Bi/////////////
 
 	@GetMapping("/get_list_sold_product/{replyTime1}/{replyTime2}")
@@ -146,24 +154,48 @@ public class BillsRestController {
 	// add mapping for POST /Bills - add new Bills
 
 	@PostMapping("/add_new_Bills")
-	public Bill addBill(@RequestBody Bill theBill) {
-		//CustomersRestController thecustomerRest = new CustomersRestController();
-
-		//Bill thecustomerbill = thecustomerRest.addbillTocustomer(theBill);
-
+	public Map<String, Object> addBill(@RequestBody Bill theBill) {
+		Map<String, Object> coordinates = new HashMap<>();
 
 		BillsService.saveORupdate(theBill);
+        Long billId2= theBill.getBillId();
+        if ( billId2 != null)
+        {
+        	coordinates.put("status", 1);
+            coordinates.put("billId",billId2);
+            coordinates.put("msg","the bill is successfully added");
+        }
 
-		//return BillsService.findByBillID(theBill.getBillId());
 
-		return theBill;
+        	//return BillsService.findByBillID(theBill.getBillId());
+		return coordinates;
 
 	}
+
+    @PostMapping("/add_new_mob_bill")
+    public Map<String, Object> addMobBill(@RequestBody Bill theBill) {
+	Map<String, Object> coordinates = new HashMap<>();
+    theBill.setEmployeeId(1);
+    theBill.setDeliveryManId(1);
+	BillsService.saveORupdate(theBill);
+    Long billId2= theBill.getBillId();
+    if ( billId2 != null)
+    {
+    	coordinates.put("status", 1);
+        coordinates.put("billId",billId2);
+        coordinates.put("msg","the bill is successfully added");
+    }
+
+	return coordinates;
+
+}
+
+
 
 
 	// add mapping for PUT /Bills - update existing Bill
 
-	@PutMapping("/Bills")
+	@PutMapping("/update")
 	public Bill updateBill(@RequestBody Bill theBill) {
 
 		BillsService.saveORupdate(theBill);

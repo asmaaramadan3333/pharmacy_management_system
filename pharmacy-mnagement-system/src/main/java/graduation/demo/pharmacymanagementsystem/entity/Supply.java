@@ -68,12 +68,15 @@ public class Supply implements Serializable {
 		this.employeeId = employeeId;
 	}
 
+
 	/*
 	 * @JoinColumns({
 	 * 
 	 * @JoinColumn(name = "company_id"),@JoinColumn(name = "supply_id")})
 	 */
 		@OneToMany(mappedBy="supply")
+
+
 		private List<SupplyProduct> supplyProducts;
 
 		

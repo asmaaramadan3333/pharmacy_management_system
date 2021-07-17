@@ -291,6 +291,39 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	
+	///////////////////////////get customer by customer phone /////////////////////////
+	@Override
+	public Map<String, Object> get_customer_by_phone (String phone) {
+		Map<String, Object> coordinates = new HashMap<>();
+		CustomersPhone customerPhone = customersPhoneService.get_customer_by_phone(phone);
+		if (customerPhone !=null) {
+				int cId = customerPhone.getId().getCustomerId();
+		
+				Customer thecustomer = findByCode(cId);
+		
+				Map<String, Object> customer_coordinates = new HashMap<>();
+				customer_coordinates.put("customerId",cId );
+           		customer_coordinates.put("firstName",thecustomer.getFirstName());
+        		customer_coordinates.put("lastName",thecustomer.getLastName());
+        		customer_coordinates.put("credit",thecustomer.getCredit());
+        		customer_coordinates.put("customersAddresses",thecustomer.getCustomersAddresses() );
+			  
+			    coordinates.put("theCustomer",customer_coordinates );
+			    coordinates.put("status", 1);
+			}
+		else
+		{
+			coordinates.put("status", 0);
+			coordinates.put("msq","the customer phone not found");
+		}
+		
+		return coordinates;
+
+	}
+	
+	
+	
+	
 	//////////////////////////// update customer by customer phone ////////////////////
 	
 	

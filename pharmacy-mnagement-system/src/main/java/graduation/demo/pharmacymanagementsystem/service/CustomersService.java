@@ -22,6 +22,8 @@ public interface CustomersService {
 
 	public Customer getCustomerByEmail(String theemail);
 	
+	public Map<String, Object> get_customer_by_phone(String phone);
+
 	public Map<String, Object>  customerSignIn(String theemail, String thepassword);
 
 	public Map signUp(Customer theCustomer);
