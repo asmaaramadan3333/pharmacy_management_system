@@ -197,8 +197,7 @@ public class BillsRestController {
 
 	@PutMapping("/update")
 	public Bill updateBill(@RequestBody Bill theBill) {
-      System.out.println(theBill.getBillId());
-      theBill.setBillId(theBill.getBillId());
+
 		BillsService.saveORupdate(theBill);
 		return theBill;
 	}

@@ -19,7 +19,7 @@ import java.util.TimeZone;
 
 /**
  * The persistent class for the bills database table.
- * 
+ *
  */
 @Entity
 @Table(name = "bills")
@@ -57,25 +57,28 @@ public class Bill implements Serializable {
 
 	@Column(name="user_feedback")
 	private int userFeedback;
-	
+
 	@Column(name = "prescription_or_not")
 	private int prescriptionOrNot;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date time;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date replyTime;
 
-	
-	
+
+
 	@Column(name = "total_price")
 	private float totalPrice;
 
 
 	@Column(name = "customer_id")
 	private int customerId;
-	
+
+	@OneToMany(mappedBy = "bill")
+	private List<BillsProduct> billsProducts;
+
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -85,7 +88,7 @@ public class Bill implements Serializable {
 	}
 	@Column(name = "employee_id")
 	private int employeeId;
-	
+
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -95,7 +98,7 @@ public class Bill implements Serializable {
 	}
 	@Column(name="delivery_man_id")
 	private int deliveryManId;
-	
+
 	public int getDeliveryManId() {
 		return deliveryManId;
 	}
@@ -103,13 +106,17 @@ public class Bill implements Serializable {
 	public void setDeliveryManId(int deliveryManId) {
 		this.deliveryManId = deliveryManId;
 	}
-	
-	
-	
-	@JoinColumn(name="bill_id")
-	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	private List<BillsProduct> billsProducts;
-	
+
+
+
+	/*
+	 * @JoinColumn(name="bill_id")
+	 *
+	 * @OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	 *
+	 * private List<BillsProduct> billsProducts;
+	 */
+
 	@JoinColumn(name="bill_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPrescript> customersPrescripts;
@@ -126,7 +133,7 @@ public class Bill implements Serializable {
 				+ ", customerId=" + customerId + ", billsProducts=" + billsProducts + ", customersPrescripts="
 				+ customersPrescripts + "]";
 	}
-	
+
 	public long getBillId() {
 		return this.billId;
 	}
@@ -191,7 +198,7 @@ public class Bill implements Serializable {
 	public void setReplyTime(java.util.Date replyTime) {
 		this.replyTime = replyTime;
 	}
-	
+
 	public float getTotalPrice() {
 		return this.totalPrice;
 	}
