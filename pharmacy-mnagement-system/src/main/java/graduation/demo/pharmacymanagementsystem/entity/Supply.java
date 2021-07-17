@@ -75,7 +75,7 @@ public class Supply implements Serializable {
 	}
 
 	@JoinColumns({
-		@JoinColumn(name = "company_id"),@JoinColumn(name = "supply_id") })
+		@JoinColumn(name = "company_id", referencedColumnName="company_id"),@JoinColumn(name = "supply_id", referencedColumnName="supply_bill_id") })
 		@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 		private List<SupplyProduct> supplyProducts;
 

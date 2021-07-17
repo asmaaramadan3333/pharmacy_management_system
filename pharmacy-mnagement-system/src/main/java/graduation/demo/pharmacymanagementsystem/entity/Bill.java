@@ -106,8 +106,9 @@ public class Bill implements Serializable {
 	
 	
 	
-	@JoinColumn(name="bill_id")
-	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	//@JoinColumn(name="bill_id")
+	
+	@OneToMany(mappedBy = "Bill",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<BillsProduct> billsProducts;
 	
 	@JoinColumn(name="bill_id")

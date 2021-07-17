@@ -28,16 +28,15 @@ public class BillsProduct implements Serializable {
 
 	
 	
-	/*
-	 * // bi-directional many-to-one association to Bill
-	 * 
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name = "bill_id", insertable = false, updatable = false)
-	 * 
-	 * @JsonIgnore // Properties({"hibernateLazyInitializer", "handler"}) private
-	 * Bill bill;
-	 */
+	
+	  // bi-directional many-to-one association to Bill
+	  
+	  @ManyToOne(fetch = FetchType.LAZY)
+	  
+	  @JoinColumn(name = "bill_id",referencedColumnName="bill_id" , insertable = false, updatable = false)
+	  
+	  private Bill bill;
+	 
 
 	/*
 	 * // bi-directional many-to-one association to Product
