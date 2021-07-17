@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "bills_products")
+
 public class BillsProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,16 +28,19 @@ public class BillsProduct implements Serializable {
 	private float unitPrice;
 
 	
-	
-	
-	  // bi-directional many-to-one association to Bill
-	  
-	  @ManyToOne(fetch = FetchType.LAZY)
-	  
-	  @JoinColumn(name = "bill_id",referencedColumnName="bill_id" , insertable = false, updatable = false)
-	  
-	  private Bill bill;
-	 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "bill_id", insertable = false, updatable = false)
+	private Bill bill;
+	/*
+	 * // bi-directional many-to-one association to Bill
+	 * 
+	 * @ManyToOne(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "bill_id", insertable = false, updatable = false)
+	 * 
+	 * @JsonIgnore // Properties({"hibernateLazyInitializer", "handler"}) private
+	 * Bill bill;
+	 */
 
 	/*
 	 * // bi-directional many-to-one association to Product
@@ -89,6 +93,5 @@ public class BillsProduct implements Serializable {
 		this.unitPrice = unitPrice;
 	}
 
-
-
 }
+
