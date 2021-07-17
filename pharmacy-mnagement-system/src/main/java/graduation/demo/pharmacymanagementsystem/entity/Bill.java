@@ -76,9 +76,6 @@ public class Bill implements Serializable {
 	@Column(name = "customer_id")
 	private int customerId;
 
-	@OneToMany(mappedBy = "bill")
-	private List<BillsProduct> billsProducts;
-
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -107,15 +104,12 @@ public class Bill implements Serializable {
 		this.deliveryManId = deliveryManId;
 	}
 
-
-
-	/*
-	 * @JoinColumn(name="bill_id")
-	 *
-	 * @OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	 *
-	 * private List<BillsProduct> billsProducts;
-	 */
+	
+	
+	//@JoinColumn(name="bill_id")
+	
+	@OneToMany(mappedBy = "Bill",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private List<BillsProduct> billsProducts;
 
 	@JoinColumn(name="bill_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)

@@ -27,7 +27,7 @@ public class BillsProduct implements Serializable {
 	@Column(name = "unit_price")
 	private float unitPrice;
 
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "bill_id", insertable = false, updatable = false)
 	private Bill bill;
@@ -41,6 +41,7 @@ public class BillsProduct implements Serializable {
 	 * @JsonIgnore // Properties({"hibernateLazyInitializer", "handler"}) private
 	 * Bill bill;
 	 */
+
 
 	/*
 	 * // bi-directional many-to-one association to Product
