@@ -36,7 +36,7 @@ public interface BillsDAO {
 
 	List<Bill> findEveryBillBymonthAndTotalPrice(int year, int month);
 
-	public void update(Bill theBill);
+	
 
 
 
