@@ -109,15 +109,15 @@ public class BillsRestController {
 	@PostMapping("/totalpriceandmonth_bills")
 	//public Map<String, Object> findEveryBillBymonth(@PathVariable (required= true) List<BillMonthsDTO>BillMonthsDTOList )
 	public List<Map<String,Object>> findEveryBillBymonth(@RequestBody (required= true) List<BillMonthsDTO> BillMonthsDTOList )
-	
+
 	{
-	
+
 		return BillsService.findEveryBillBymonth(BillMonthsDTOList);
-	
+
 	}
-	
-	
-	
+
+
+
 	//////////get product sold in certain period /////////////////////////for Bi/////////////
 
 	@GetMapping("/get_list_sold_product/{replyTime1}/{replyTime2}")
@@ -151,12 +151,12 @@ public class BillsRestController {
 
 
 
-	// add mapping for POST /Bills - add new Bills 
+	// add mapping for POST /Bills - add new Bills
 
 	@PostMapping("/add_new_Bills")
 	public Map<String, Object> addBill(@RequestBody Bill theBill) {
 		Map<String, Object> coordinates = new HashMap<>();
-	
+
 		BillsService.saveORupdate(theBill);
         Long billId2= theBill.getBillId();
         if ( billId2 != null)
@@ -166,7 +166,7 @@ public class BillsRestController {
             coordinates.put("msg","the bill is successfully added");
         }
 
-        	
+
         	//return BillsService.findByBillID(theBill.getBillId());
 		return coordinates;
 
@@ -185,22 +185,21 @@ public class BillsRestController {
         coordinates.put("billId",billId2);
         coordinates.put("msg","the bill is successfully added");
     }
-    	
+
 	return coordinates;
 
 }
-	
-	
-	
-	
+
+
+
+
 	// add mapping for PUT /Bills - update existing Bill
 
 	@PutMapping("/update")
 	public Bill updateBill(@RequestBody Bill theBill) {
-
-		
+      System.out.println(theBill.getBillId());
+      theBill.setBillId(theBill.getBillId());
 		BillsService.saveORupdate(theBill);
-
 		return theBill;
 	}
 

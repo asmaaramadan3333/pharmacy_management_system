@@ -64,6 +64,7 @@ public class SupplisServiceImpl implements SuppliesService {
 	}
 
 	@Override
+	@Transactional
 	public void saveORupdate(Supply theSupply) {
 		// TODO Auto-generated method stub
 		SuppliesDAO.saveORupdate(theSupply);

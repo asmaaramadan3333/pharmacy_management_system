@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "supply_products")
-@NamedQuery(name = "SupplyProduct.findAll", query = "SELECT s FROM SupplyProduct s")
+
 public class SupplyProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,39 +35,17 @@ public class SupplyProduct implements Serializable {
 
 	@Column(name = "remained_quantity")
 	private float remainedQuantity;
-
-	/*
-	 * //bi-directional many-to-one association to PharmaCo
-	 * 
-	 * @ManyToOne(fetch=FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name="company_id" , insertable=false, updatable=false) private
-	 * PharmaCo pharmaCo;
-	 * 
-	 * 
-	 * //bi-directional many-to-one association to Product
-	 * 
-	 * @ManyToOne(fetch=FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name="product_code" , insertable=false,updatable=false) private
-	 * Product product;
-	 */
-	// bi-directional many-to-one association to Supply
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumns({
-	 * 
-	 * @JoinColumn(name = "company_id", referencedColumnName = "company_id",
-	 * insertable = false, updatable = false),
-	 * 
-	 * @JoinColumn(name = "supply_id", referencedColumnName = "supply_bill_id",
-	 * insertable = false, updatable = false) }) private Supply supply;
-	 */
-
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="company_id", referencedColumnName="company_id", insertable=false,updatable=false),
+		@JoinColumn(name="supply_id", referencedColumnName="supply_bill_id", insertable=false,updatable=false)
+		})
+	private Supply supply;
 	public SupplyProduct() {
 	}
-
+	
+	
 	public SupplyProductPK getId() {
 		return this.id;
 	}

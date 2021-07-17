@@ -2,17 +2,11 @@ package graduation.demo.pharmacymanagementsystem.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the supply database table.
- * 
- */
 @Entity
 @Table(name="supply")
 @NamedQuery(name="Supply.findAll", query="SELECT s FROM Supply s")
@@ -74,9 +68,12 @@ public class Supply implements Serializable {
 		this.employeeId = employeeId;
 	}
 
-	@JoinColumns({
-		@JoinColumn(name = "company_id"),@JoinColumn(name = "supply_id") })
-		@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	/*
+	 * @JoinColumns({
+	 * 
+	 * @JoinColumn(name = "company_id"),@JoinColumn(name = "supply_id")})
+	 */
+		@OneToMany(mappedBy="supply")
 		private List<SupplyProduct> supplyProducts;
 
 		

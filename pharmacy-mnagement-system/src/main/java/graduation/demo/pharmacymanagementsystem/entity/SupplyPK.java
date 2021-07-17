@@ -12,11 +12,11 @@ public class SupplyPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="company_id", insertable=false, updatable=false)
+	@Column(name="company_id")
 	private int companyId;
 
 	
-	@Column(name="supply_bill_id",insertable=false, updatable=false)
+	@Column(name="supply_bill_id")
 	private int supplyBillId;
 
 	public SupplyPK() {

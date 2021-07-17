@@ -124,7 +124,8 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 	public void saveORupdate(Supply theSupply) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
-		currentSession.saveOrUpdate(theSupply);
+		currentSession.update(theSupply);
+		
 		currentSession.flush();
 	}
 
