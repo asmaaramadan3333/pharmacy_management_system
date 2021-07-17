@@ -62,7 +62,7 @@ public class SuppliesRestController {
 	@PostMapping("/add_new")
 	public Supply addSupply(@RequestBody Supply theSupply) {
 
-		SuppliesService.save(theSupply);
+		SuppliesService.saveORupdate(theSupply);
 		
 		return theSupply;
 		}

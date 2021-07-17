@@ -74,7 +74,7 @@ public class Supply implements Serializable {
 	 * 
 	 * @JoinColumn(name = "company_id"),@JoinColumn(name = "supply_id")})
 	 */
-		@OneToMany(mappedBy="supply")
+		@OneToMany(mappedBy="supply",cascade= {CascadeType.ALL})
 
 
 		private List<SupplyProduct> supplyProducts;
