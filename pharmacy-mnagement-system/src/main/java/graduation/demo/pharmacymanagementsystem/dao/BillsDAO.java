@@ -27,17 +27,9 @@ public interface BillsDAO {
 
 	public List<Bill> find_filteredBills(Long billId, String billType, String billState, String replyTime);
 
-
-
-	
-
-	//public List<Bill> searchByName(String theName);
-	public List<Bill> findEveryBillBymonth(Date replyTime4,Date replyTime5);
-
-	List<Bill> findEveryBillBymonthAndTotalPrice(int year, int month);
+	public Map<String, Object> findEveryBillBymonthAndTotalPrice(Date timestamp1, Date timestamp2);
 
 	
-
 
 
 }
