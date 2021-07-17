@@ -37,6 +37,7 @@ public class PharmaCoRestController {
 	 * returnTheId(@PathVariable String thecompanyname) { Map<String, Integer>
 	 * coordinates = new HashMap<>(); System.out.println(thecompanyname);
 	 * 
+	 * 
 	 * @SuppressWarnings("deprecation") String companyname =
 	 * URLDecoder.decode(thecompanyname); System.out.println(companyname);
 	 * coordinates.put("theID", pharmacoService.returnCompanyId(companyname));
