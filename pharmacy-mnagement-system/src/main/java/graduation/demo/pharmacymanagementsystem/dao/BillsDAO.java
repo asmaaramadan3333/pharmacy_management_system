@@ -29,7 +29,7 @@ public interface BillsDAO {
 
 
 
-	public Map<String, Object> findEveryBillBymonthAndTotalPrice(Date timestamp1, Date timestamp2);
+	
 
 	//public List<Bill> searchByName(String theName);
 	public List<Bill> findEveryBillBymonth(Date replyTime4,Date replyTime5);
