@@ -63,7 +63,7 @@ public class SuppliesRestController {
 	public Supply addSupply(@RequestBody Supply theSupply) {
 
 		SuppliesService.saveORupdate(theSupply);
-		
+		SuppliesService.addTotalPriceToBalance(theSupply.getTotalPrice(),theSupply.getId().getCompanyId());
 		return theSupply;
 		}
 	
