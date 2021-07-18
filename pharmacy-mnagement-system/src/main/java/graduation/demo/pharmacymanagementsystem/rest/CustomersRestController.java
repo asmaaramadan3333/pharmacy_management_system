@@ -363,7 +363,7 @@ public class CustomersRestController {
 
 	
 	////////////////////////// get customer bills////////////////////////
-	@GetMapping("/get_bills/{CustomerId}")
+	/*@GetMapping("/get_bills/{CustomerId}")
 	public List<Bill> getCustomerBills(@PathVariable int CustomerId) {
 
 		Customer theCustomer = customersService.findByCode(CustomerId);
@@ -373,7 +373,7 @@ public class CustomersRestController {
 		}
 
 		return theCustomer.getBills();
-	}
+	}*/
 	
 	
 	

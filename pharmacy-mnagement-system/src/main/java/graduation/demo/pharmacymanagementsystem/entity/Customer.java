@@ -174,13 +174,13 @@ public class Customer implements Serializable {
 		this.password = password;
 	}
 	
-	public List<Bill> getBills() {
+/*	public List<Bill> getBills() {
 		return this.bills;
 	}
 
 	public void setBills(List<Bill> bills) {
 		this.bills = bills;
-	}
+	}*/
 	public float getRate() {
 		return rate;
 	}
@@ -216,21 +216,21 @@ public class Customer implements Serializable {
 
 
 
-	public List<Product> getProducts() {
+	/*public List<Product> getProducts() {
 		return this.products;
 	}
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
-	}
+	}*/
 
-	public List<Employee> getEmployees() {
+	/*public List<Employee> getEmployees() {
 		return this.employees;
 	}
 
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
-	}
+	}*/
 
 	public void add (Product theproduct)
 	{
