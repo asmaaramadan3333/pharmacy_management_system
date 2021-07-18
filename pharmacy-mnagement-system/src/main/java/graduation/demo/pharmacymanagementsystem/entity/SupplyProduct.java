@@ -18,6 +18,14 @@ public class SupplyProduct implements Serializable {
 	@EmbeddedId
 	private SupplyProductPK id;
 
+	@Override
+	public String toString() {
+		return "SupplyProduct [id=" + id.getCompanyId() +id.getProductCode() + id.getSupplyId() + ", bonusQuantity=" + bonusQuantity + ", deliveredQuantity="
+				+ deliveredQuantity + ", expiredDate=" + expiredDate + ", pharmacistPrice=" + pharmacistPrice
+				+ ", productPrice=" + productPrice + ", remainedQuantity=" + remainedQuantity + ", supply=" + supply
+				+ "]";
+	}
+
 	@Column(name = "bonus_quantity")
 	private float bonusQuantity;
 

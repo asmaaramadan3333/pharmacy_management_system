@@ -56,11 +56,15 @@ public class BillsProduct implements Serializable {
 	public BillsProduct() {
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "BillsProduct [id=" + id + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", unitPrice="
-				+ unitPrice +  "]";
+		return "BillsProduct [id=" + id.getCompanyId() + id.getProductCode() + id.getSupplyId() + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", unitPrice="
+				+ unitPrice + "]";
 	}
+
+
 
 	public BillsProductPK getId() {
 		return this.id;
@@ -93,6 +97,11 @@ public class BillsProduct implements Serializable {
 	public void setUnitPrice(float unitPrice) {
 		this.unitPrice = unitPrice;
 	}
+
+
+
+
+
 
 }
 

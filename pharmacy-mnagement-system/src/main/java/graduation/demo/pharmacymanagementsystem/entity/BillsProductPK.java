@@ -18,6 +18,12 @@ public class BillsProductPK implements Serializable {
 	@Column(name="product_code", insertable=false, updatable=false)
 	private int productCode;
 
+	@Column(name="company_id")
+	private int companyId;
+	
+	@Column(name="supply_id")
+	private int supplyId;
+
 	public BillsProductPK() {
 	}
 	public long getBillId() {
@@ -32,6 +38,23 @@ public class BillsProductPK implements Serializable {
 	public void setProductCode(int productCode) {
 		this.productCode = productCode;
 	}
+	
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
+	}
+
+	public int getSupplyId() {
+		return supplyId;
+	}
+
+	public void setSupplyId(int supplyId) {
+		this.supplyId = supplyId;
+	}
+
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;
