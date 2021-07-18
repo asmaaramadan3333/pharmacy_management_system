@@ -112,12 +112,8 @@ public class BillsProductsServiceImpl implements BillsProductsService {
 		
 			SupplyProductsService.editSupplyQuantity(the_saved_list);
 		
-			
-		
-		  
  		  coordinates.put("msg","success");
 		  coordinates.put("status",1);
-		  coordinates.put("saved",the_saved_list);
 		  return coordinates;
 
 	}
