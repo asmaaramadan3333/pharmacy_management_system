@@ -76,6 +76,8 @@ public class Bill implements Serializable {
 	@Column(name = "customer_id")
 	private int customerId;
 
+	@Column(name="feedback_message")
+	private String feedbackMessage;
 	
 	@OneToMany(mappedBy = "bill")
 	
@@ -253,6 +255,14 @@ public class Bill implements Serializable {
 
 	public List<BillsProduct> getBillsProducts() {
 		return this.billsProducts;
+	}
+
+	public String getFeedbackMessage() {
+		return feedbackMessage;
+	}
+
+	public void setFeedbackMessage(String feedbackMessage) {
+		this.feedbackMessage = feedbackMessage;
 	}
 
 	public void setBillsProducts(List<BillsProduct> billsProducts) {

@@ -86,7 +86,6 @@ public class BillsServiceImpl implements BillsService {
 
 		BillsDAO.saveORupdate(theBill);
 
-		// Bill thebill=theBill.getBillId();
 
 	}
 
