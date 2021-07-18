@@ -1,6 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -15,7 +17,7 @@ import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProductPK;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
-import graduation.demo.pharmacymanagementsystem.entity.Supply;
+import graduation.demo.pharmacymanagementsystem.entity.SupplyProduct;
 
 @Repository
 public class BillsProductsDAOImpl implements BillsProductsDAO {
@@ -28,6 +30,9 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 		public BillsProductsDAOImpl(EntityManager theEntityManager) {
 			entityManager = theEntityManager;
 		}
+		
+
+		
 		
 	@Override
 	public BillsProduct getbill_by_pkid(BillsProductPK id) {
@@ -84,7 +89,7 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 	
 	@Override
 	//@Transactional
-	public void saveORupdate(List<BillsProduct>  theBillsProduct) {
+	public List<BillsProduct> saveORupdate(List<BillsProduct>  theBillsProduct) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		Transaction tx = currentSession.beginTransaction();
 		for(int i=0 ;i<theBillsProduct.size();i++)
@@ -94,11 +99,8 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 		}
 		tx.commit();
 		currentSession.close();
-        /*for (int i =0; i<theBillsProduct.size();i++)
-        {
-		//currentSession.saveOrUpdate(theBillsProduct.get(i));
-		currentSession.merge(theBillsProduct.get(i));
-        }*/
+      
+		return theBillsProduct;
 	}
 	
 	
@@ -131,7 +133,7 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 		Query theQuery = 
 				currentSession.createQuery(
 						"delete from BillsProduct where code=:id");
-		theQuery.setParameter("BillsProductCode", theBillsProduct_id);
+		theQuery.setParameter("id", theBillsProduct_id);
 				
 		theQuery.executeUpdate();
 
@@ -151,6 +153,35 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 		// return the product
 		return theProduct;
 	}
+
+	/*@SuppressWarnings("unchecked")
+	@Override
+	public void editSupplyQuantity(BillsProduct the_saved_product) {
+		
+		Map<String, Object> total_quantity = new HashMap<>();;
+		Session currentSession =entityManager.unwrap(Session.class);
+			
+			try {
+			Query<SupplyProduct> theQuery =
+
+			currentSession.createQuery(
+			"update graduation.demo.pharmacymanagementsystem.entity.SupplyProduct AS s set remainedQuantity = remainedQuantity - :Quantity" 
+			+ "where  s.id.productCode =: product_code and s.id.supplyId =: supply_id "
+			+ "and s.id.companyId =: company_id",SupplyProduct.class);		
+			
+			theQuery.setParameter("Quantity",the_saved_product.getQuantity() );
+			theQuery.setParameter("product_code", the_saved_product.getId().getProductCode());
+			theQuery.setParameter("supply_id", the_saved_product.getId().getSupplyId());
+			theQuery.setParameter("company_id", the_saved_product.getId().getCompanyId());
+			 theQuery.executeUpdate();
+
+
+			   }
+				catch (Exception ex) {
+				ex.printStackTrace();
+			    }
+		
+	}*/
 
 
 	

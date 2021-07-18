@@ -221,20 +221,7 @@ public class BillsServiceImpl implements BillsService {
 		Map<String, Object> coordinatesMap = new HashMap<>();
 		List<Bill> Bill_list = new ArrayList<Bill>();	
 		List<Map<String,Object>> totalpriceMap = new ArrayList<Map<String,Object>>();
-		/*for (int i=1 ;i<13;i++)
-		{
-			if (i<10)
-			{
-			 coordinatesMap.put("month",i);
-			 coordinatesMap.put("totalPrice",BillsDAO.findEveryBillBymonthAndTotalPrice(year,i));
-	           	}
-		   else {
 
-				 coordinatesMap.put("month",i);
-				 coordinatesMap.put("totalPrice",BillsDAO.findEveryBillBymonthAndTotalPrice(year,i));
-			}
-		 }*/
-		
 		for(int i=0;i<billMonthsDTOList.size();i++)
 		{
 			Bill thebilltotal= new Bill();

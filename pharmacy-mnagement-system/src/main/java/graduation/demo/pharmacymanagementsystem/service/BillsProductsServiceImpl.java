@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import graduation.demo.pharmacymanagementsystem.dao.BillsProductsDAO;
 import graduation.demo.pharmacymanagementsystem.dto.BillsProductDTO;
+import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProductPK;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
@@ -19,9 +20,14 @@ import graduation.demo.pharmacymanagementsystem.entity.Product;
 @Service
 public class BillsProductsServiceImpl implements BillsProductsService {
 
+	@Autowired
 	private BillsProductsDAO BillsProductsDAO;
+	@Autowired
+	private ProductsService ProductsService;
 	
-	private ProductsService theProductsService;
+	@Autowired
+	private SupplyProductsService SupplyProductsService;
+	
 	@Autowired
 	public BillsProductsServiceImpl(BillsProductsDAO theBillsProductsDAO) {
 		BillsProductsDAO = theBillsProductsDAO;
@@ -101,9 +107,17 @@ public class BillsProductsServiceImpl implements BillsProductsService {
 			  }			  
 		  }
 		
-		BillsProductsDAO.saveORupdate(theBillsProduct);
-		  coordinates.put("msg","success");
+		List<BillsProduct> the_saved_list = BillsProductsDAO.saveORupdate(theBillsProduct);
+        
+		
+			SupplyProductsService.editSupplyQuantity(the_saved_list);
+		
+			
+		
+		  
+ 		  coordinates.put("msg","success");
 		  coordinates.put("status",1);
+		  coordinates.put("saved",the_saved_list);
 		  return coordinates;
 
 	}

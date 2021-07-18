@@ -256,16 +256,7 @@ public class BillsDAOImpl implements BillsDAO {
 		// get the current hibernate session
 		Map<String, Object> totalprice = new HashMap<>();;
 		Session currentSession = entityManager.unwrap(Session.class);
-			/*
-			 * String theactualmonth ="0"+Integer.toString(month);
-			 * System.out.println(theactualmonth); LocalDate date =
-			 * LocalDate.parse(theactualmonth); System.out.println(date);
-			 */	/*
-					 * currentSession.createQuery(
-					 * "select sum(totalPrice) and month(replayTime) from  Bill b where year(b.replayTime) =: theyear and Bill.status='done' "
-					 * );
-					 */
-		//List<Object[]>
+			
 			try {
 			Query theQuery =
 
