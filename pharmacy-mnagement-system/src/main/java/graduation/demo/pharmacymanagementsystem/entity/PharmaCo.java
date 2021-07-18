@@ -30,7 +30,7 @@ public class PharmaCo implements Serializable {
 	private String email;
 
 	@Column(name="balance")
-	private int balance;
+	private float balance;
 
 	
 	@Temporal(TemporalType.DATE)
@@ -76,7 +76,7 @@ public class PharmaCo implements Serializable {
 		this.id = id;
 	}
     
-	public int getBalance() {
+	public float getBalance() {
 		return balance;
 	}
 
