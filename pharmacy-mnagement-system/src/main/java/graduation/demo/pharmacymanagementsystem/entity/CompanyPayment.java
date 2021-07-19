@@ -24,6 +24,10 @@ public class CompanyPayment implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date timing;
+	
+	
+	@Column(name="company_id")
+	private int companyId;
 	/*
 	 * //bi-directional many-to-one association to PharmaCo
 	 * 
@@ -60,6 +64,14 @@ public class CompanyPayment implements Serializable {
 
 	public void setTiming(Date timing) {
 		this.timing = timing;
+	}
+
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
 
 

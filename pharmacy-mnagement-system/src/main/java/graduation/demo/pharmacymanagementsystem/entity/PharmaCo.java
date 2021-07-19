@@ -39,7 +39,7 @@ public class PharmaCo implements Serializable {
 
 
 	@Column(name="payment_interval")
-	private String paymentInterval;
+	private int paymentInterval;
 
 	@Column(name="payment_method")
 	private String paymentMethod;
@@ -80,7 +80,7 @@ public class PharmaCo implements Serializable {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 
@@ -126,11 +126,11 @@ public class PharmaCo implements Serializable {
 
 	
 
-	public String getPaymentInterval() {
+	public int getPaymentInterval() {
 		return this.paymentInterval;
 	}
 
-	public void setPaymentInterval(String paymentInterval) {
+	public void setPaymentInterval(int paymentInterval) {
 		this.paymentInterval = paymentInterval;
 	}
 

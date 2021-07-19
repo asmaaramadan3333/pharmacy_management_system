@@ -1,8 +1,10 @@
 package graduation.demo.pharmacymanagementsystem.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import graduation.demo.pharmacymanagementsystem.entity.CompanyPayment;
 import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
 
 public interface PharmaCoService {
@@ -18,6 +20,8 @@ public interface PharmaCoService {
 	public List<PharmaCo> findAllPharmaCo();
 
 	public void save(PharmaCo new_PharmaCo);
+
+	public void update_balance_futurepayment(CompanyPayment theCompanyPayment);
 
 	
    // public Map <String, Integer> get_id_employee_company_product(String name_of_product,String type,int size,String name_of_company,String name_of_employee);
