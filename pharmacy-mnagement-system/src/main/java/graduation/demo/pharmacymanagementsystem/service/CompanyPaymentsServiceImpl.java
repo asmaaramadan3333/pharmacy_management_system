@@ -55,7 +55,7 @@ public class CompanyPaymentsServiceImpl implements CompanyPaymentsService {
 		
 		
 	}
-
+ 
 	@Override
 	public List<CompanyPayment> find_filteredCompanyPayments(Integer companyId, Date start_date, Date end_date) {
 		return CompanyPaymentsDAO.find_filteredCompanyPayments(companyId,start_date,end_date);

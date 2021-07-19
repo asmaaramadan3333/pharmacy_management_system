@@ -77,7 +77,8 @@ public class BillsDAOImpl implements BillsDAO {
 		try {
 
 		// create a query
-		Query<Bill> theQuery = currentSession.createQuery("from Bill b where b.billState = 'done' and  b.replyTime between :reply1  and  :reply2 ", Bill.class);
+		Query<Bill> theQuery = currentSession.createQuery(
+				"from Bill b where b.billState = 'done' and  b.replyTime between :reply1  and  :reply2 ", Bill.class);
 
 		theQuery.setParameter("reply1", replyTime1);
 		theQuery.setParameter("reply2", replyTime2);
@@ -90,6 +91,8 @@ public class BillsDAOImpl implements BillsDAO {
 		catch (Exception ex) {
 		ex.printStackTrace();
 	     }
+		
+		//System.out.println(Bill_list);
 	     return Bill_list;
 
 	    }
