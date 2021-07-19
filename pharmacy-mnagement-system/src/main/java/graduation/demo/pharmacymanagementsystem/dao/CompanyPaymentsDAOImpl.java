@@ -1,5 +1,7 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import graduation.demo.pharmacymanagementsystem.entity. CompanyPayment;
 
 @Repository
@@ -64,6 +67,42 @@ public class CompanyPaymentsDAOImpl implements CompanyPaymentsDAO {
 		currentSession.saveOrUpdate(theCompanyPayment);
 		
 	}
+
+
+	@Override
+	public List<CompanyPayment> find_filteredCompanyPayments(int companyId1, Date start_date1, Date end_date1) {
+		List<CompanyPayment> companypayment_list = new ArrayList<CompanyPayment>();
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		try {
+
+
+		Query<CompanyPayment> theQuery = currentSession.createQuery(
+				"FROM CompanyPayment c WHERE c.companyId = COALESCE(:companyId2, companyId)" 
+				
+				+ "and c.timing  between COALESCE(:start_date2,timing) and COALESCE(:end_date2,timing )", CompanyPayment.class);
+
+		theQuery.setParameter("companyId2", companyId1);
+		theQuery.setParameter("start_date2",start_date1);
+		theQuery.setParameter("end_date2",end_date1);
+	
+
+		if (!theQuery.getResultList().isEmpty()) {
+			companypayment_list = theQuery.getResultList();
+		}
+
+	   }
+		catch (Exception ex) {
+		ex.printStackTrace();
+	    }
+		
+		
+
+
+		return companypayment_list;
+	}
+		
+	
 	
 /*	
 	@Override

@@ -1,5 +1,6 @@
 package graduation.demo.pharmacymanagementsystem.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import graduation.demo.pharmacymanagementsystem.dao.PharmaCoDAO;
+import graduation.demo.pharmacymanagementsystem.entity.CompanyPayment;
 import graduation.demo.pharmacymanagementsystem.entity.Employee;
 import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
@@ -83,6 +85,12 @@ public class PharmaCoServiceImpl implements PharmaCoService {
 	@Transactional
 	public void save(PharmaCo new_PharmaCo) {
 		 PharmaCoDAO.save(new_PharmaCo);
+	}
+
+
+	@Override
+	public void update_balance_futurepayment(CompanyPayment theCompanyPayment) {
+		PharmaCoDAO.update_balance_futurepayment(theCompanyPayment);		
 	}
 	
 }

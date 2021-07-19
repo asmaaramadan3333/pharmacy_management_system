@@ -203,7 +203,7 @@ public class BillsDAOImpl implements BillsDAO {
 
 		Query<Bill> theQuery = currentSession.createQuery("FROM Bill b WHERE b.billId = COALESCE(:bill_id, billId)"
 				+ "and b.billType = COALESCE (:bill_type,billType) and b.billState = COALESCE (:bill_state , billState)"
-				+ "and b.replyTime  between :reply_time1 and :reply_time2  ", Bill.class);
+				+ "and b.replyTime  between COALESCE(:reply_time1,replyTime) and COALESCE(:reply_time2,replyTime)  ", Bill.class);
 
 		theQuery.setParameter("bill_id", billId1);
 		theQuery.setParameter("bill_type",billType1);

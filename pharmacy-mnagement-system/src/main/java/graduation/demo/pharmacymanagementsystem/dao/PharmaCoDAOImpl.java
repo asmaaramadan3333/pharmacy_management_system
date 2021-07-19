@@ -1,5 +1,7 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
+import graduation.demo.pharmacymanagementsystem.entity.CompanyPayment;
 import graduation.demo.pharmacymanagementsystem.entity.Employee;
 import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
+import graduation.demo.pharmacymanagementsystem.entity.SupplyProduct;
 
 @Repository
 public class PharmaCoDAOImpl implements PharmaCoDAO {
@@ -87,6 +91,71 @@ public class PharmaCoDAOImpl implements PharmaCoDAO {
 		currentSession.flush();
 	}
 
+
+	public PharmaCo findByPharmaCoId(int thePharmaCo_id)
+	{
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		PharmaCo thePharmaCo =
+				currentSession.get(PharmaCo.class, thePharmaCo_id);
+
+		// return the Bill
+		return thePharmaCo;
+	}
+	
+	private Date editcompanydate (Date companydate ,int paymentIntervals) {
+		if(companydate!=null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(companydate);
+          //  int duration = getSysPramDueDate("dueDate.allocation");
+            cal.add(Calendar.MONTH, paymentIntervals);
+            Date dueDate = cal.getTime();
+            return dueDate;
+        }
+		else return null;
+	}
+	
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public void update_balance_futurepayment(CompanyPayment theCompanyPayment) {
+
+		PharmaCo thePharmaCo = findByPharmaCoId(theCompanyPayment.getCompanyId());
+		
+		int paymentIntervals = thePharmaCo.getPaymentInterval();
+		   System.out.println("theCompanyPayment.getTiming() before edit" +theCompanyPayment.getTiming());
+
+		  Date time3 = editcompanydate (theCompanyPayment.getTiming(),paymentIntervals);
+		//  System.out.println("theCompanyPayment.getTiming() after edit"+theCompanyPayment.getTiming());
+	      //System.out.println("time3" + time3);
+	     	Session currentSession = entityManager.unwrap(Session.class);
+		try {
+			@SuppressWarnings("unchecked")
+			Query<SupplyProduct> theQuery =	currentSession.createQuery(
+
+		
+			"update PharmaCo AS p set p.balance = p.balance - (:Payment2) ," 
+			+ " p.paymentFutureDate = (:timing2)" + 
+			 " where  p.id = :companyid2 "); 
+			
+			theQuery.setParameter("Payment2",theCompanyPayment.getPayment() );
+			theQuery.setParameter("timing2",time3 );
+			theQuery.setParameter("companyid2", theCompanyPayment.getCompanyId());
+			int result = theQuery.executeUpdate();
+              
+
+			   }
+				catch (Exception ex) {
+				ex.printStackTrace();
+			    }
+		
+	}
+
+	
+	
+	
+	
+	
 
 	/*
 	 * /////////////////////////////////////////////////////////////////product
