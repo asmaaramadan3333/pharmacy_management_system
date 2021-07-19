@@ -24,6 +24,11 @@ public class CustomerDTO {
 	
 	private String edited_address;
 	
+	private String password;
+	
+	private int rate;
+
+	
 	public CustomerDTO() {
 
 	}
@@ -120,6 +125,22 @@ public class CustomerDTO {
 
 	public void setEdited_address(String edited_address) {
 		this.edited_address = edited_address;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 
 	@Override

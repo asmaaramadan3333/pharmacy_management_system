@@ -113,9 +113,10 @@ public class CustomersServiceImpl implements CustomersService {
 
 			theCustomer.setCredit(theCustomerdto.getCredit());
 		}
-
+        theCustomer.setPassword(theCustomerdto.getPassword());		
 		
-		Customer the_customer =  CustomersDAO.save_desktop(theCustomer);
+        theCustomer.setRate(theCustomerdto.getRate());        
+        Customer the_customer =  CustomersDAO.save_desktop(theCustomer);
 		
 		
 		return the_customer;

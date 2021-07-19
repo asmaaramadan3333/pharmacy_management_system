@@ -136,18 +136,7 @@ public class CustomersRestController {
 	    return	customersService.get_customer_by_phone(phone);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	// *********** post requests///////////////
