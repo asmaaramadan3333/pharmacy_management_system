@@ -116,6 +116,8 @@ public class BillsServiceImpl implements BillsService {
 		
 		Timestamp timestamp1 = Timestamp.valueOf(replyTime1);
 		Timestamp timestamp2 = Timestamp.valueOf(replyTime2);
+		System.out.println(timestamp1);
+		System.out.println(timestamp2);
 
 		List<Bill> Bill_list = BillsDAO.find_product_while_aperiod(timestamp1, timestamp2);
 		
@@ -126,7 +128,7 @@ public class BillsServiceImpl implements BillsService {
 		List<SoldProductsQuantityDTO> soldProductsList = new ArrayList<SoldProductsQuantityDTO>();
 
         coordinatesMap = getMapOfSoldProducts(Bill_list);
-        
+        if (coordinatesMap != null) {
 			for (Map.Entry<String,Integer> entry : coordinatesMap.entrySet()) {
 				
 				SoldProductsQuantityDTO soldProducts = new SoldProductsQuantityDTO();
@@ -135,17 +137,14 @@ public class BillsServiceImpl implements BillsService {
 				soldProductsList.add(soldProducts);
 			}
 		return soldProductsList;
-		
+        }
+        else return null;
 		
 		
 
 	}
 
-	/*
-	 * @Override public List<Bill> searchByName(String theName) {
-	 * 
-	 * return BillsDAO.searchByName(theName); }
-	 */
+
      private Map<String, Integer> getMapOfSoldProducts(List<Bill>Bill_list ){
 		
     	 Map<String, Integer> coordinatesMap = new HashMap<>();
