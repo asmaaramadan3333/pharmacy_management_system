@@ -35,7 +35,7 @@ public class Customer implements Serializable {
 	@Column(name="password")
 	private String password;
 	@Column(name="rate")
-	private float rate;
+	private int rate;
 
 	@JoinColumn(name="customer_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL )
@@ -82,7 +82,7 @@ public class Customer implements Serializable {
 	}
 
 	public Customer(float credit, Date dateOfBirth, String email, String firstName, String gender, String lastName,
-			String password, float rate, List<Bill> bills, List<CustomersAddress> customersAddresses,
+			String password, int rate, List<Bill> bills, List<CustomersAddress> customersAddresses,
 			List<CustomersPhone> customersPhones, List<CustomersPrescript> customersPrescripts, List<Product> products,
 			List<Employee> employees) {
 		this.credit = credit;
@@ -181,11 +181,11 @@ public class Customer implements Serializable {
 	public void setBills(List<Bill> bills) {
 		this.bills = bills;
 	}*/
-	public float getRate() {
+	public int getRate() {
 		return rate;
 	}
 
-	public void setRate(float rate) {
+	public void setRate(int rate) {
 		this.rate = rate;
 	}
 
