@@ -49,7 +49,7 @@ public class CompanyPaymentsRestController {
 	
 	@GetMapping("/filtered_company_payments")
 	@ResponseBody
-	public List<CompanyPayment> getFilteredBills(@RequestParam(required = false) int companyId
+	public List<CompanyPayment> getFilteredBills(@RequestParam(required = false) Integer companyId
 			,@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date start_date
 			,@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date end_date)
 	    {
