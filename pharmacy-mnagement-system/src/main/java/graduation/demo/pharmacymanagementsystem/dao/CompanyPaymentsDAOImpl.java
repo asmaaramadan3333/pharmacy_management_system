@@ -70,7 +70,7 @@ public class CompanyPaymentsDAOImpl implements CompanyPaymentsDAO {
 
 
 	@Override
-	public List<CompanyPayment> find_filteredCompanyPayments(int companyId1, Date start_date1, Date end_date1) {
+	public List<CompanyPayment> find_filteredCompanyPayments(Integer companyId1, Date start_date1, Date end_date1) {
 		List<CompanyPayment> companypayment_list = new ArrayList<CompanyPayment>();
 		Session currentSession = entityManager.unwrap(Session.class);
 		
