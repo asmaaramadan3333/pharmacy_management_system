@@ -302,14 +302,14 @@ public class CustomersServiceImpl implements CustomersService {
 		
 				Customer thecustomer = findByCode(cId);
 		
-				Map<String, Object> customer_coordinates = new HashMap<>();
+				/*Map<String, Object> customer_coordinates = new HashMap<>();
 				customer_coordinates.put("customerId",cId );
            		customer_coordinates.put("firstName",thecustomer.getFirstName());
         		customer_coordinates.put("lastName",thecustomer.getLastName());
         		customer_coordinates.put("credit",thecustomer.getCredit());
         		customer_coordinates.put("customersAddresses",thecustomer.getCustomersAddresses() );
-			  
-			    coordinates.put("theCustomer",customer_coordinates );
+			    customer*/
+			    coordinates.put("theCustomer",thecustomer );
 			    coordinates.put("status", 1);
 			}
 		else
