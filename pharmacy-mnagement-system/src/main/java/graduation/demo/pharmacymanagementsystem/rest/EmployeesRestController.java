@@ -46,18 +46,26 @@ public class EmployeesRestController {
 	@GetMapping("/return_the_password_and_email/{username}")
 		public Map restoreThePassword(@PathVariable String username)
 		{
-			Map <String,String> coordinates = new HashMap<>();	
+			Map <String,Object> coordinates = new HashMap<>();	
+			Employee employee2 =employeesService.getEmployeeByUsername(username);
+			if(employee2!=null) {
 			coordinates.put("thepassword",employeesService.restoreThePassword(username));
 			coordinates.put("theemail",employeesService.restoreEmail(username));
 			return coordinates;
-			
+			}
+			else {
+				coordinates.put("success", 0);
+				coordinates.put("message","the user : " + username + " not found " );
+				return coordinates;
+			}
 		}
 	////////////////return the id by user name/////////////////////// 
 	@GetMapping("/return_the_Id/{username}")
 		public Map returnTheId(@PathVariable String username)
 		{
 			Map <String,Integer> coordinates = new HashMap<>();	
-			coordinates.put("theID",employeesService.restoreId(username));
+			
+		    coordinates.put("theID",employeesService.restoreId(username));
 			return coordinates;
 			
 		}

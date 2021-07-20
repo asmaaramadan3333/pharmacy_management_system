@@ -80,9 +80,12 @@ public class EmployeesServiceImpl implements EmployeesService {
 		return theEmployee.getEmail() ;
 	}
 	@Override
-	public int restoreId(String theusername) {
+	public Integer restoreId(String theusername) {
 		// TODO Auto-generated method stub
 		Employee theEmployee=EmployeesDAO.getEmployeeByUsername(theusername);
+		if(theEmployee==null)
+			return  null;
+		else	
 		return theEmployee.getId() ;
 	}
 	@Override
