@@ -63,15 +63,20 @@ public class EmployeesRestController {
 		}
 	///////////////return the employee by user name//////////////////
 	@GetMapping("/return_the_employee/{theusername}")
-		public Employee getEmployeeByUsername(@PathVariable String theusername)
+		public Map <String,Object> getEmployeeByUsername(@PathVariable String theusername)
 		{
+		   Map <String,Object> coordinates = new HashMap<>();	
 	        Employee theEmployee =employeesService.getEmployeeByUsername(theusername);
 			
 			if (theEmployee == null) {
-				throw new RuntimeException("customer not found - " + theusername);
+				coordinates.put("success", 0);
+				coordinates.put("message","the user : " + theusername + " not found " );
+				return coordinates;			
 			}
-			
-			return theEmployee;
+			else
+			coordinates.put("success", 1);
+			coordinates.put("the_employee", theEmployee);
+			return coordinates;
 		}
 	/////////////////////////return the id of employee by taking the employee name/////////////////////
 	@GetMapping("/return_the__employee_Id/{theemployeename}")
@@ -85,17 +90,34 @@ public class EmployeesRestController {
 	////////////////////////////////////add_new_employee///////////////////////////
 
 	@PostMapping("/add_new")
-		public Employee addCustomer(@RequestBody Employee theEmployee) {
+		public Map <String,Object> addCustomer(@RequestBody Employee theEmployee) {
 	
-			// also just in case they pass an id in JSON ... set id to 0
-	
-			// this is to force a save of new item ... instead of update
-	
+		   Map <String,Object> coordinates = new HashMap<>();	
+
+		   if(theEmployee.getUsername()!=null)
+		   {
+		   Employee employee2 =employeesService.getEmployeeByUsername(theEmployee.getUsername());
+		   if (employee2!=null) {
+			   coordinates.put("success", 0);
+			   coordinates.put("message", "the username already exits before");
+			   return coordinates; 
+		   }
+		   else {
+			   theEmployee.setId(0);
+				employeesService.saveORupdate(theEmployee);
+				coordinates.put("success", 1);
+				coordinates.put("saved_employee :", theEmployee);
+				return coordinates;
+		   }
+		   
+		   }
 			theEmployee.setId(0);
-	
+	        
 			employeesService.saveORupdate(theEmployee);
-			//Employee theEmployeeAfterSave =employeesService.getEmployeeByUsername(theEmployee.getUsername());
-			return theEmployee ;
+			coordinates.put("success", 1);
+			coordinates.put("saved_employee :", theEmployee);
+			return coordinates;
+			
 		}
 
 }

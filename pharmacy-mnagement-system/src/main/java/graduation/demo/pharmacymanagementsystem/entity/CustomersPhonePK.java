@@ -33,17 +33,31 @@ public class CustomersPhonePK implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public boolean equals(Object other) {
-		if (this == other) {
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + customerId;
+		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!(other instanceof CustomersPhonePK)) {
+		if (obj == null)
 			return false;
-		}
-		CustomersPhonePK castOther = (CustomersPhonePK)other;
-		return 
-			(this.customerId == castOther.customerId)
-			&& (this.phoneNumber == castOther.phoneNumber);
+		if (getClass() != obj.getClass())
+			return false;
+		CustomersPhonePK other = (CustomersPhonePK) obj;
+		if (customerId != other.customerId)
+			return false;
+		if (phoneNumber == null) {
+			if (other.phoneNumber != null)
+				return false;
+		} else if (!phoneNumber.equals(other.phoneNumber))
+			return false;
+		return true;
 	}
 
 	
