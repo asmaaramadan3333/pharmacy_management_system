@@ -119,13 +119,14 @@ public class EmployeesRestController {
 		   }
 		   
 		   }
+		   else {
 			theEmployee.setId(0);
 	        
 			employeesService.saveORupdate(theEmployee);
 			coordinates.put("success", 1);
 			coordinates.put("saved_employee :", theEmployee);
 			return coordinates;
-			
+		   }
 		}
 
 }
