@@ -95,11 +95,14 @@ public class EmployeesServiceImpl implements EmployeesService {
 	}
 
 	@Override
-	public int returnemployeeId(String theemployeename) {
+	public Integer returnemployeeId(String theemployeename) {
 		// TODO Auto-generated method stub
 		
 		Employee theEmployee=EmployeesDAO.getEmployeeByname(theemployeename);
-		return theEmployee.getId();
+		if(theEmployee==null)
+			return  null;
+		else	
+		return theEmployee.getId() ;
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public interface EmployeesService {
 	public Employee getEmployeeByUsername(String theusername);
 	public String restoreEmail(String theusername);
 	public Integer restoreId(String theusername);
-	public int returnemployeeId(String theemployeename);
+	public Integer returnemployeeId(String theemployeename);
 	public void saveORupdate (Employee theEmployee);
 	public List <Employee> findAllEmployee();
 }
