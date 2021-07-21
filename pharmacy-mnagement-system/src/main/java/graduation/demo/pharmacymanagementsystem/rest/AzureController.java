@@ -1,6 +1,8 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +31,14 @@ public class AzureController {
 	 */
 
     @PostMapping("/upload")
-    public ResponseEntity upload(@RequestParam MultipartFile multipartFile){
-        URI url = AzureBlobAdapterServiceImpl.upload(multipartFile);
-        return ResponseEntity.ok(url);
+    public Map<String,Object> upload(@RequestParam MultipartFile multipartFile){
+	    Map<String, Object> coordinates = new HashMap<>();		  
+
+    	
+    	URI url = AzureBlobAdapterServiceImpl.upload(multipartFile);
+       coordinates.put("URL", ResponseEntity.ok(url));
+    	
+    	return coordinates;
     }
 
 	/*
