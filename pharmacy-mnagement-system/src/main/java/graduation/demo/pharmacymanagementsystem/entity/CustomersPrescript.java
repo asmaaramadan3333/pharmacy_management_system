@@ -67,10 +67,14 @@ public class CustomersPrescript implements Serializable {
 	 */
 
 	//bi-directional many-to-one association to PrescriptsProduct
-	@JoinColumn(name="prescript_id")
+	/*@JoinColumn(name="prescript_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	private List<PrescriptsProduct> prescriptsProducts;
+	private List<PrescriptsProduct> prescriptsProducts;*/
 
+	@OneToMany(mappedBy = "customersPrescript")
+	private List<PrescriptsProduct> prescriptsProducts;
+	
+	
 	public CustomersPrescript() {
 	}
 
