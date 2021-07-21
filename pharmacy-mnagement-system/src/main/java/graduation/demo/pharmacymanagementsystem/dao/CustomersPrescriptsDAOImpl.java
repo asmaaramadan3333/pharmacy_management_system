@@ -46,7 +46,7 @@ public class CustomersPrescriptsDAOImpl implements CustomersPrescriptsDAO {
 
 		// get the CustomersPrescript
 		CustomersPrescript theCustomersPrescript = currentSession.get(CustomersPrescript.class, theId);
-
+        
 		// return the CustomersPrescript
 		return theCustomersPrescript;
 	}

@@ -37,15 +37,22 @@ public class CustomersPrescriptsRestController {
 	// add mapping for GET /CustomersPrescripts/{CustomersPrescriptsCode}
 	
 	@GetMapping("/get_by_prescreption_id/{CustomersPrescriptsId}")
-	public CustomersPrescript getCustomersPrescripts(@PathVariable int CustomersPrescriptsId) {
+	public Map<String, Object> getCustomersPrescripts(@PathVariable int CustomersPrescriptsId) {
+		Map<String, Object> coordinates = new HashMap<>();	
+		CustomersPrescript theCustomersPrescript = CustomersPrescriptsService.findById(CustomersPrescriptsId);
 		
-		CustomersPrescript theCustomersPrescripts = CustomersPrescriptsService.findById(CustomersPrescriptsId);
-		
-		if (theCustomersPrescripts == null) {
-			throw new RuntimeException("Employee id not found - " + CustomersPrescriptsId);
+		if (theCustomersPrescript == null) {
+			 coordinates.put("status", 0);
+			 coordinates.put("msg", "theCustomersPrescript does not exist");
+			 return coordinates;		
+			 }
+		else
+		{
+			coordinates.put("status", 1);
+			coordinates.put("theCustomersPrescript", theCustomersPrescript);
+			 return coordinates;		
+
 		}
-		
-		return theCustomersPrescripts;
 	}
 	
 	@GetMapping("/check_status/{CustomersPrescriptsId}")
@@ -56,7 +63,7 @@ public class CustomersPrescriptsRestController {
 		
 		if (theCustomersPrescript == null) {
 			 coordinates.put("status", 0);
-			 coordinates.put("msg", "theCustomersPrescript donnot exists");
+			 coordinates.put("msg", "theCustomersPrescript does not exist");
 			 return coordinates;		
 			 }
 		else
