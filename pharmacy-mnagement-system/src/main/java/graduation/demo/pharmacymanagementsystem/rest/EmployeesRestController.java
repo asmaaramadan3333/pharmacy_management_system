@@ -87,14 +87,14 @@ public class EmployeesRestController {
 			return coordinates;
 		}
 	/////////////////////////return the id of employee by taking the employee name/////////////////////
-	@GetMapping("/return_the__employee_Id/{theemployeename}")
+	/*@GetMapping("/return_the__employee_Id/{theemployeename}")
 		public Map returnTheIdbyname(@PathVariable String theemployeename)
 		{    
 			Map <String,Integer> coordinates = new HashMap<>();	
 			coordinates.put("theID",employeesService.returnemployeeId(theemployeename));
 			return coordinates;
 			
-		}
+		}*/
 	////////////////////////////////////add_new_employee///////////////////////////
 
 	@PostMapping("/add_new")
