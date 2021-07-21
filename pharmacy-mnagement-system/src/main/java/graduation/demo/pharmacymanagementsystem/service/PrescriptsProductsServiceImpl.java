@@ -44,7 +44,7 @@ public class PrescriptsProductsServiceImpl implements PrescriptsProductsService 
 			  {
 				PrescriptsProduct thePrescriptsProduct2 = findById(thePrescriptsProduct.get(i).getId());
 				  if (thePrescriptsProduct2 != null) {
-				  coordinates.put("msg", "the Billproduct id already exist");
+				  coordinates.put("msg", "the Prescriptsproduct id already exist");
 				  coordinates.put("status", 0);
 				  coordinates.put("id",thePrescriptsProduct.get(i).getId());
 				  return coordinates;

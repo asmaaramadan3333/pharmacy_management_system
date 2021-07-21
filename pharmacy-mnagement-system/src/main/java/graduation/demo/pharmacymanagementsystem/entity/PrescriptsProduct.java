@@ -3,14 +3,13 @@ package graduation.demo.pharmacymanagementsystem.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the prescripts_products database table.
  * 
  */
 @Entity
-@Table(name="prescripts_products")
-@NamedQuery(name="PrescriptsProduct.findAll", query="SELECT p FROM PrescriptsProduct p")
+@Table(name = "prescripts_products")
+@NamedQuery(name = "PrescriptsProduct.findAll", query = "SELECT p FROM PrescriptsProduct p")
 public class PrescriptsProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,14 +20,13 @@ public class PrescriptsProduct implements Serializable {
 
 	private String type;
 
-	/*
-	 * //bi-directional many-to-one association to CustomersPrescript
-	 * 
-	 * @ManyToOne(fetch=FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name="prescript_id" , insertable=false,updatable=false) private
-	 * CustomersPrescript customersPrescript;
-	 */
+	// bi-directional many-to-one association to CustomersPrescript
+
+	@ManyToOne(fetch = FetchType.LAZY)
+
+	@JoinColumn(name = "prescript_id", insertable = false, updatable = false)
+	private CustomersPrescript customersPrescript;
+
 	/*
 	 * //bi-directional many-to-one association to Product
 	 * 
@@ -64,9 +62,5 @@ public class PrescriptsProduct implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-
-
-
 
 }

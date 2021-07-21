@@ -49,18 +49,7 @@ public class PrescriptsProductsRestController {
 		return thePrescriptsProduct;
 	}
 	
-	@GetMapping("/PrescriptsProducts_search/{PrescriptsProductName}")
-	public List<PrescriptsProduct> getPrescriptsProduct(@PathVariable String PrescriptsProductName) {
-		
-		List<PrescriptsProduct> thePrescriptsProduct = PrescriptsProductsService.searchByName(PrescriptsProductName);
-		
-		if (thePrescriptsProduct == null) {
-			throw new RuntimeException("Employee id not found - " + PrescriptsProductName);
-		}
-		
-		return thePrescriptsProduct;
-	}
-	
+
 	
 	
 	
