@@ -170,4 +170,16 @@ public void addTotalPriceToBalance(float totalPrice,int companyId) {
 	theQuery.executeUpdate();
 }
 
+@Override
+@Transactional
+public void substractBalanceFromTotalPrice(float totalPrice, int companyId) {
+	System.out.println(companyId);
+	Session currentSession = entityManager.unwrap(Session.class);
+	Query theQuery = currentSession.createQuery(
+			" UPDATE PharmaCo p set p.balance =(p.balance - (:thetotalprice )) WHERE p.id =: thecompanyId ");
+	theQuery.setParameter("thecompanyId", companyId);
+	theQuery.setParameter("thetotalprice", totalPrice);
+	theQuery.executeUpdate();
+}
+
 }

@@ -23,6 +23,8 @@ public interface SuppliesDAO {
 	 public Supply findSpecificSupply(int companyId, int supplyBillId);
 
 	public void addTotalPriceToBalance(float totalPrice,int companyId);
+
+	public void substractBalanceFromTotalPrice(float totalPrice, int companyId);
 	
 	
 }
