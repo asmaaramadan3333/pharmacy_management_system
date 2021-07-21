@@ -20,7 +20,7 @@ public class CustomersPrescript implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private int feedback;
+	private Integer feedback;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="reply_time")
@@ -30,9 +30,20 @@ public class CustomersPrescript implements Serializable {
 	@Column(name="sent_time")
 	private Date sentTime;
 
+	@Column(name="status")
 	private String status;
 
+	@Column(name="url")
 	private String url;
+	
+	@Column(name="customer_id")
+	private Integer customerId;
+	
+	@Column(name="employee_id")
+	private Integer employeeId;
+	
+	@Column(name="bill_id")
+	private Long billId;
 
 	/*
 	 * //bi-directional many-to-one association to Bill
@@ -71,11 +82,11 @@ public class CustomersPrescript implements Serializable {
 		this.id = id;
 	}
 
-	public int getFeedback() {
+	public Integer getFeedback() {
 		return this.feedback;
 	}
 
-	public void setFeedback(int feedback) {
+	public void setFeedback(Integer feedback) {
 		this.feedback = feedback;
 	}
 
@@ -111,6 +122,30 @@ public class CustomersPrescript implements Serializable {
 		this.url = url;
 	}
 
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public Long getBillId() {
+		return billId;
+	}
+
+	public void setBillId(Long billId) {
+		this.billId = billId;
+	}
 
 	public List<PrescriptsProduct> getPrescriptsProducts() {
 		return this.prescriptsProducts;
