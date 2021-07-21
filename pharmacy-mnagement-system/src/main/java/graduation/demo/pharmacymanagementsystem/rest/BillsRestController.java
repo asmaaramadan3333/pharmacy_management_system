@@ -67,7 +67,7 @@ public class BillsRestController {
 
 
 	///////////////////////////////////// get the customer bills by the customer id ///////////////////////////
-/*	@GetMapping("/get_customer_Bills_bycid/{CustomerId}")
+	@GetMapping("/get_customer_Bills_bycid/{CustomerId}")
 	public Map<String, Object> getCustomerbills (@PathVariable int CustomerId)
 	{
 
@@ -88,7 +88,7 @@ public class BillsRestController {
 			  coordinates.put("the_customer_bills",theCustomer_BillsList);
 			  return coordinates;
 		  }
-	}*/
+	}
 
 	//////////////////////////////////////get all bills with filtration phases/////////////
 
