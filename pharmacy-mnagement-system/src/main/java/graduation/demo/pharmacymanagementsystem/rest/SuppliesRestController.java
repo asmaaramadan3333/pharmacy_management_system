@@ -61,8 +61,14 @@ public class SuppliesRestController {
 	// add mapping for POST /Supplies - add new Supplies
 	@PostMapping("/add_new")
 	public Supply addSupply(@RequestBody Supply theSupply) {
-
-		SuppliesService.save(theSupply);
+		if(theSupply.getStatus()!="cancelled")
+		{ 
+		SuppliesService.saveORupdate(theSupply);
+		}
+		else {
+			SuppliesService.saveORupdate(theSupply);
+			SuppliesService.addTotalPriceToBalance(theSupply.getTotalPrice(),theSupply.getId().getCompanyId());
+		}
 		
 		return theSupply;
 		}
@@ -72,8 +78,18 @@ public class SuppliesRestController {
 	@PutMapping("/Supplies")
 	public Supply updateSupply(@RequestBody Supply theSupply2) {
 	
-		SuppliesService.saveORupdate(theSupply2);
-
+		
+		if(theSupply2.getStatus()!="cancelled")
+		{  
+			SuppliesService.saveORupdate(theSupply2);
+			
+		
+			SuppliesService.substractBalanceFromTotalPrice(theSupply2.getTotalPrice(),theSupply2.getId().getCompanyId());
+			
+		}
+		else {
+			SuppliesService.saveORupdate(theSupply2);
+		}
 		return theSupply2;
 	}
 	

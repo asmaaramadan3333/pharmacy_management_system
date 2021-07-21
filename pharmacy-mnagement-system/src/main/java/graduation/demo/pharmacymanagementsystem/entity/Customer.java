@@ -37,8 +37,12 @@ public class Customer implements Serializable {
 	@Column(name="rate")
 	private int rate;
 
-	@JoinColumn(name="customer_id")
-	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL )
+	/*
+	 * @JoinColumn(name="customer_id")
+	 *
+	 * @OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL )
+	 */
+	@OneToMany(mappedBy = "customer")
 	private List<Bill> bills;
 
 	//uni-directional one-to-one association to CustomersAddress
@@ -50,12 +54,12 @@ public class Customer implements Serializable {
 	@JoinColumn(name="customer_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPhone> customersPhones;
-	
-	
+
+
 	@JoinColumn(name="customer_id")
 	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<CustomersPrescript> customersPrescripts;
-	
+
 	//bi-directional many-to-many association to Product
 	//@ManyToMany(mappedBy="customers")
 	@ManyToMany(fetch=FetchType.LAZY,cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
@@ -93,7 +97,6 @@ public class Customer implements Serializable {
 		this.lastName = lastName;
 		this.password = password;
 		this.rate = rate;
-		this.bills = bills;
 		this.customersAddresses = customersAddresses;
 		this.customersPhones = customersPhones;
 		this.customersPrescripts = customersPrescripts;
@@ -173,7 +176,7 @@ public class Customer implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 /*	public List<Bill> getBills() {
 		return this.bills;
 	}
@@ -237,10 +240,10 @@ public class Customer implements Serializable {
 		if(products==null)
 		{
 			products=new ArrayList<>();
-			
+
 		}
 		products.add(theproduct);
-		
+
 	}
 
 	/*public CustomersPhone addCustomersPhone (CustomersPhone customersPhone) {
@@ -259,26 +262,26 @@ public class Customer implements Serializable {
 	}*/
 
     public CustomersPhone addCustomersPhone( CustomersPhone customersPhone) {
-		
+
 		if (customersPhones == null) {
-			
+
 			customersPhones = new ArrayList<>();
 		}
-		
+
 		customersPhones.add(customersPhone);
-		
+
 		return customersPhone;
 	}
-    
+
 public CustomersAddress addCustomersAddress( CustomersAddress customersAddress) {
-		
+
 		if (customersAddresses == null) {
-			
+
 			customersAddresses = new ArrayList<>();
 		}
-		
+
 		customersAddresses.add(customersAddress);
-		
+
 		return customersAddress;
 	}
 

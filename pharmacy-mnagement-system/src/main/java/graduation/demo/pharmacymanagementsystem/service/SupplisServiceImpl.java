@@ -76,6 +76,18 @@ public class SupplisServiceImpl implements SuppliesService {
 		return SuppliesDAO.findSpecificSupply(companyId, supplyBillId);
 	}
 
+	@Override
+	public void addTotalPriceToBalance(float totalPrice,int companyId) {
+		SuppliesDAO.addTotalPriceToBalance(totalPrice,companyId);
+		
+	}
+
+	@Override
+	public void substractBalanceFromTotalPrice(float totalPrice, int companyId) {
+		// TODO Auto-generated method stub
+		SuppliesDAO.substractBalanceFromTotalPrice(totalPrice, companyId);
+	}
+
 	/*@Override
 	public List<Supply> searchByName(String theName) {
 		
