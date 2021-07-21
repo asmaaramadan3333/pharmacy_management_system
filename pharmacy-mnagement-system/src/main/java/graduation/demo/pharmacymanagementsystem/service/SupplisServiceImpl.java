@@ -82,6 +82,12 @@ public class SupplisServiceImpl implements SuppliesService {
 		
 	}
 
+	@Override
+	public void substractBalanceFromTotalPrice(float totalPrice, int companyId) {
+		// TODO Auto-generated method stub
+		SuppliesDAO.substractBalanceFromTotalPrice(totalPrice, companyId);
+	}
+
 	/*@Override
 	public List<Supply> searchByName(String theName) {
 		

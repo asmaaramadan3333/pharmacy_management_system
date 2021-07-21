@@ -37,8 +37,12 @@ public class Customer implements Serializable {
 	@Column(name="rate")
 	private float rate;
 
-	@JoinColumn(name="customer_id")
-	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL )
+	/*
+	 * @JoinColumn(name="customer_id")
+	 * 
+	 * @OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL )
+	 */
+	@OneToMany(mappedBy = "customer")
 	private List<Bill> bills;
 
 	//uni-directional one-to-one association to CustomersAddress
@@ -82,7 +86,7 @@ public class Customer implements Serializable {
 	}
 
 	public Customer(float credit, Date dateOfBirth, String email, String firstName, String gender, String lastName,
-			String password, float rate, List<Bill> bills, List<CustomersAddress> customersAddresses,
+			String password, float rate, List<CustomersAddress> customersAddresses,
 			List<CustomersPhone> customersPhones, List<CustomersPrescript> customersPrescripts, List<Product> products,
 			List<Employee> employees) {
 		this.credit = credit;
@@ -93,7 +97,6 @@ public class Customer implements Serializable {
 		this.lastName = lastName;
 		this.password = password;
 		this.rate = rate;
-		this.bills = bills;
 		this.customersAddresses = customersAddresses;
 		this.customersPhones = customersPhones;
 		this.customersPrescripts = customersPrescripts;
@@ -173,14 +176,12 @@ public class Customer implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public List<Bill> getBills() {
-		return this.bills;
-	}
 
-	public void setBills(List<Bill> bills) {
-		this.bills = bills;
-	}
+	
+	  public List<Bill> getBills() { return this.bills; }
+	  
+	  public void setBills(List<Bill> bills) { this.bills = bills; }
+	 
 	public float getRate() {
 		return rate;
 	}

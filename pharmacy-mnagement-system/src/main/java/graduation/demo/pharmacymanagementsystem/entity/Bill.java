@@ -76,12 +76,20 @@ public class Bill implements Serializable {
 	@Column(name = "customer_id")
 	private int customerId;
 
+	@Column(name = "employee_id")
+	private int employeeId;
+	
+	@Column(name="delivery_man_id")
+	private int deliveryManId;
 	
 	@OneToMany(mappedBy = "bill")
-
-	
 	private List<BillsProduct> billsProducts;
-
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "customer_id", insertable = false, updatable = false)
+	private Customer customer;
+	
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -89,8 +97,7 @@ public class Bill implements Serializable {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
-	@Column(name = "employee_id")
-	private int employeeId;
+	
 
 	public int getEmployeeId() {
 		return employeeId;
@@ -100,8 +107,7 @@ public class Bill implements Serializable {
 		this.employeeId = employeeId;
 	}
 	
-	@Column(name="delivery_man_id")
-	private int deliveryManId;
+
 
 	public int getDeliveryManId() {
 		return deliveryManId;
