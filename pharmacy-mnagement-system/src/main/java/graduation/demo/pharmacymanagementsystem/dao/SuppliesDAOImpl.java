@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
+import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
 import graduation.demo.pharmacymanagementsystem.entity.Supply;
 import graduation.demo.pharmacymanagementsystem.entity.SupplyPK;
 
@@ -119,14 +120,17 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 		theQuery.executeUpdate();
 
 	}
-	@Transactional
+	
 	@Override
+	@Transactional
 	public void saveORupdate(Supply theSupply) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
-		currentSession.update(theSupply);
+		currentSession.saveOrUpdate(theSupply);
 		
 		currentSession.flush();
+		
+		
 	}
 
 
@@ -150,6 +154,32 @@ public class SuppliesDAOImpl implements SuppliesDAO {
 	}
 	else
 		return null;
+}
+
+@Override
+@Transactional
+public void addTotalPriceToBalance(float totalPrice,int companyId) {
+	// TODO Auto-generated method stub
+	System.out.println(companyId);
+	System.out.println(totalPrice);
+	Session currentSession = entityManager.unwrap(Session.class);
+	Query theQuery = currentSession.createQuery(
+			" UPDATE PharmaCo p set p.balance =(p.balance + (:thetotalprice)) WHERE p.id =: thecompanyId ");
+	theQuery.setParameter("thecompanyId", companyId);
+	theQuery.setParameter("thetotalprice", totalPrice);
+	theQuery.executeUpdate();
+}
+
+@Override
+@Transactional
+public void substractBalanceFromTotalPrice(float totalPrice, int companyId) {
+	System.out.println(companyId);
+	Session currentSession = entityManager.unwrap(Session.class);
+	Query theQuery = currentSession.createQuery(
+			" UPDATE PharmaCo p set p.balance =(p.balance - (:thetotalprice )) WHERE p.id =: thecompanyId ");
+	theQuery.setParameter("thecompanyId", companyId);
+	theQuery.setParameter("thetotalprice", totalPrice);
+	theQuery.executeUpdate();
 }
 
 }
