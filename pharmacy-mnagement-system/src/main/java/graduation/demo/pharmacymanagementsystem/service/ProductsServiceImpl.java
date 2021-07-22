@@ -72,4 +72,10 @@ public class ProductsServiceImpl implements ProductsService {
 		// TODO Auto-generated method stub
 		return productsDAO.findProductsWithState0();
 	}
+
+	@Override
+	public List<Product> findAllProductsInRange(Integer id1, Integer id2) {
+		// TODO Auto-generated method stub
+		return productsDAO.findAllProductsInRange(id1,id2);
+	}
 }

@@ -1,5 +1,7 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import org.hibernate.type.StringNVarcharType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import graduation.demo.pharmacymanagementsystem.entity.Bill;
 import graduation.demo.pharmacymanagementsystem.entity.PharmaCo;
 import graduation.demo.pharmacymanagementsystem.entity.Product;
 
@@ -178,8 +181,37 @@ public class ProductsDAOImpl implements ProductsDAO {
 		
 	}
 
-	
-	
+
+	@Override
+	public List<Product> findAllProductsInRange(Integer id1, Integer id2) {
+		List<Product> Products_list = new ArrayList<Product>();
+
+		Session currentSession = entityManager.unwrap(Session.class);
+		try {
+
+		Query<Product> theQuery = currentSession.createQuery(
+		"FROM Product p WHERE p.id  between COALESCE(:id3,id) and COALESCE(:id4,id)  ", Product.class);
+
+		theQuery.setParameter("id3", id1);
+		theQuery.setParameter("id4",id2);
+
+
+		if (!theQuery.getResultList().isEmpty()) {
+			Products_list = theQuery.getResultList();
+			
+		}
+
+	   }
+		catch (Exception ex) {
+		ex.printStackTrace();
+	    }
+		
+		return Products_list;
+		
+	}
+		
+
+
 
 	
 }
