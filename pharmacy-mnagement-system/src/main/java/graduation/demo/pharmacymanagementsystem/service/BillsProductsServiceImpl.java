@@ -94,16 +94,20 @@ public class BillsProductsServiceImpl implements BillsProductsService {
 	
 	@Override
 	//@Transactional
-	public Map<String, Object> saveORupdate(List<BillsProduct>  theBillsProduct) {
+	public List<Map<String,Object>> saveORupdate(List<BillsProduct>  theBillsProduct) {
 		  Map<String, Object> coordinates = new HashMap<>();		  
-		for(int i=0;i< theBillsProduct.size();i++)
+		List<Map<String,Object>> coordinatesList = new ArrayList<Map<String,Object>>();
+		  
+		  for(int i=0;i< theBillsProduct.size();i++)
 		  {
-			  BillsProduct theBillsProduct2= getbill_by_pkid(theBillsProduct.get(i).getId());
+			  BillsProduct theBillsProduct2= BillsProductsDAO.getbill_by_pkid(theBillsProduct.get(i).getId());
 			  if (theBillsProduct2 != null) {
+			
 			  coordinates.put("msg", "the Billproduct id already exist");
 			  coordinates.put("status", 0);
 			  coordinates.put("id",theBillsProduct.get(i).getId());
-			  return coordinates;
+			 coordinatesList.add(coordinates);
+			  return coordinatesList;
 			  }			  
 		  }
 		
@@ -114,7 +118,8 @@ public class BillsProductsServiceImpl implements BillsProductsService {
 		
  		  coordinates.put("msg","success");
 		  coordinates.put("status",1);
-		  return coordinates;
+		  coordinatesList.add(coordinates);
+		  return coordinatesList;
 
 	}
 

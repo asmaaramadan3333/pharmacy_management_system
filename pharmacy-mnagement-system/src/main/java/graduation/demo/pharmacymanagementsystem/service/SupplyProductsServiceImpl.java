@@ -35,7 +35,7 @@ public class SupplyProductsServiceImpl implements SupplyProductsService {
 		{
 			Product theProduct=ProductsService.findByCode(the_saved_list.get(i).getId().getProductCode());
 			System.out.println(theProduct.getPosition());
-			if (theProduct.getPosition().equals("TABLETS"))
+			if (theProduct.getPosition().equals("TABLETS")||theProduct.getPosition().equals("tablets"))
 					
 			{
 				
