@@ -11,7 +11,7 @@ public interface BillsProductsService {
 
 	public List<BillsProductDTO> find_BillsProductby_Bill_ID(long bill_id);
 
-	public Map<String, Object> saveORupdate (List<BillsProduct> theBillsProducts);
+	public List<Map<String, Object>> saveORupdate (List<BillsProduct> theBillsProducts);
 	public List<BillsProduct> findAllBillsProducts();
 
 	BillsProduct getbill_by_pkid(BillsProductPK id);

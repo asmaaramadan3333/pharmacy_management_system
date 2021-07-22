@@ -1,5 +1,6 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,13 +52,13 @@ public class BillsProductsRestController {
 		
 	
 	@PostMapping("/BillsProductsList")
-	public   Map<String, Object>  getListOfProduts(@RequestBody List<BillsProduct> theBillsProductsList) {
+	public   List<Map<String,Object>>  getListOfProduts(@RequestBody List<BillsProduct> theBillsProductsList) {
 
-		  Map<String, Object> coordinates = new HashMap<>();		  
+		List<Map<String,Object>> coordinatesList = new ArrayList<Map<String,Object>>();
 
-		  coordinates= BillsProductsService.saveORupdate(theBillsProductsList);
+		coordinatesList= BillsProductsService.saveORupdate(theBillsProductsList);
 
-	  return coordinates;
+	  return coordinatesList;
 	}
 	
 	/*@GetMapping("/BillsProducts_search/{BillsProductName}")

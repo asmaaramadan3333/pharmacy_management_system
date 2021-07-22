@@ -91,13 +91,15 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 	//@Transactional
 	public List<BillsProduct> saveORupdate(List<BillsProduct>  theBillsProduct) {
 		Session currentSession = entityManager.unwrap(Session.class);
-		Transaction tx = currentSession.beginTransaction();
 		for(int i=0 ;i<theBillsProduct.size();i++)
 		{
+		Transaction tx = currentSession.beginTransaction();
+
+		System.out.println(theBillsProduct.get(i));
 		currentSession.save(theBillsProduct.get(i));
+		tx.commit();
 
 		}
-		tx.commit();
 		currentSession.close();
       
 		return theBillsProduct;
