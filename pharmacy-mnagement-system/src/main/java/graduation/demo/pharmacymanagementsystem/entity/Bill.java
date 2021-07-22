@@ -81,11 +81,11 @@ public class Bill implements Serializable {
 	private String feedbackMessage;
 
 	@Column(name = "employee_id")
-	private int employeeId;
+	private Integer employeeId;
 
 
 	@Column(name="delivery_man_id")
-	private int deliveryManId;
+	private Integer deliveryManId;
 
 	@OneToMany(mappedBy = "bill")
 	private List<BillsProduct> billsProducts;
@@ -104,21 +104,21 @@ public class Bill implements Serializable {
 	}
 
 
-	public int getEmployeeId() {
+	public Integer getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
 	}
 
 
 
-	public int getDeliveryManId() {
+	public Integer getDeliveryManId() {
 		return deliveryManId;
 	}
 
-	public void setDeliveryManId(int deliveryManId) {
+	public void setDeliveryManId(Integer deliveryManId) {
 		this.deliveryManId = deliveryManId;
 	}
 
