@@ -21,4 +21,6 @@ public interface ProductsDAO {
 	public Product get_code(String name,String type,int size);
 
 	public List<Product> findProductsWithState0();
+
+	public List<Product> findAllProductsInRange(Integer id1, Integer id2);
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -41,6 +43,14 @@ public class ProductsRestController {
 		return productsService.findAllProducts();
 	}
 
+	@GetMapping("/get_all_in_range")
+	@ResponseBody
+	public List<Product> findAllProductsInRange(@RequestParam(required = false) Integer id1
+			,@RequestParam(required = false) Integer id2) {
+		return productsService.findAllProductsInRange(id1,id2);
+	}
+
+	
 	@GetMapping("/get_all_state_0")
 	public List<Product> findAllProductswithstate0() {
 		return productsService.findProductsWithState0();
