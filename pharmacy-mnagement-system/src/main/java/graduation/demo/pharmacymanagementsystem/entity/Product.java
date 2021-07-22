@@ -43,8 +43,6 @@ public class Product implements Serializable {
 	@Column(name = "state")
 	private int state;
  
-	@Column (name="url")
-	private String url;
 	
 	// bi-directional many-to-one association to BillsProduct
 	@JoinColumn(name="product_code")
@@ -148,14 +146,6 @@ public class Product implements Serializable {
 	}
 
 	
-	
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
 
 	public List<BillsProduct> getBillsProducts() {
 		return this.billsProducts;
