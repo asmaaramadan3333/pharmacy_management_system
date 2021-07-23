@@ -91,6 +91,13 @@ public class EmployeesMonthly implements Serializable {
 		this.receivableSalary = receivableSalary;
 	}
 
+	@Override
+	public String toString() {
+		return "EmployeesMonthly [id=" + id + ", monthlyHolidays=" + monthlyHolidays + ", monthlyHours=" + monthlyHours
+				+ ", monthlyLates=" + monthlyLates + ", monthlyPermissions=" + monthlyPermissions
+				+ ", receivableSalary=" + receivableSalary + "]";
+	}
+
 
 
 }
