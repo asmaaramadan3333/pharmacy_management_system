@@ -53,4 +53,9 @@ public class EmployeesMonthlyPK implements Serializable {
 		
 		return hash;
 	}
+	@Override
+	public String toString() {
+		return "EmployeesMonthlyPK [month=" + month + ", employeeId=" + employeeId + "]";
+	}
+	
 }

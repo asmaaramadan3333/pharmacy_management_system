@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import graduation.demo.pharmacymanagementsystem.dao.EmployeeMonthlyDAO;
 
 import graduation.demo.pharmacymanagementsystem.entity.Employee;
+import graduation.demo.pharmacymanagementsystem.entity.EmployeesMonthly;
+import graduation.demo.pharmacymanagementsystem.entity.EmployeesMonthlyPK;
 
 @Service
 public class EmployeeMonthlyServiceImpl implements EmployeeMonthlyService {
@@ -59,4 +61,39 @@ public class EmployeeMonthlyServiceImpl implements EmployeeMonthlyService {
 		}
 		return list;
 	}
+
+	@Override
+	public EmployeesMonthly get_by_id(EmployeesMonthlyPK theid) {
+		
+		return EmployeeMonthlyDAO.get_byid(theid);
+	}
+	
+	@Override
+	public Map<String, Object> addnew(EmployeesMonthly theemployeesMonthly) {
+		 Map<String, Object> coordinates = new HashMap<>();
+
+		EmployeesMonthly theEmployeesMonthly = get_by_id(theemployeesMonthly.getId());
+		
+		if(theEmployeesMonthly == null)
+		{
+			EmployeeMonthlyDAO.saveOrUpdate(theemployeesMonthly);
+			coordinates.put("status", 1);
+			coordinates.put("saved_EmployeesMonthly",theemployeesMonthly);
+		}
+		else
+		{
+			coordinates.put("status", 0);
+			coordinates.put("msg", "the EmployeesMonthly id " + theemployeesMonthly.getId() + "aleady exist");
+		}
+		
+		return coordinates;
+	}
+	@Override
+	public EmployeesMonthly update(EmployeesMonthly theemployeesMonthly) {
+		
+		EmployeeMonthlyDAO.saveOrUpdate(theemployeesMonthly);		
+		
+		return theemployeesMonthly;
+	}
+
 }
