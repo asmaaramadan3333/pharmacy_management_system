@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import graduation.demo.pharmacymanagementsystem.entity.PrescriptsProduct;
 import graduation.demo.pharmacymanagementsystem.entity.PrescriptsProductPK;
 import graduation.demo.pharmacymanagementsystem.service.PrescriptsProductsService;
-
+import graduation.demo.pharmacymanagementsystem.service.CustomersPrescriptsService;
 @RestController
 @RequestMapping("/PrescriptsProduct")
 public class PrescriptsProductsRestController {
 
 	private PrescriptsProductsService PrescriptsProductsService;
+	
+	
 	
 	@Autowired
 	public PrescriptsProductsRestController(PrescriptsProductsService thePrescriptsProductsService) {
@@ -59,11 +61,12 @@ public class PrescriptsProductsRestController {
 	public Map<String, Object> addPrescriptsProduct(@RequestBody List<PrescriptsProduct> thePrescriptsProductsList) {
 		
 	    Map<String, Object> coordinates = new HashMap<>();		  
-
-		
+	
 	    coordinates = PrescriptsProductsService.saveORupdate(thePrescriptsProductsList);
-		
-		return coordinates;
+	
+	   
+	
+	    return coordinates;
 	}
 	
 	

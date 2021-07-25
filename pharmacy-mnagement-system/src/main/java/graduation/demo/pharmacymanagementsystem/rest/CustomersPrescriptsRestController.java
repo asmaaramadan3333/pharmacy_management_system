@@ -132,21 +132,7 @@ public class CustomersPrescriptsRestController {
 	
 	// add mapping for DELETE /CustomersPrescripts/{CustomersPrescriptsCode} - delete CustomersPrescripts
 	
-	@DeleteMapping("/CustomersPrescripts/{CustomersPrescriptsCode}")
-	public String deleteCustomersPrescripts(@PathVariable int CustomersPrescriptsCode) {
-		
-		CustomersPrescript tempCustomersPrescripts = CustomersPrescriptsService.findById(CustomersPrescriptsCode);
-		
-		// throw exception if null
-		
-		if (tempCustomersPrescripts == null) {
-			throw new RuntimeException("CustomersPrescripts code not found - " + CustomersPrescriptsCode);
-		}
-		
-		CustomersPrescriptsService.deleteByCode(CustomersPrescriptsCode);
-		
-		return "Deleted CustomersPrescripts id - " + CustomersPrescriptsCode;
-	}
+
 
 	
 	

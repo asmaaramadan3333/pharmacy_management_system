@@ -13,7 +13,6 @@ public interface CustomersPrescriptsService {
 	
 	public void saveORupdate (CustomersPrescript theCustomersPrescript);
 	
-	public void deleteByCode (int theCode);
 	
 	public CustomersPrescript searchByurl(String theurl);
 

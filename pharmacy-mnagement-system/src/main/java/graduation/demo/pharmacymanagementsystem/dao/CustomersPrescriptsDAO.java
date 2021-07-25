@@ -14,11 +14,11 @@ public interface CustomersPrescriptsDAO {
 	
 	public void saveORupdate (CustomersPrescript theCustomersPrescript);
 	
-	public void deleteByCode (int theCode);
-
 	public CustomersPrescript searchByurl(String theurl);
 
 	public List<CustomersPrescript> findByCustomerId(int customerId);
+
+	public void update_status(int prescript_id);
 	
 	
 }

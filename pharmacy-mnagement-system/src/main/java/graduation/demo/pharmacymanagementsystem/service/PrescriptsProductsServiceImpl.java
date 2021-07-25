@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import graduation.demo.pharmacymanagementsystem.dao.PrescriptsProductsDAO;
+import graduation.demo.pharmacymanagementsystem.dao.CustomersPrescriptsDAO;
 import graduation.demo.pharmacymanagementsystem.entity.BillsProduct;
 import graduation.demo.pharmacymanagementsystem.entity.PrescriptsProduct;
 import graduation.demo.pharmacymanagementsystem.entity.PrescriptsProductPK;
@@ -17,6 +18,9 @@ public class PrescriptsProductsServiceImpl implements PrescriptsProductsService 
 
     private PrescriptsProductsDAO PrescriptsProductsDAO ;
 	
+    @Autowired
+	private CustomersPrescriptsDAO CustomersPrescriptsDAO;
+    
     @Autowired
 	public PrescriptsProductsServiceImpl(PrescriptsProductsDAO thePrescriptsProductsDAO) {
     	PrescriptsProductsDAO = thePrescriptsProductsDAO;
@@ -53,6 +57,11 @@ public class PrescriptsProductsServiceImpl implements PrescriptsProductsService 
 			
 		
 			 List<PrescriptsProduct> the_saved_list =PrescriptsProductsDAO.saveORupdate(thePrescriptsProduct);
+			 
+			 int prescript_id = the_saved_list.get(0).getId().getPrescriptId();
+			 
+			 CustomersPrescriptsDAO.update_status( prescript_id);
+			 
 			 
 			 coordinates.put("msg","success");
 			  coordinates.put("status",1);
