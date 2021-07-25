@@ -17,7 +17,7 @@ public interface BillsService {
 	
 	public Map<String, Object> update (Bill theBill);
 	
-	public void deleteByBillID (int thebill_id);
+	public void deleteByBillID (long thebill_id);
 
 	void save(Bill theBill);
 	public void saveORupdate(Bill theBill);

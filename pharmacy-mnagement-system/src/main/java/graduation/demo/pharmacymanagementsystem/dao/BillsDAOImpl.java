@@ -171,7 +171,7 @@ public class BillsDAOImpl implements BillsDAO {
 	}*/
 
 	@Override
-	public void deleteByBillID(int thebill_id) {
+	public void deleteByBillID(long thebill_id) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
@@ -179,8 +179,8 @@ public class BillsDAOImpl implements BillsDAO {
 
 		Query theQuery =
 				currentSession.createQuery(
-						"delete from Bill where code=:billId");
-		theQuery.setParameter("billId", thebill_id);
+						"delete from Bill where billId=:bill_Id");
+		theQuery.setParameter("bill_Id", thebill_id);
 
 		theQuery.executeUpdate();
 

@@ -164,7 +164,7 @@ public class BillsRestController {
 
 		BillsService.deleteByBillID(Bill_id);
 
-		return "Deleted Bill id - " + Bill_id;
+		return "Deleted Bill id  " + Bill_id;
 	}
 
 
