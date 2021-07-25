@@ -13,17 +13,16 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TemporalType;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.provider.HibernateUtils;
+
 import org.springframework.stereotype.Repository;
 import graduation.demo.pharmacymanagementsystem.entity.Bill;
-import graduation.demo.pharmacymanagementsystem.entity.Customer;
-import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
+
 
 @Repository
 public class BillsDAOImpl implements BillsDAO {
@@ -257,7 +256,7 @@ public class BillsDAOImpl implements BillsDAO {
 	@Override
 	public Map<String, Object> findEveryBillBymonthAndTotalPrice(Date replyTime4,Date replyTime5) {
 		// get the current hibernate session
-		Map<String, Object> totalprice = new HashMap<>();;
+		Map<String, Object> totalprice = new HashMap<>();
 		Session currentSession = entityManager.unwrap(Session.class);
 			
 			try {
@@ -287,20 +286,34 @@ public class BillsDAOImpl implements BillsDAO {
 			return totalprice;
 	}
 
-	/*@Override
-	public List<Bill> findEveryBillBymonthAndTotalPrice(int year,int month) {
-		Session currentSession = entityManager.unwrap(Session.class);
-		GregorianCalendar cal = new GregorianCalendar();
-		cal.set(GregorianCalendar.YEAR, year);
-		cal.set(GregorianCalendar.MONTH, month);
-		System.out.println(cal);
 
-        java.sql.Date   beginDate=java.sql.Date.valueOf("2021-5-1");
-        java.sql.Date   endDate=java.sql.Date.valueOf("2021-5-30");
-		Query theQuery =currentSession.createQuery("select sum(totalPrice) from  Bill b where b.billState='done' "
-		+ " and b.replyTime between :reply1 and :reply2 " , Bill.class);
-		theQuery.setParameter("reply1", beginDate);
-		theQuery.setParameter("reply1", endDate);
-		return null;
-	}*/
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Map<String, Object>> get_avg_pharmacy_feedback() {
+		List<Map<String, Object>> coordinatesList = new ArrayList<Map<String, Object>>();
+		Map<String, Object> coordinates = new HashMap<>();
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		try {
+			Query theQuery = currentSession.createQuery(
+					"SELECT new map (month(time) as Month , avg(pharmacyFeedback) as average_pharmacy_feedback ) "
+					+ "FROM Bill  where year(time) = year(current_date()) group by month(time) order by month(time)");
+
+		
+
+			if (!theQuery.getResultList().isEmpty()) {
+				for (int i = 0; i < theQuery.getResultList().size(); i++) {
+					coordinates = (Map<String, Object>) theQuery.getResultList().get(i);
+					coordinatesList.add(coordinates);
+				}
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return coordinatesList;
+	}
+
+
+	
 }

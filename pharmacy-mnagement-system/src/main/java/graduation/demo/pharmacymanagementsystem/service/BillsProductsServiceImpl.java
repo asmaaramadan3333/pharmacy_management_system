@@ -130,4 +130,24 @@ public class BillsProductsServiceImpl implements BillsProductsService {
 		return BillsProductsDAO.findAllBillsProducts();
 	}
 
+	@Override
+	public List<Map<String, Object>> get_best_season_sells(String season_name) {
+		List<Map<String,Object>> coordinatesList = new ArrayList<Map<String,Object>>();
+		Map<String, Object> coordinates = new HashMap<>();
+		
+		if(season_name.equals("summer") )
+		return BillsProductsDAO.get_best_summer_sells();
+		else if(season_name.equals("winter"))
+		{
+			return BillsProductsDAO.get_best_winter_sells();
+		}
+		else
+			{coordinates.put("status", 0);
+			coordinates.put("msg", "please enter summer or winter");
+			
+			coordinatesList.add(coordinates) ;
+			System.out.println(coordinatesList);
+			return coordinatesList;}
+	}
+
 }

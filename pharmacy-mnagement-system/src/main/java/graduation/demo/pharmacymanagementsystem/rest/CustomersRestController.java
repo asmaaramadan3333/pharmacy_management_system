@@ -1,5 +1,6 @@
 package graduation.demo.pharmacymanagementsystem.rest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,20 +137,21 @@ public class CustomersRestController {
 	    return	customersService.get_customer_by_phone(phone);
 	}
 	
-
-	
+////////////////////////////////// get customer with most purchase operations///////////
+	@GetMapping("/effective_customers")
+	public  List<Map<String,Object>> get_effective_customers(){
+		List<Map<String,Object>> coordinatesList = new ArrayList<Map<String,Object>>();
+		
+		
+		coordinatesList =customersService.get_effective_customers();
+		
+		return coordinatesList;
+		
+		}
 	
 	// *********** post requests///////////////
 
-	// add mapping for POST /add_new - add new Customers for desktop //
-
-	/*@PostMapping("/add_new")
-	public Map<String, Integer> addCustomer(@RequestBody Customer theCustomer) {
-		Map<String, Integer> coordinates = new HashMap<>();
-		Customer customer1 = customersService.saveandreturncustomer(theCustomer);
-		coordinates.put("customerId", customer1.getCustomerId());
-		return coordinates;
-	}*/
+	
 
 	// add mapping for POST /add_new - add new Customers for desktop //
 	
@@ -223,20 +225,7 @@ public class CustomersRestController {
 		return theCustomersPhone;
 	}
 
-	/*
-	 * @PostMapping("/add_new_Bill_to_customer") public Bill
-	 * addBillForCustomer(@RequestBody Bill theBill) {
-	 * 
-	 * Customer thecustomer = customersService.findByCode(theBill.getCustomerId());
-	 * if (thecustomer == null) { throw new
-	 * RuntimeException(" the Customer  not found "); }
-	 * 
-	 * thecustomer.addBill(theBill);
-	 * 
-	 * customersService.saveORupdate(thecustomer);
-	 * 
-	 * return theBill; }
-	 */
+
 
 	/////////////////// sign up customer for mobile //////////////////////
 	@SuppressWarnings("unchecked")
@@ -280,24 +269,7 @@ public class CustomersRestController {
 		return coordinates;
 	}
 
-////////////############################////////////////////////////////////
 
-	////////////////////////// add new bill to the customer not finished
-	////////////////////////// ////////////////
-	/*
-	 * @PostMapping("/add_new_bill_to_customer") public Bill
-	 * addphoneForCustomer(@RequestBody Bill theBill) { //public Bill
-	 * addbillTocustomer(Bill theBill) { Customer thecustomer =
-	 * customersService.findByCode(theBill.getCustomer().getCustomerId()); if
-	 * (thecustomer == null) { throw new
-	 * RuntimeException(" the Customer  not found "); }
-	 * 
-	 * thecustomer.addBill(theBill);
-	 * 
-	 * customersService.saveORupdate(thecustomer);
-	 * 
-	 * return theBill; }
-	 */
 
 	////////////////// edit customer /////////////////////////
 
@@ -351,19 +323,7 @@ public class CustomersRestController {
 	}
 
 	
-	////////////////////////// get customer bills////////////////////////
-	/*@GetMapping("/get_bills/{CustomerId}")
-	public List<Bill> getCustomerBills(@PathVariable int CustomerId) {
 
-		Customer theCustomer = customersService.findByCode(CustomerId);
-
-		if (theCustomer == null) {
-			throw new RuntimeException("Customer id not found - " + CustomerId);
-		}
-
-		return theCustomer.getBills();
-	}*/
-	
 	
 	
 	

@@ -25,6 +25,12 @@ public interface BillsProductsDAO {
 	public BillsProduct getbill_by_pkid(BillsProductPK id);
 
 
+	public List<Map<String, Object>> get_best_summer_sells();
+
+
+	public List<Map<String, Object>> get_best_winter_sells();
+
+
 	//public void editSupplyQuantity(BillsProduct the_saved_list);
 
 	//public List<BillsProduct> searchByName(String theName);

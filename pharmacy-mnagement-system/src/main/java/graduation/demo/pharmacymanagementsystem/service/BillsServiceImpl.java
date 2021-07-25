@@ -245,5 +245,11 @@ public class BillsServiceImpl implements BillsService {
 		
 		return totalpriceMap;
 	}
+
+	@Override
+	public List<Map<String, Object>> get_avg_pharmacy_feedback() {
+
+		return BillsDAO.get_avg_pharmacy_feedback();
+	}
 	
 }

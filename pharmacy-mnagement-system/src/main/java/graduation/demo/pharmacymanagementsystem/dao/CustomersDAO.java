@@ -1,6 +1,7 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import graduation.demo.pharmacymanagementsystem.entity.Customer;
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPhone;
@@ -39,6 +40,8 @@ public interface CustomersDAO {
 	public Customer save_desktop(Customer theCustomer);
 
 	public void update_customer(Customer theCustomer);
+
+	public List<Map<String, Object>> get_effective_customers();
 
 	
 

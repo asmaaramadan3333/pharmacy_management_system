@@ -61,6 +61,22 @@ public class BillsProductsRestController {
 	  return coordinatesList;
 	}
 	
+	
+	@GetMapping("/get_best_season_sells/{season_name}")
+	public  List<Map<String,Object>> get_best_season_sells(@PathVariable String season_name){
+	List<Map<String,Object>> coordinatesList = new ArrayList<Map<String,Object>>();
+	
+	
+	coordinatesList =BillsProductsService.get_best_season_sells(season_name);
+	
+	return coordinatesList;
+	
+	}
+	
+	
+	
+	
+	
 	/*@GetMapping("/BillsProducts_search/{BillsProductName}")
 	public List<BillsProduct> getBillsProduct(@PathVariable String BillsProductName) {
 		

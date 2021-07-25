@@ -29,6 +29,8 @@ public interface BillsDAO {
 
 	public Map<String, Object> findEveryBillBymonthAndTotalPrice(Date timestamp1, Date timestamp2);
 
+	public List<Map<String, Object>> get_avg_pharmacy_feedback();
+
 	
 
 

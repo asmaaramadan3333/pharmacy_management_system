@@ -1,6 +1,9 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -42,20 +45,21 @@ public class CustomersDAOImpl implements CustomersDAO {
 		// return the results
 		return Customer_list;
 	}
-	
+
 	@Override
 	public List<Customer> findpaidCustomers() {
-		
+
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// create a query
-		Query<Customer> theQuery = currentSession.createQuery("from Customer o where o.credit = 0  or o.credit < 0 ", Customer.class);
+		Query<Customer> theQuery = currentSession.createQuery("from Customer o where o.credit = 0  or o.credit < 0 ",
+				Customer.class);
 
 		// execute query and get result list
 		List<Customer> Customer_list = theQuery.getResultList();
 
 		// return the results
-		return Customer_list ;
+		return Customer_list;
 	}
 
 	@Override
@@ -69,10 +73,9 @@ public class CustomersDAOImpl implements CustomersDAO {
 		List<Customer> Customer_list = theQuery.getResultList();
 
 		// return the results
-		return Customer_list ;
+		return Customer_list;
 	}
 
-	
 	@Override
 	public Customer findByCode(int theCustomerId) {
 		// get the current hibernate session
@@ -102,36 +105,31 @@ public class CustomersDAOImpl implements CustomersDAO {
 	public Customer save_desktop(Customer theCustomer) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
-		
+
 		currentSession.save(theCustomer);
-	    
+
 		currentSession.flush();
-		
-		//currentSession.getTransaction().commit();
-        
+
+		// currentSession.getTransaction().commit();
+
 		return theCustomer;
-		}
-	
+	}
 
 	@Override
 	public Customer saveandreturncustomer(Customer theCustomer) {
-		
+
 		// get the current hibernate session
-		Session currentSession = entityManager.unwrap(Session.class);			
+		Session currentSession = entityManager.unwrap(Session.class);
 
 		// save Customer
 		currentSession.save(theCustomer);
-		String customeremail=theCustomer.getEmail();
+		String customeremail = theCustomer.getEmail();
 		System.out.println(customeremail);
-		Customer theCustomer1=getCustomerByEmail(customeremail);
+		Customer theCustomer1 = getCustomerByEmail(customeremail);
 		System.out.println(theCustomer1);
 		return theCustomer1;
 
 	}
-	
-	
-
-
 
 	@Override
 	public List<Customer> searchByName(String theCustomerName) {
@@ -220,26 +218,25 @@ public class CustomersDAOImpl implements CustomersDAO {
 		currentSession.saveOrUpdate(theCustomer);
 
 	}
-	////////////////dao////////////////
+
+	//////////////// dao////////////////
 	@Override
-	public void add_Phones_to_customer( CustomersPhone Custmersphone) {
+	public void add_Phones_to_customer(CustomersPhone Custmersphone) {
 
 		Session currentSession = entityManager.unwrap(Session.class);
 
-		Customer theCustomer =findByCode(Custmersphone.getId().getCustomerId());
+		Customer theCustomer = findByCode(Custmersphone.getId().getCustomerId());
 
+		// theCustomer.add2(Custmersphone);
 
-		//theCustomer.add2(Custmersphone);
+		// currentSession.saveOrUpdate(Custmersphone);
 
-		//currentSession.saveOrUpdate(Custmersphone);
-
-		//currentSession.saveOrUpdate(theCustomer);
+		// currentSession.saveOrUpdate(theCustomer);
 		CustomersPhone customerPhone1 = new CustomersPhone();
 		customerPhone1.setIdParam(Custmersphone.getId().getCustomerId(), Custmersphone.getId().getPhoneNumber());
 
 		currentSession.saveOrUpdate(customerPhone1);
 	}
-
 
 	@Override
 	public void deleteByCode(int theCustomerId) {
@@ -268,11 +265,9 @@ public class CustomersDAOImpl implements CustomersDAO {
 		CustomersPhone theCustomerPhone = (CustomersPhone) theQuery.getResultList().get(0);
 		// currentSession.get(CustomersPhone.class,theCustomerId,phoneNumber);
 
-
 		// return the Customer
 		return theCustomerPhone;
 	}
-
 
 	@org.springframework.transaction.annotation.Transactional
 	@Override
@@ -286,7 +281,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 		theQuery.executeUpdate();
 
 	}
-	
+
 	@org.springframework.transaction.annotation.Transactional
 	@Override
 	public void update_customer(Customer theCustomer) {
@@ -295,10 +290,37 @@ public class CustomersDAOImpl implements CustomersDAO {
 		// save Customer
 		currentSession.update(theCustomer);
 		currentSession.flush();
-		
+
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Map<String, Object>> get_effective_customers() {
+		List<Map<String, Object>> coordinatesList = new ArrayList<Map<String, Object>>();
+		Map<String, Object> coordinates = new HashMap<>();
+		Session currentSession = entityManager.unwrap(Session.class);
 
+		try {
+			Query theQuery = currentSession.createQuery(
+					"SELECT new map( b.customerId as customerId , count(b.customerId) as numberOfpurchaseOperations ,"
+							+ " c.firstName as firstName, c.lastName as lastName)"
+							+ "                FROM Bill b, Customer c where b.customerId = c.customerId"
+							+ "                group by customerId order by count(b.customerId) DESC ");
 
+			theQuery.setFirstResult(0);
+			theQuery.setMaxResults(10);
+
+			if (!theQuery.getResultList().isEmpty()) {
+				for (int i = 0; i < theQuery.getResultList().size(); i++) {
+					coordinates = (Map<String, Object>) theQuery.getResultList().get(i);
+					coordinatesList.add(coordinates);
+				}
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return coordinatesList;
+	}
 
 }
