@@ -17,7 +17,7 @@ public interface BillsDAO {
 
 	public void saveORupdate (Bill theBill);
 
-	public void deleteByBillID (int theCode);
+	public void deleteByBillID (long theCode);
 
 	public void save(Bill theBill);
 

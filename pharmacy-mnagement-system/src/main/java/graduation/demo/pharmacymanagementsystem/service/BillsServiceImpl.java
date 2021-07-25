@@ -93,7 +93,7 @@ public class BillsServiceImpl implements BillsService {
 	
 	@Override
 	@Transactional
-	public void deleteByBillID(int thebill_id) {
+	public void deleteByBillID(long thebill_id) {
 
 		BillsDAO.deleteByBillID(thebill_id);
 
