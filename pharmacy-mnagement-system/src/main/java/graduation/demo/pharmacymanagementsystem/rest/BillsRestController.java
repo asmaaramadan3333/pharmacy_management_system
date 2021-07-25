@@ -152,19 +152,22 @@ public class BillsRestController {
 	// add mapping for DELETE /Bills/{Bill_id} - delete Bill
 
 	@DeleteMapping("/delete/{Bill_id}")
-	public String deleteBill(@PathVariable int Bill_id) {
+	public Map<String,Object> deleteBill(@PathVariable int Bill_id) {
+		Map<String, Object> coordinates = new HashMap<>();
 
 		Bill tempBill = BillsService.findByBillID(Bill_id);
 
 		// throw exception if null
 
 		if (tempBill == null) {
-			throw new RuntimeException("Bill code not found - " + Bill_id);
+			coordinates.put("status", 0);
+			coordinates.put("msg", "the bill id is not found");
 		}
-
+		else {
 		BillsService.deleteByBillID(Bill_id);
-
-		return "Deleted Bill id  " + Bill_id;
+		coordinates.put("status", 1);
+		}
+		return coordinates;
 	}
 
 

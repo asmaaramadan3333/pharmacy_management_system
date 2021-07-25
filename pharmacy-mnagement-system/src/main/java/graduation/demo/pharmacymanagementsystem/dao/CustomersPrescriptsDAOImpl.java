@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import graduation.demo.pharmacymanagementsystem.entity.CustomersPrescript;
 
 @Repository
@@ -95,17 +97,20 @@ public class CustomersPrescriptsDAOImpl implements CustomersPrescriptsDAO {
 			return null;
 	}
 
+
+
 	@Override
-	public void deleteByCode(int theCode) {
-		// get the current hibernate session
+	@Transactional
+	public void update_status(int prescript_id) {
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		// delete object with primary key
 
 		Query theQuery = currentSession
-				.createQuery("delete from CustomersPrescript where code=:CustomersPrescriptCode");
-		theQuery.setParameter("CustomersPrescriptCode", theCode);
-
+				.createQuery("Update CustomersPrescript set status = 'seen' where id =: theprescript_id ");
+		
+		theQuery.setParameter("theprescript_id",prescript_id);
+		
 		theQuery.executeUpdate();
 
 	}

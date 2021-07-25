@@ -41,13 +41,7 @@ public class CustomersPrescriptsServiceImpl implements CustomersPrescriptsServic
 		CustomersPrescriptsDAO.saveORupdate(theCustomersPrescript);
 	}
 
-	@Override
-	@Transactional
-	public void deleteByCode(int theCode) {
-		
-		CustomersPrescriptsDAO.deleteByCode(theCode);
-		
-	}
+
 
 	@Override
 	public CustomersPrescript searchByurl(String theurl) {
@@ -75,5 +69,7 @@ public class CustomersPrescriptsServiceImpl implements CustomersPrescriptsServic
 	    }
 		
 	}
+
+	
 
 }
