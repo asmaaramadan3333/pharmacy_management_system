@@ -1,5 +1,6 @@
 package graduation.demo.pharmacymanagementsystem.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -156,6 +157,90 @@ public class BillsProductsDAOImpl implements BillsProductsDAO {
 		return theProduct;
 	}
 
+
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Map<String, Object>> get_best_summer_sells() {
+		
+		List<Map<String,Object>> coordinatesList = new ArrayList<Map<String,Object>>();
+		Map<String, Object> coordinates = new HashMap<>();
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		try {
+		Query theQuery = 
+				currentSession.createQuery(
+						"SELECT new map ((bp.id.productCode) as productCode , sum(bp.quantity) as quantity, p.name as productName)" 
+						+ "        FROM Bill b, BillsProduct bp, Product p "
+						+ "        where b.billId = bp.id.billId and (bp.id.productCode) = p.code"
+						+ "        and month(b.time) >= 3 and month(b.time) <= 8 and year(b.time) = year(current_date()) "
+						+ "        group by bp.id.productCode order by sum(bp.quantity) desc ");
+		
+		theQuery.setFirstResult(0);
+		theQuery.setMaxResults(10);
+		
+		if (!theQuery.getResultList().isEmpty())
+		{
+			for (int i=0;i<theQuery.getResultList().size();i++)
+			{
+				coordinates = ( Map<String, Object>) theQuery.getResultList().get(i);
+				coordinatesList.add(coordinates);
+			}
+		}
+				
+		   }
+		catch (Exception ex) {
+		ex.printStackTrace();
+	    }
+		return coordinatesList;
+	}
+
+
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Map<String, Object>> get_best_winter_sells() {
+		List<Map<String,Object>> coordinatesList = new ArrayList<Map<String,Object>>();
+		Map<String, Object> coordinates = new HashMap<>();
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		try {
+		Query theQuery = 
+				currentSession.createQuery(
+						"SELECT new map ((bp.id.productCode) as productCode , sum(bp.quantity) as quantity, p.name as productName)" 
+						+ "        FROM Bill b, BillsProduct bp, Product p " 
+						+ "        where b.billId = bp.id.billId and (bp.id.productCode) = p.code" 
+						+ "        and (month(b.time) >= 9 or month(b.time) <= 2) and year(b.time) = year(current_date()) " 
+						+ "        group by bp.id.productCode order by sum(bp.quantity) desc ");
+		
+		theQuery.setFirstResult(0);
+		theQuery.setMaxResults(10);
+		
+		if (!theQuery.getResultList().isEmpty())
+		{
+			for (int i=0;i<theQuery.getResultList().size();i++)
+			{
+				coordinates = ( Map<String, Object>) theQuery.getResultList().get(i);
+				coordinatesList.add(coordinates);
+			}
+		}
+				
+		   }
+		catch (Exception ex) {
+		ex.printStackTrace();
+	    }
+		return coordinatesList;
+	}
+
+	
+	
+	
+	
+	
+	
+	
 	/*@SuppressWarnings("unchecked")
 	@Override
 	public void editSupplyQuantity(BillsProduct the_saved_product) {

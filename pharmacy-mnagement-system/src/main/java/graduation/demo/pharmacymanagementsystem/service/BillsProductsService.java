@@ -16,5 +16,7 @@ public interface BillsProductsService {
 
 	BillsProduct getbill_by_pkid(BillsProductPK id);
 
+	public List<Map<String, Object>> get_best_season_sells(String season_name);
+
 
 }

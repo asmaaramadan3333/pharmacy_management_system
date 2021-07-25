@@ -69,7 +69,11 @@ public class CustomersServiceImpl implements CustomersService {
 		CustomersDAO.saveORupdate(theCustomer);
 	}
 
-	
+	@Override
+	public List<Map<String, Object>> get_effective_customers() {
+		return CustomersDAO.get_effective_customers();
+	}
+
 	///////////////////////////////add new customer from desktop/////////////////////////
 	@Override
 	@Transactional
@@ -402,6 +406,7 @@ public class CustomersServiceImpl implements CustomersService {
 		
 	}
 
+	
 	
 	
 }

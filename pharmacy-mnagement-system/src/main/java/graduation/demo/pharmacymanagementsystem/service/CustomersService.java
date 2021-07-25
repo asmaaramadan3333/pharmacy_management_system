@@ -46,6 +46,8 @@ public interface CustomersService {
 
 	public Customer updateCustomer_by_phone(CustomerDTO theCustomerdto);
 
+	public List<Map<String, Object>> get_effective_customers();
+
 
 
 

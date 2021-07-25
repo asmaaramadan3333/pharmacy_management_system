@@ -1,6 +1,7 @@
 
 package graduation.demo.pharmacymanagementsystem.rest;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -130,6 +131,24 @@ public class BillsRestController {
 
 	}
 
+	
+	///////////////////////////avg pharmacy feedback for each month//////////////
+	@GetMapping("/get_avg_pharmacy_feedback")
+	public  List<Map<String,Object>> get_avg_pharmacy_feedback(){
+	List<Map<String,Object>> coordinatesList = new ArrayList<Map<String,Object>>();
+	
+	
+	coordinatesList =BillsService.get_avg_pharmacy_feedback();
+	
+	return coordinatesList;
+	
+	}
+	
+	
+	
+	
+	
+	
 	// add mapping for DELETE /Bills/{Bill_id} - delete Bill
 
 	@DeleteMapping("/delete/{Bill_id}")

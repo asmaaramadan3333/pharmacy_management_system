@@ -30,5 +30,7 @@ public interface BillsService {
 	public List<Bill> find_filteredBills(Long billId, String billType, String billState, String replyTime);
 	
 	public List<Map<String, Object>> findEveryBillBymonth(List<BillMonthsDTO> billMonthsDTOList);
+
+	public List<Map<String, Object>> get_avg_pharmacy_feedback();
 	
 }
